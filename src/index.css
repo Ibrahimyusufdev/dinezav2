@@ -45,6 +45,13 @@
     --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@theme {
+  --color-primary: #FF5900;
+  --color-accent: #007DF8;
+  /* --color-neutral: #FF5900;
+  --color-danger: #FF5900; */
+}
+
 :root {
     --radius: 0.625rem;
     --background: oklch(1 0 0);
