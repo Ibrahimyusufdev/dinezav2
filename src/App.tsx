@@ -1,12 +1,12 @@
-
+import { BrowserRouter } from "react-router-dom";
+import { AppRouter } from "@/app/";
 
 const App = () => {
   return (
-    <div>
-      <h1>Welcome to Dineza</h1>
-  
-    
-    </div>
+    <BrowserRouter>
+      {/* All my routing declarations composable here */}
+      <AppRouter />
+    </BrowserRouter>
   );
 };
 
