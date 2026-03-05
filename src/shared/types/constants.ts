@@ -1,7 +1,14 @@
 
 
 
-
+export const ROUTES = {
+  // Public
+  HOME: "/",
+  HOW_IT_WORKS: "how-it-works",
+  FOR_WOMEN: "for-women",
+  FOR_RESTAURANT: "for-restaurant",
+  SUCCESS_STORIES: "success-stories",
+} as const;
 
 export const EXTERNAL_LINKS = {
   SUPPORT_EMAIL: "support@dineza.com",
@@ -11,5 +18,5 @@ export const EXTERNAL_LINKS = {
   INSTAGRAM: "https://instagram.com/ibrahimyusufdev",
   FACEBOOK: "https://facebook.com/",
   TWITTER: "https://x.com/ibrahimyusufdev",
-  GITHUB: "https://github.com/ibrahimyusufdev"
+  GITHUB: "https://github.com/ibrahimyusufdev",
 } as const;

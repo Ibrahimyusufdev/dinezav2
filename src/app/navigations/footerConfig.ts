@@ -1,6 +1,9 @@
 import { Instagram, Twitter, Github, type LucideIcon } from "lucide-react";
 import { EXTERNAL_LINKS } from "@/shared/types/constants";
 
+
+
+
 export interface FooterLink {
   title: string;
   path: string;
