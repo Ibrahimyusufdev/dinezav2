@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <header>
-      <nav className="container mx-auto flex items-center justify-between px-10 py-6">
+      <nav className="container mx-auto flex items-center justify-between px-8 py-6">
         {/* Logo — always visible */}
         <Link to={ROUTES.HOME} className="flex items-center gap-2">
           <img src={logo} width={20} height={20} alt="Dineza Logo" className="h-5 w-5" />
@@ -23,7 +23,7 @@ const Navbar = () => {
 
         {/* Hamburger — visible on mobile, hidden on desktop */}
         <button
-          className="border-primary cursor-pointer rounded-lg border p-1 md:hidden"
+          className="border-primary cursor-pointer rounded-lg border p-1 lg:hidden"
           onClick={toggleMenu}
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
@@ -32,7 +32,7 @@ const Navbar = () => {
         </button>
 
         {/* Nav links — hidden on mobile, visible on desktop */}
-        <ul className="hidden items-center gap-x-8 text-base text-black md:flex">
+        <ul className="hidden items-center gap-x-8 text-base text-black lg:flex">
           {navLinks.map((link) => (
             <li key={link.path}>
               <Link
@@ -47,7 +47,7 @@ const Navbar = () => {
 
         {/* Auth buttons — hidden on mobile, visible on desktop */}
         {/* TODO: Show "Go to Dashboard" if user is logged in, else show Sign Up + Login */}
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <Link to="#">
             <Button className="cursor-pointer">Sign Up</Button>
           </Link>
@@ -59,7 +59,7 @@ const Navbar = () => {
 
       {/* Mobile dropdown — visible on mobile, hidden on desktop */}
       {isMenuOpen && (
-        <div className="flex max-h-60 flex-col border-t border-gray-400 px-4 pb-4 transition-all duration-300 ease-in-out md:hidden">
+        <div className="flex max-h-60 flex-col border-t border-gray-400 px-4 pb-4 transition-all duration-300 ease-in-out lg:hidden">
           <ul className="flex flex-col items-center gap-y-3 p-4 pb-4">
             {navLinks.map((link) => (
               <li key={link.path}>
@@ -74,7 +74,7 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {/* Auth actions buttons */}
+          {/* Auth actions buttons visible on mobile */}
           {/* Write a logic to display go to dashboard button if a user is loggedin */}
           <div className="mt-4 flex flex-col items-center gap-2">
             <Link to="#" onClick={closeMenu}>
