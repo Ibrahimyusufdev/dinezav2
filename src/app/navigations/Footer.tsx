@@ -6,7 +6,6 @@ const Footer = () => {
   return (
     <footer className="bg-muted mt-20 border-t">
       <div className="container mx-auto grid gap-10 px-6 py-12 md:grid-cols-3">
-
         {/* Quick Links */}
         <FooterSection title="Quick Links">
           <ul className="text-muted-foreground space-y-3 text-sm">
@@ -52,7 +51,10 @@ const Footer = () => {
             </p>
             <p>
               Phone:{" "}
-              <a href={EXTERNAL_LINKS.SUPPORT_PHONE} className="hover:text-foreground transition-colors">
+              <a
+                href={EXTERNAL_LINKS.SUPPORT_PHONE}
+                className="hover:text-foreground transition-colors"
+              >
                 {EXTERNAL_LINKS.SUPPORT_PHONE}
               </a>
             </p>
@@ -68,9 +70,7 @@ const Footer = () => {
   );
 };
 
-/* ---------------------------------- */
-/* Reusable Section Component         */
-/* ---------------------------------- */
+// Reysable component section
 
 type FooterSectionProps = {
   title: string;

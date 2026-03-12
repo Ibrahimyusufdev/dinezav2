@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "@/shared/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { navLinks } from "./navbarConfig";
 import { Menu, X } from "lucide-react";
@@ -59,7 +59,7 @@ const Navbar = () => {
 
       {/* Mobile dropdown — visible on mobile, hidden on desktop */}
       {isMenuOpen && (
-        <div className="flex max-h-60 flex-col border-t border-gray-400 px-4 pb-4 transition-all duration-300 ease-in-out lg:hidden">
+        <div className="border-primary flex flex-col border px-4 pb-4 transition-all duration-300 ease-in-out lg:hidden">
           <ul className="flex flex-col items-center gap-y-3 p-4 pb-4">
             {navLinks.map((link) => (
               <li key={link.path}>
