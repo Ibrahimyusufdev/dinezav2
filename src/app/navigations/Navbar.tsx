@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { navLinks } from "./navbarConfig";
 import { Menu, X } from "lucide-react";
 import { logo } from "@/assets";
 import { ROUTES } from "@/shared/types/constants";
+import { useAuthStore } from "@/features/auth";
+// Wire up dashboard by role
+import { getDashboardByrole } from "../helpers/getDashboardByRole";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,27 +15,47 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
 
+  // get user and isAuthenticated from auth store
+  const user = useAuthStore((state) => state.user);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  const navigate = useNavigate();
+
+  //  Determine which dashboard route to send the user to
+  const getCorrectDashboard = (): string => {
+    if (!user) return ROUTES.LOGIN;
+
+    return getDashboardByrole[user.role] ?? ROUTES.HOME;
+  };
+
+  //  Navigate user to their dashboard based on role
+  const handleGoToDashboard = (): void => {
+    navigate(getCorrectDashboard());
+  };
+
   return (
     <header>
       <nav className="container mx-auto flex items-center justify-between px-8 py-6">
-        {/* Logo — always visible */}
+        {/* Logo — always visible always left */}
         <Link to={ROUTES.HOME} className="flex items-center gap-2">
           <img src={logo} width={20} height={20} alt="Dineza Logo" className="h-5 w-5" />
           <p className="font-bold">Dineza</p>
         </Link>
 
         {/* Hamburger — visible on mobile, hidden on desktop */}
-        <button
-          className="border-primary cursor-pointer rounded-lg border p-1 lg:hidden"
+
+        <Button
+          className="border-primary cursor-pointer  border lg:hidden"
+          variant="outline"
           onClick={toggleMenu}
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        </Button>
 
         {/* Nav links — hidden on mobile, visible on desktop */}
-        <ul className="hidden items-center gap-x-8 text-base text-black lg:flex">
+        <ul className="hidden items-center gap-x-8 text-base lg:flex">
           {navLinks.map((link) => (
             <li key={link.path}>
               <Link
@@ -47,14 +70,18 @@ const Navbar = () => {
 
         {/* Auth buttons — hidden on mobile, visible on desktop */}
         {/* TODO: Show "Go to Dashboard" if user is logged in, else show Sign Up + Login */}
-        <div className="hidden items-center gap-3 lg:flex">
-          <Link to="#">
-            <Button className="cursor-pointer">Sign Up</Button>
-          </Link>
-          <Link to="#">
-            <Button className="cursor-pointer">Login</Button>
-          </Link>
-        </div>
+        {isAuthenticated && user ? (
+          <Button onClick={handleGoToDashboard} className="hidden lg:flex">My Dashboard</Button>
+        ) : (
+          <div className="hidden items-center gap-3 lg:flex">
+            <Link to={ROUTES.REGISTER_SELECT}>
+              <Button variant="outline" className="cursor-pointer">Sign Up</Button>
+            </Link>
+            <Link to={ROUTES.LOGIN}>
+              <Button className="cursor-pointer">Login</Button>
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* Mobile dropdown — visible on mobile, hidden on desktop */}
@@ -76,14 +103,18 @@ const Navbar = () => {
 
           {/* Auth actions buttons visible on mobile */}
           {/* Write a logic to display go to dashboard button if a user is loggedin */}
-          <div className="mt-4 flex flex-col items-center gap-2">
-            <Link to="#" onClick={closeMenu}>
-              <Button className="w-full cursor-pointer">Sign Up</Button>
-            </Link>
-            <Link to="#" onClick={closeMenu}>
-              <Button className="w-full cursor-pointer">Login</Button>
-            </Link>
-          </div>
+          {isAuthenticated && user ? (
+            <Button onClick={handleGoToDashboard} className="mx-auto w-full max-w-xs">My Dashboard</Button>
+          ) : (
+            <div className="mt-4 flex flex-col items-center gap-2">
+              <Link to={ROUTES.REGISTER_SELECT} onClick={closeMenu} className="w-full max-w-xs ">
+                <Button variant="outline" className="w-full cursor-pointer border border-primary">Sign Up</Button>
+              </Link>
+              <Link to={ROUTES.LOGIN} onClick={closeMenu} className="w-full max-w-xs">
+                <Button className="w-full cursor-pointer">Login</Button>
+              </Link>
+            </div>
+          )}
         </div>
       )}
     </header>
@@ -91,3 +122,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

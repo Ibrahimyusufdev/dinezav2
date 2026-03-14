@@ -6,6 +6,7 @@ import {
   SidebarHeader,
   SidebarMenu,
 } from "@/components/ui/sidebar";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 // header and Navigation component for Main and footer
 import Header from "./Header";
@@ -14,7 +15,7 @@ import NavFooter from "./NavFooter";
 
 export const AppSideBar = () => {
   return (
-    <>
+    <TooltipProvider>
       <Sidebar collapsible="icon">
         <SidebarHeader>
           <Header />
@@ -32,7 +33,7 @@ export const AppSideBar = () => {
           <NavFooter />
         </SidebarFooter>
       </Sidebar>
-    </>
+    </TooltipProvider>
   );
 };
 

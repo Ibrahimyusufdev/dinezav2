@@ -23,7 +23,7 @@ export interface BaseUser {
 // Diner User - extending from Base User with specific field added
 export interface Diner extends BaseUser {
   role: "diner";
-  preferredLocations: string[];
+  preferredLocations?: string[];
   totalEarnings?: number;
   pendingEarnings?: number;
   availableBalance?: number;
@@ -32,19 +32,25 @@ export interface Diner extends BaseUser {
 // Restaurant User - extending from Base User with specific field added
 export interface Restaurant extends BaseUser {
   role: "restaurant";
-  restaurantName: string;
-  restaurantLogo: string;
-  businessEmail: string;
-  address: string;
-  cuisineType: string;
-  isVerified: boolean;
+  restaurantName?: string;
+  restaurantLogo?: string;
+  businessEmail?: string;
+  address?: string;
+  cuisineType?: string;
+  isVerified?: boolean;
   rating?: number;
   totalReservations?: number;
   pendingReservations?: number;
 }
 
+// Admin User - extending from Base User with specific field added
+export interface Admin extends BaseUser {
+  role: "admin";
+  
+}
+
 // Making user to be either Diner or Restaurant using discriminated Union in TS for AuthPurpose
-export type AuthUser = Diner | Restaurant;
+export type AuthUser = Diner | Restaurant | Admin;
 
 // wiring up AuthState
 export interface AuthState {
@@ -55,7 +61,7 @@ export interface AuthState {
 
   isAuthenticated: boolean; // Quick boolean check control to tell that a user is authenticated or not
   isLoading: boolean; // Loading state for Auth check
-  // isCheckingAuth: boolean; // Boolean check if user is authenticated or not
+  // isCheckingAuth: boolean; // Boolean check if user is authenticated or not, use it to check on app//component mounted
 
   //Actions
 
@@ -89,8 +95,8 @@ export const useAuthStore = create<AuthState>()(
           email: "Ibrahimyusuf1304@gmail.com",
           firstName: "Ibrahim",
           lastName: "Yusuf",
-          role: "diner",
-          preferredLocations: ["Kaduna", "Lagos"]
+          role: "admin",
+          // preferredLocations: ["Kaduna", "Lagos"]
         },
         accessToken: null,
         isAuthenticated: true,

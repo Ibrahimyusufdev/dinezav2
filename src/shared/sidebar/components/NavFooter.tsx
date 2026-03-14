@@ -36,9 +36,8 @@ const NavFooter = () => {
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
 
-
   // Func to get sidebar based on user role form auth store user data
-  const config = getSidebarConfig("diner"); // Remember to auth data
+  const config = getSidebarConfig(user.role); 
 
   const navigate = useNavigate();
 
@@ -103,6 +102,7 @@ const NavFooter = () => {
             <DropdownMenuGroup>
               {config.footerItems.map((item) => (
                 <NavLink
+                  key={item.title}
                   to={item.path}
                   end
                   className={({ isActive }) =>

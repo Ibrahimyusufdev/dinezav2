@@ -4,13 +4,14 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui
 import { NavLink } from "react-router-dom";
 
 import { getSidebarConfig } from "../helpers/getSidebarConfig";
+import { useAuthStore } from "@/features/auth";
 
 const NavMain = () => {
   // Getting user data from auth store, so you can access the role signed it with
-  // const user =
+  const user = useAuthStore((state) => state.user)
 
   // Func to get sidebar based on user role form auth store user data
-  const config = getSidebarConfig("diner"); // Remember to auth data
+  const config = getSidebarConfig(user.role);
 
   return (
     <SidebarMenu>
