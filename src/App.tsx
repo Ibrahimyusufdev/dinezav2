@@ -1,13 +1,9 @@
-import { BrowserRouter } from "react-router-dom";
-import { AppRouter } from "@/app/";
+import { RouterProvider } from "react-router-dom";
+import { router } from "@/app/router";
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      {/* All my routing declarations composable here */}
-      <AppRouter />
-    </BrowserRouter>
-  );
+  // All my routing composable here
+  return <RouterProvider router={router} />;
 };
 
 export default App;

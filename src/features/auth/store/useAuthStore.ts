@@ -95,7 +95,7 @@ export const useAuthStore = create<AuthState>()(
           email: "Ibrahimyusuf1304@gmail.com",
           firstName: "Ibrahim",
           lastName: "Yusuf",
-          role: "admin",
+          role: "restaurant",
           // preferredLocations: ["Kaduna", "Lagos"]
         },
         accessToken: null,

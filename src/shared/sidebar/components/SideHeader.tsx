@@ -1,5 +1,5 @@
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
-import { useAuthStore } from "@/features/auth"; 
+import { useAuthStore } from "@/features/auth";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@/shared/types/constants";
 import type { UserRole } from "@/shared/types/common";
@@ -8,12 +8,12 @@ import { logo } from "@/assets";
 // Wire up dashboard by role
 import { getDashboardByrole } from "@/app/";
 
-const Header = () => {
-    // getting user data from auth store
-    const user = useAuthStore((state) => state.user);
+const SideHeader = () => {
+  // getting user data from auth store
+  const user = useAuthStore((state) => state.user);
 
   return (
-     <SidebarMenu>
+    <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton size="lg" asChild>
           <Link to={getDashboardByrole[user.role]}>
@@ -25,7 +25,7 @@ const Header = () => {
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>
-  )
-}
+  );
+};
 
-export default Header
+export default SideHeader;

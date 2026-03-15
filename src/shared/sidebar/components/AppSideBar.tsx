@@ -7,26 +7,29 @@ import {
   SidebarMenu,
 } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // header and Navigation component for Main and footer
-import Header from "./Header";
+import Header from "./SideHeader";
 import NavMain from "./NavMain";
 import NavFooter from "./NavFooter";
 
 export const AppSideBar = () => {
   return (
     <TooltipProvider>
-      <Sidebar collapsible="icon">
-        <SidebarHeader>
+      <Sidebar collapsible="icon" className="mt-14 h-auto overflow-y-auto" variant="floating">
+        <SidebarHeader className="sm:hidden">
           <Header />
         </SidebarHeader>
 
         {/* Main navigation items */}
-        <SidebarContent>
-          <SidebarMenu>
-            <NavMain />
-          </SidebarMenu>
-        </SidebarContent>
+        <ScrollArea className="flex-1 overflow-y-auto">
+          <SidebarContent>
+            <SidebarMenu>
+              <NavMain />
+            </SidebarMenu>
+          </SidebarContent>
+        </ScrollArea>
 
         {/* Footer navigation items, where user can also signout */}
         <SidebarFooter>
@@ -36,4 +39,3 @@ export const AppSideBar = () => {
     </TooltipProvider>
   );
 };
-

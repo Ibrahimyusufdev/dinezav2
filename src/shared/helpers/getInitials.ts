@@ -1,10 +1,9 @@
-export const getInitials = (name: string): string => {
-  if (!name) return "";
+export const getInitials = (firstName?: string, lastName?: string): string => {
+  const first = firstName?.trim()?.[0] ?? "";
+  const last = lastName?.trim()?.[0] ?? "";
 
-  const words = name.trim().split(/\s+/);
+  const initials = (first + last).toUpperCase();
 
-  const firstInitial = words[0]?.[0] ?? "";
-  const lastInitial = words.length > 1 ? (words[words.length - 1]?.[0] ?? "") : "";
-
-  return (firstInitial + lastInitial).toUpperCase();
+  // Fallback: if both are empty, return a default placeholder
+  return initials || "?";
 };

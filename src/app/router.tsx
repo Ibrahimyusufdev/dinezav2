@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
 
 // Layout
 import PublicLayout from "./layouts/PublicLayout";
@@ -16,12 +16,12 @@ import { adminRoutes } from "./routes/admin-routes";
 import GlobalNoPage from "./pages/GlobalNoPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 
-export const AppRouter = () => {
-  return (
-    <Routes>
+export const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
       {/* Public layout routing */}
       <Route path="/" element={<PublicLayout />}></Route>
-
+      
       {/* Protected Routing */}
       <Route element={<ProtectedRoutes />}>
         {/* Diner Protected routes Routes */}
@@ -37,6 +37,30 @@ export const AppRouter = () => {
       {/* Global No page and Unauthorized page  */}
       <Route path="*" element={<GlobalNoPage />} />
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
-    </Routes>
-  );
-};
+    </>
+  )
+);
+// export const Router = () => {
+//   return (
+//     <Routes>
+//       {/* Public layout routing */}
+//       <Route path="/" element={<PublicLayout />}></Route>
+
+//       {/* Protected Routing */}
+//       <Route element={<ProtectedRoutes />}>
+//         {/* Diner Protected routes Routes */}
+//         <Route element={<RoleGuard allowedRoles={["diner"]} />}>{dinerRoutes}</Route>
+
+//         {/* Restaurant Protected routes Routes */}
+//         <Route element={<RoleGuard allowedRoles={["restaurant"]} />}>{restaurantRoutes}</Route>
+
+//         {/* Admin Protected routes Routes */}
+//         <Route element={<RoleGuard allowedRoles={["admin"]} />}>{adminRoutes}</Route>
+//       </Route>
+
+//       {/* Global No page and Unauthorized page  */}
+//       <Route path="*" element={<GlobalNoPage />} />
+//       <Route path="/unauthorized" element={<UnauthorizedPage />} />
+//     </Routes>
+//   );
+// };

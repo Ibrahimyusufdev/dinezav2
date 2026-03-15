@@ -8,6 +8,8 @@ export const PATHS = {
     EARNINGS: "earnings",
     INVITE: "invite",
     MESSAGES: "messages",
+    PROFILE: "profile",
+    SETTINGS: "settings"
   },
 
   // Restaurant dashboard
@@ -19,6 +21,8 @@ export const PATHS = {
     INVITE: "invite",
     PAYMENT: "payment",
     MESSAGES: "messages",
+    PROFILE: "Profile",
+    SETTINGS: "settings"
   },
 
   // Admin dashboard
@@ -31,7 +35,8 @@ export const PATHS = {
     RESERVATIONS: "reservations",
     SETTINGS: "settings",
     NOTIFCATIONS: "notifications",
-    MESSAGES: "messages"
+    MESSAGES: "messages",
+    PROFILE: "profile",
   },
 } as const;
 
@@ -67,7 +72,7 @@ export const ROUTES = {
   // Restaurant dashboard
   RESTAURANT_DASHBOARD: "/restaurant",
   RESTAURANT_RESERVATION: "/restaurant/reservations",
-  RESTAURANT_OFFER: "/restaurant/offer",
+  RESTAURANT_OFFER: "/restaurant/special-offer",
   RESTAURANT_ANALYTICS: "/restaurant/analytics",
   RESTAURANT_INVITE: "/restaurant/invite",
   RESTAURANT_PAYMENT: "/restaurant/payment",
@@ -86,6 +91,7 @@ export const ROUTES = {
   ADMIN_MESSAGES: "/admin/messages",
   ADMIN_SETTINGS: "/admin/settings",
   ADMIN_NOTIFICATIONS: "/admin/notifications",
+  ADMIN_PROFILE: "/admin/profile",
 } as const;
 
 export const EXTERNAL_LINKS = {
