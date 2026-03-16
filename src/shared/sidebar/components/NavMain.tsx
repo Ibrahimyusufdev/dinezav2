@@ -1,5 +1,10 @@
 // Shadcn ui
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from "@/components/ui/sidebar";
 
 import { NavLink } from "react-router-dom";
 
@@ -13,7 +18,7 @@ const NavMain = () => {
   // Func to get sidebar based on user role form auth store user data
   const config = getSidebarConfig(user.role);
 
-  const {setOpenMobile} = useSidebar()
+  const { setOpenMobile } = useSidebar();
 
   return (
     <SidebarMenu>

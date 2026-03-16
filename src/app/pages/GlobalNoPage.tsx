@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/features/auth";
-
-import type { UserRole } from "@/shared/types/common";
 import { ROUTES } from "@/shared/types/constants";
 
 import { FileQuestion, Home } from "lucide-react";
@@ -50,13 +48,13 @@ const GlobalNoPage = () => {
         {/* Action Buttons */}
         <div className="space-y-3">
           {/* Primary Action */}
-          <Button onClick={handleGoHome} className="w-full" size="lg">
+          <Button onClick={handleGoHome} className="w-full cursor-pointer" size="lg">
             <Home className="mr-2 h-4 w-4" />
             {isAuthenticated ? "Go to Dashboard" : "Go to Home"}
           </Button>
 
           {/* Secondary Action */}
-          <Button onClick={handleGoBack} variant="outline" className="w-full" size="lg">
+          <Button onClick={handleGoBack} variant="outline" className="w-full cursor-pointer" size="lg">
             Go Back
           </Button>
         </div>
@@ -67,7 +65,7 @@ const GlobalNoPage = () => {
           <div className="flex flex-wrap justify-center gap-2">
             <Button
               variant="link"
-              className="text-blue-500 underline"
+              className="text-blue-500 underline cursor-pointer"
               size="sm"
               onClick={() => navigate(ROUTES.HOME)}
             >
@@ -78,7 +76,7 @@ const GlobalNoPage = () => {
               <>
                 <Button
                   variant="link"
-                  className="text-blue-500 underline"
+                  className="text-blue-500 underline cursor-pointer"
                   size="sm"
                   onClick={() => navigate(ROUTES.LOGIN)}
                 >
@@ -86,7 +84,7 @@ const GlobalNoPage = () => {
                 </Button>
                 <Button
                   variant="link"
-                  className="text-blue-500 underline"
+                  className="text-blue-500 underline cursor-pointer"
                   size="sm"
                   onClick={() => navigate(ROUTES.REGISTER_SELECT)}
                 >
@@ -97,7 +95,7 @@ const GlobalNoPage = () => {
 
             <Button
               variant="link"
-              className="text-blue-500 underline"
+              className="text-blue-500 underline cursor-pointer"
               size="sm"
               onClick={() => navigate("/help")}
             >

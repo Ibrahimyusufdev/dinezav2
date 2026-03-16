@@ -97,7 +97,7 @@ export const ROUTES = {
 export const EXTERNAL_LINKS = {
   SUPPORT_EMAIL: "support@dineza.com",
   SUPPORT_PHONE: "(234) 706-893-6114",
-  HELP: "help",
+  HELP: "/help",
   TERMS_OF_SERVICE: "/terms-of-service",
   PRIVACY_POLICY: "/privacy-policy",
   INSTAGRAM: "https://instagram.com/ibrahimyusufdev",

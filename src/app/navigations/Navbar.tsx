@@ -71,7 +71,7 @@ const Navbar = () => {
         {/* Auth buttons — hidden on mobile, visible on desktop */}
         {/* TODO: Show "Go to Dashboard" if user is logged in, else show Sign Up + Login */}
         {isAuthenticated && user ? (
-          <Button onClick={handleGoToDashboard} className="hidden lg:flex">My Dashboard</Button>
+          <Button onClick={handleGoToDashboard} className="hidden cursor-pointer lg:flex">My Dashboard</Button>
         ) : (
           <div className="hidden items-center gap-3 lg:flex">
             <Link to={ROUTES.REGISTER_SELECT}>

@@ -18,7 +18,7 @@ export const AppSideBar = () => {
   return (
     <TooltipProvider>
       <Sidebar collapsible="icon" className="mt-14 h-auto overflow-y-auto" variant="floating">
-        <SidebarHeader className="sm:hidden">
+        <SidebarHeader className="md:hidden">
           <Header />
         </SidebarHeader>
 

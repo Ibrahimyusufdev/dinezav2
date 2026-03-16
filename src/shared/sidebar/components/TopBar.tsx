@@ -1,13 +1,10 @@
-// TopBar.tsx
+
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useAuthStore } from "@/features/auth";
 import { getInitials } from "@/shared/helpers/getInitials";
 import { getDashboardByrole } from "@/app/index";
-import { ROUTES } from "@/shared/types/constants";
 import { logo } from "@/assets";
 import { Link } from "react-router-dom";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
 
 export const TopBar = () => {
   const user = useAuthStore((state) => state.user);
