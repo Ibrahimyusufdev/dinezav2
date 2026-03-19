@@ -38,7 +38,7 @@ const Navbar = () => {
       <nav className="container mx-auto flex items-center justify-between px-8 py-6">
         {/* Logo — always visible always left */}
         <Link to={ROUTES.HOME} className="flex items-center gap-2">
-          <img src={logo} width={20} height={20} alt="Dineza Logo" className="h-5 w-5" />
+          <img src={logo} alt="Dineza Logo" className="h-8 w-8" />
           <p className="font-bold">Dineza</p>
         </Link>
 
