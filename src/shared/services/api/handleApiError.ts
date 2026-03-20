@@ -8,7 +8,7 @@ export const handleApiError = (error: unknown): ApiError => {
 
     return {
       message: error.response?.data?.message || error.message,
-      code: error.response?.data?.code || error.code,
+      code: error.response?.data?.code || error.code || "Unknown_Error",
       status: error.response?.status || 500,
     };
   }

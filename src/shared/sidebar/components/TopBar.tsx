@@ -1,13 +1,12 @@
-
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { useAuthStore } from "@/features/auth";
+import { useCurrentUser } from "@/features/auth/hooks";
 import { getInitials } from "@/shared/helpers/getInitials";
 import { getDashboardByrole } from "@/app/index";
 import { logo } from "@/assets";
 import { Link } from "react-router-dom";
 
 export const TopBar = () => {
-  const user = useAuthStore((state) => state.user);
+  const user = useCurrentUser();
 
   return (
     <header className="bg-background sticky top-0 z-40 flex items-center justify-between border-b px-4 py-3">

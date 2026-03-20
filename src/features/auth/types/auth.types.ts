@@ -45,24 +45,34 @@ export interface Admin extends BaseUser {
   // Access control
   adminLevel?: "super" | "moderator" | "support";
   permissions?: string[]; // e.g. ["manage_users", "manage_restaurants", "view_analytics"]
-
-  // // Activity tracking — important for auditing who did what
-  // lastLogin?: Date;
-  // lastActiveAt?: Date;
-
-  // // Support related
-  // assignedTickets?: number;
-  // resolvedTickets?: number;
-
-  // // Platform oversight stats
-  // totalUsersManaged?: number;
-  // totalRestaurantsManaged?: number;
 }
 
 // Making user to be either Diner, Restaurant, or Admin using discriminated Union in TS for AuthPurpose
 export type AuthUser = Diner | Restaurant | Admin;
 
-// AuthResponse Shape coming from Api
+// Api PayLoads
+export interface LoginPayLoad {
+  email: string;
+  password: string;
+}
+
+export interface RegisterDinerPayLoad {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface RegisterRestaurantPayLoad {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  restaurantName: string;
+  businessEmail: string;
+}
+
+// AuthResponse Shape coming from Api, what the backend returns after successful login or register
 export interface AuthResponse {
   token: string;
   user: AuthUser;

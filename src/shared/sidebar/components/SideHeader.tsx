@@ -1,5 +1,5 @@
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
-import { useAuthStore } from "@/features/auth";
+import { useCurrentUser } from "@/features/auth/hooks";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@/shared/types/constants";
 import type { UserRole } from "@/shared/types/common";
@@ -10,7 +10,7 @@ import { getDashboardByrole } from "@/app/";
 
 const SideHeader = () => {
   // getting user data from auth store
-  const user = useAuthStore((state) => state.user);
+  const user = useCurrentUser();
 
   return (
     <SidebarMenu>

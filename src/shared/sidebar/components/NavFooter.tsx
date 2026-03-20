@@ -30,10 +30,11 @@ import { ROUTES } from "@/shared/types/constants";
 
 import { getSidebarConfig } from "../helpers/getSidebarConfig";
 import { useAuthStore } from "@/features/auth";
+import { useCurrentUser } from "@/features/auth/hooks";
 
 const NavFooter = () => {
   // Getting user data from auth store
-  const user = useAuthStore((state) => state.user);
+  const user = useCurrentUser();
   const logout = useAuthStore((state) => state.logout);
 
   // Func to get sidebar based on user role form auth store user data
