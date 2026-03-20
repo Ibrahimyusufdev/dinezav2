@@ -1,7 +1,7 @@
 import { dinerSidebarConfig } from "../config/dinerSidebarConfig";
 import { restaurantSidebarConfig } from "../config/restaurantSidebarConfig";
 import { adminSidebarConfig } from "../config/adminSidebarConfig";
-import type { UserRole } from "@/shared/types/common";
+import UserRol
 import type { SidebarConfig } from "../types/sidebarConfig.types";
 
 // Return sidebar config by role, that is, return the config based on the role user sign in with

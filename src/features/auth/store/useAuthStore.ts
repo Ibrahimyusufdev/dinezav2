@@ -1,56 +1,7 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
 import { persist } from "zustand/middleware";
-
-
-import type { UserRole } from "@/shared/types/common";
-
-// Base User Interface - where I will extend the shape for Diner, Restaurant and admin
-export interface BaseUser {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  role: UserRole;
-  profilePicture?: string;
-  phoneNumber?: string;
-  avatar?: string;
-
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-// Diner User - extending from Base User with specific field added
-export interface Diner extends BaseUser {
-  role: "diner";
-  preferredLocations?: string[];
-  totalEarnings?: number;
-  pendingEarnings?: number;
-  availableBalance?: number;
-}
-
-// Restaurant User - extending from Base User with specific field added
-export interface Restaurant extends BaseUser {
-  role: "restaurant";
-  restaurantName?: string;
-  restaurantLogo?: string;
-  businessEmail?: string;
-  address?: string;
-  cuisineType?: string;
-  isVerified?: boolean;
-  rating?: number;
-  totalReservations?: number;
-  pendingReservations?: number;
-}
-
-// Admin User - extending from Base User with specific field added
-export interface Admin extends BaseUser {
-  role: "admin";
-  
-}
-
-// Making user to be either Diner or Restaurant using discriminated Union in TS for AuthPurpose
-export type AuthUser = Diner | Restaurant | Admin;
+import type { AuthUser } from "../types/auth.types";
 
 // wiring up AuthState
 export interface AuthState {
@@ -77,6 +28,9 @@ export interface AuthState {
   // Partially update user data
   updateAuthUser?: (userData: Partial<AuthUser>) => void;
 
+  // Check Auth
+  // checkAuth: () => void;
+
   // Clears all auth data and reset to initial state
   logout: () => void;
 }
@@ -90,17 +44,10 @@ export const useAuthStore = create<AuthState>()(
     persist(
       (set) => ({
         // Setting initial state
-        user: {
-          id: "1",
-          email: "Ibrahimyusuf1304@gmail.com",
-          firstName: "Ibrahim",
-          lastName: "Yusuf",
-          role: "restaurant",
-          // preferredLocations: ["Kaduna", "Lagos"]
-        },
+        user: null,
         accessToken: null,
-        isAuthenticated: true,
-        isLoading: false, 
+        isAuthenticated: false,
+        isLoading: false,
 
         // Action implementation
         setAuth: (user, accessToken) => {
