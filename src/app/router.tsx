@@ -2,6 +2,10 @@ import { createBrowserRouter, createRoutesFromElements, Route } from "react-rout
 
 // Layout
 import PublicLayout from "./layouts/PublicLayout";
+import AuthLayout from "./layouts/AuthLayout";
+
+// Pages
+import { LoginPage } from "@/features/auth";
 
 // Protected Routes & Role Guard
 import ProtectedRoutes from "./routes/ProtectedRoutes";
@@ -15,13 +19,20 @@ import { adminRoutes } from "./routes/admin-routes";
 // Error page and Unauthorized
 import GlobalNoPage from "./pages/GlobalNoPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
+import { ROUTES } from "@/shared/types/constants";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       {/* Public layout routing */}
       <Route path="/" element={<PublicLayout />}></Route>
-      
+
+      {/* Auth Layout Routing */}
+      <Route element={<AuthLayout />}>
+        <Route index path={ROUTES.LOGIN} element={<LoginPage />} />
+        {/* <Route path={ROUTES.REGISTER_SELECT} element={<RegisterSelect />} /> */}
+      </Route>
+
       {/* Protected Routing */}
       <Route element={<ProtectedRoutes />}>
         {/* Diner Protected routes Routes */}

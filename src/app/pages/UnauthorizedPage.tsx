@@ -1,18 +1,18 @@
-import { useAuthStore } from "@/features/auth";
+// import { useAuth, useAuthActions, } from "@/features/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { ROUTES } from "@/shared/types/constants";
-
 
 import { ShieldAlert, Home, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Wire up dashboard by role
 import { getDashboardByrole } from "../helpers/getDashboardByRole";
+import { useCurrentUser, useLogout } from "@/features/auth";
 
 const UnauthorizedPage = () => {
-  // Grab logout and user from auth store
-  const logout = useAuthStore((state) => state.logout);
-  const user = useAuthStore((state) => state.user);
+  // Grab logout and user from auth hook and auth store
+  const user = useCurrentUser();
+  const {logout} = useLogout();
 
   const navigate = useNavigate();
 

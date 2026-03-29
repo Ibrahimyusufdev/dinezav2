@@ -5,11 +5,14 @@ import { navLinks } from "./navbarConfig";
 import { Menu, X } from "lucide-react";
 import { logo } from "@/assets";
 import { ROUTES } from "@/shared/types/constants";
-import { useCurrentUser } from "@/features/auth/hooks";
+// import { useCurrentUser } from "@/features/auth";
+
 import { useAuthStore } from "@/features/auth";
+import { useCurrentUser } from "@/features/auth";
 
 // Wire up dashboard by role
 import { getDashboardByrole } from "../helpers/getDashboardByRole";
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +21,7 @@ const Navbar = () => {
   const closeMenu = () => setIsMenuOpen(false);
 
   // get user and isAuthenticated from auth store
+  // const user = useCurrentUser();
   const user = useCurrentUser();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 

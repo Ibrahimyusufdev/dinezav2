@@ -1,5 +1,5 @@
 import { ROUTES } from "@/shared/types/constants";
-import type { UserRole } from "@/shared/types/common";
+import type { UserRole } from "@/features/auth";
 
 // Wire up dashboard by role
 export const getDashboardByrole: Record<UserRole, string> = {

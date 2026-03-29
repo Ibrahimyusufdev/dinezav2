@@ -1,12 +1,13 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { useCurrentUser } from "@/features/auth/hooks";
+
 import { getInitials } from "@/shared/helpers/getInitials";
 import { getDashboardByrole } from "@/app/index";
 import { logo } from "@/assets";
 import { Link } from "react-router-dom";
+import { useRequiredUser } from "@/features/auth";
 
 export const TopBar = () => {
-  const user = useCurrentUser();
+  const user = useRequiredUser();
 
   return (
     <header className="bg-background sticky top-0 z-40 flex items-center justify-between border-b px-4 py-3">

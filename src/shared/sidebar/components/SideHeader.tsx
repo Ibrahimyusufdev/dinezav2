@@ -1,16 +1,16 @@
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
-import { useCurrentUser } from "@/features/auth/hooks";
 import { Link } from "react-router-dom";
-import { ROUTES } from "@/shared/types/constants";
-import type { UserRole } from "@/shared/types/common";
+
 import { logo } from "@/assets";
 
 // Wire up dashboard by role
 import { getDashboardByrole } from "@/app/";
+import { useRequiredUser } from "@/features/auth";
 
 const SideHeader = () => {
   // getting user data from auth store
-  const user = useCurrentUser();
+  // const user = useRequiredUser();
+  const user = useRequiredUser();
 
   return (
     <SidebarMenu>

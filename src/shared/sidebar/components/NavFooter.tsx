@@ -29,16 +29,17 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { ROUTES } from "@/shared/types/constants";
 
 import { getSidebarConfig } from "../helpers/getSidebarConfig";
-import { useAuthStore } from "@/features/auth";
-import { useCurrentUser } from "@/features/auth/hooks";
+import { useLogout, useRequiredUser } from "@/features/auth";
 
 const NavFooter = () => {
   // Getting user data from auth store
-  const user = useCurrentUser();
-  const logout = useAuthStore((state) => state.logout);
+  const user = useRequiredUser();
+
+  // Grab logout from useLogout hook
+  const { logout } = useLogout();
 
   // Func to get sidebar based on user role form auth store user data
-  const config = getSidebarConfig(user.role); 
+  const config = getSidebarConfig(user.role);
 
   const navigate = useNavigate();
 

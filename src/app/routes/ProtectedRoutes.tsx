@@ -27,7 +27,7 @@ const ProtectedRoutes = () => {
   */
 
   if (!isAuthenticated) {
-    return <Navigate to={ROUTES.LOGIN} state={{ from: location }} replace />;
+    return <Navigate to={ROUTES.LOGIN} state={{ from: location.pathname }} replace />;
   }
 
   // Outlet for protected route - show here

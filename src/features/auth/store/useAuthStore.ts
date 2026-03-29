@@ -23,7 +23,7 @@ interface AuthState {
 
   // checkAuth: () => void;   // Check Auth
 
-  logout: () => void; // Clears all auth data and reset to initial state
+  clearAuth: () => void; // Clears all auth data and reset to initial state
 }
 
 /**
@@ -84,7 +84,7 @@ export const useAuthStore = create<AuthState>()(
         },
 
         // Resets everything back to initial state
-        logout: () => {
+        clearAuth: () => {
           set((state) => {
             state.user = null;
             state.accessToken = null;

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "@/features/auth";
+import { useAuthStore, useCurrentUser } from "@/features/auth";
 import { ROUTES } from "@/shared/types/constants";
 
 import { FileQuestion, Home } from "lucide-react";
@@ -10,7 +10,7 @@ import { getDashboardByrole } from "../helpers/getDashboardByRole";
 
 const GlobalNoPage = () => {
   const navigate = useNavigate();
-  const user = useAuthStore((state) => state.user);
+  const user = useCurrentUser();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   // Handle going to dashboard or home depending if they're authenticated or not

@@ -6,9 +6,9 @@ export type {
   Restaurant,
   Admin,
   AuthUser,
-  LoginPayLoad,
-  RegisterDinerPayLoad,
-  RegisterRestaurantPayLoad,
+  LoginPayload,
+  RegisterDinerPayload,
+  RegisterRestaurantPayload,
   AuthResponse,
 } from "./types/auth.types";
 
@@ -16,4 +16,12 @@ export type {
 export { useAuthStore } from "./store/useAuthStore";
 
 // Hooks
-export { useCurrentUser } from "./hooks/useCurrentUser";
+// export {useAuth, useCurrentUser, useAuthActions, useRequiredUser} from "./hooks/use-auth-store";
+export {useLogin} from "./hooks/useLogin";
+export {useLogout} from "./hooks/useLogout";
+export {useCurrentUser, useRequiredUser} from "./hooks/use-auth-store";
+
+export {useInitAuth} from "./hooks/useInitAuth";
+
+// Pages
+export {LoginPage} from "./pages/LoginPage.tsx"

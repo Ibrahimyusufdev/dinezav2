@@ -51,19 +51,19 @@ export interface Admin extends BaseUser {
 export type AuthUser = Diner | Restaurant | Admin;
 
 // Api PayLoads
-export interface LoginPayLoad {
+export interface LoginPayload {
   email: string;
   password: string;
 }
 
-export interface RegisterDinerPayLoad {
+export interface RegisterDinerPayload {
   email: string;
   password: string;
   firstName: string;
   lastName: string;
 }
 
-export interface RegisterRestaurantPayLoad {
+export interface RegisterRestaurantPayload {
   email: string;
   password: string;
   firstName: string;
@@ -74,6 +74,6 @@ export interface RegisterRestaurantPayLoad {
 
 // AuthResponse Shape coming from Api, what the backend returns after successful login or register
 export interface AuthResponse {
-  token: string;
+  accessToken: string;
   user: AuthUser;
 }
