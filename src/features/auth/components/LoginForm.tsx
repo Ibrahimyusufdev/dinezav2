@@ -52,6 +52,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
   // Show/Hide password
   const [showPassword, setShowPassword] = useState(false);
 
+  // Disabling form and button
   const isFormDisabled = form.formState.isSubmitting || isLoading;
   const isSubmitDisabled =
     !form.formState.isValid || form.formState.isSubmitting || !form.formState.isDirty || isLoading;
@@ -60,7 +61,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
     <div className={cn("flex w-full flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          {/* ── Form side ── */}
+          {/* Form side*/}
           <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6 p-4 md:p-8">
             {/* API error */}
             {error && (
@@ -141,7 +142,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
               )}
             />
 
-            {/* Submit button — full width */}
+            {/* Submit button  */}
             <Field>
               <Button type="submit" className="w-full" disabled={isSubmitDisabled}>
                 {form.formState.isSubmitting || isLoading ? (
@@ -158,7 +159,6 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
             <FieldSeparator>Or continue with</FieldSeparator>
 
             {/* OAuth buttons — stack on mobile, 3-col on sm+ */}
-            {/* OAuth buttons */}
             <Field className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               <Button
                 variant="outline"
