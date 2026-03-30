@@ -54,6 +54,7 @@ export const ROUTES = {
   REGISTER_SELECT: "/register",
   DINER_REGISTER: "diner/register",
   RESTAURANT_REGISTER: "restaurant/register",
+  FORGET_PASSWORD: "forget-password",
 
   // Error
   UNAUTHORIZED: "/unauthorized",

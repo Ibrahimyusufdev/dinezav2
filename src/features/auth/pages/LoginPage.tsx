@@ -1,29 +1,11 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
-import ContentWrapper from "@/shared/components/ContentWrapper";
 import { LoginForm } from "../components/LoginForm";
-import { Link } from "react-router-dom";
-import { ROUTES } from "@/shared/types/constants";
 
 export const LoginPage = () => {
   return (
-    <ContentWrapper>
-      {/* Card Wrapper for the LoginForm, Separates layout from form logic */}
-      <Card className="mx-auto w-full max-w-2xl p-6">
-        <CardHeader>
-          <CardTitle>Sign in Form</CardTitle>
-          <CardDescription>Fill in your credential to login to your account</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <LoginForm />
-          <p>
-            Don't have an account?{" "}
-            <Link to={ROUTES.REGISTER_SELECT} className="underline">
-              Sign up
-            </Link>
-          </p>
-        </CardContent>
-      </Card>
-    </ContentWrapper>
+    <div className="flex w-full flex-col items-center justify-center bg-muted rounded-2xl p-5 min-h-[calc(100vh-2rem)] md:min-h-[calc(100vh-3rem)] md:p-8 lg:min-h-[calc(100vh-4rem)] lg:p-10">
+      <div className="w-full max-w-sm md:max-w-4xl">
+        <LoginForm />
+      </div>
+    </div>
   );
 };

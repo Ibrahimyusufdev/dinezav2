@@ -49,7 +49,7 @@
 
 @theme {
   --color-primary: #FF5900;
-  --color-accent: #007DF8;
+  /* --color-accent: #007DF8; */
   --color-neutral: #F6F6F6;
   --color-danger: #FF5900;
 }
@@ -129,7 +129,7 @@
     @apply border-border outline-ring/50;
     }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
     }
   html {
     @apply font-sans;

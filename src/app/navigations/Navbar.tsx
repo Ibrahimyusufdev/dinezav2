@@ -63,7 +63,7 @@ const Navbar = () => {
         {/* Nav links — hidden on mobile, visible on desktop */}
         <ul className="hidden items-center gap-x-8 text-base lg:flex">
           {navLinks.map((link) => (
-            <li key={link.path}>
+            <li key={link.path} className="cursor-pointer">
               <Link
                 to={link.path}
                 className="text-blue-600 underline underline-offset-4 hover:text-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
@@ -81,7 +81,7 @@ const Navbar = () => {
         ) : (
           <div className="hidden items-center gap-3 lg:flex">
             <Link to={ROUTES.REGISTER_SELECT}>
-              <Button variant="outline" className="cursor-pointer">Sign Up</Button>
+              <Button variant="outline">Sign Up</Button>
             </Link>
             <Link to={ROUTES.LOGIN}>
               <Button className="cursor-pointer">Login</Button>
@@ -95,7 +95,7 @@ const Navbar = () => {
         <div className="border-primary flex flex-col border px-4 pb-4 transition-all duration-300 ease-in-out lg:hidden">
           <ul className="flex flex-col items-center gap-y-3 p-4 pb-4">
             {navLinks.map((link) => (
-              <li key={link.path}>
+              <li key={link.path} className="cursor-pointer">
                 <Link
                   to={link.path}
                   onClick={closeMenu}

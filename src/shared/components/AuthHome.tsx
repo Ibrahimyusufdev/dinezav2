@@ -4,7 +4,7 @@ import { ROUTES } from "../types/constants";
 
 const AuthHome = () => {
   return (
-    <Link to={ROUTES.HOME} className="absolute top-6 left-6 flex items-center gap-2">
+    <Link to={ROUTES.HOME} className="absolute top-6 left-6 flex items-center gap-2 cursor-pointer">
       <div className="bg-sidebar-secondary text-sidebar-primary-foreground flex size-8 items-center justify-center rounded-lg">
         <img src={logo} alt="Dineza logo" className="h-8 w-8" />
       </div>
