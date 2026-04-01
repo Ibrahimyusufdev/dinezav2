@@ -38,7 +38,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
   });
 
   // Grab login from useLogin hook
-  const { login } = useLogin();
+  const { login, handleGoogleLogin } = useLogin();
 
   // Grab error and isLoading from authstore
   const error = useAuthStore((state) => state.error);
@@ -159,7 +159,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
             <FieldSeparator>Or continue with</FieldSeparator>
 
             {/* OAuth buttons — stack on mobile, 3-col on sm+ */}
-            <Field className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <Field className="grid grid-cols-1 gap-3 sm:grid-cols-3 mt-4">
               <Button
                 variant="outline"
                 type="button"
@@ -168,7 +168,9 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
                 <AppleIcon />
                 <span>Apple</span>
               </Button>
+
               <Button
+              onClick={handleGoogleLogin}
                 variant="outline"
                 type="button"
                 className="flex w-full items-center justify-center gap-2"

@@ -10,9 +10,9 @@ export interface BaseUser {
   role: UserRole;
   profilePicture?: string;
   phoneNumber?: string;
-  avatar?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  avatarUrl?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 // Diner User - extending from Base User with specific field added

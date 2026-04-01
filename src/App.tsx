@@ -4,6 +4,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { useInitAuth } from "@/features/auth";
 import { Toaster } from "./components/ui/sonner";
 
+
 // React Query
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,6 +20,7 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
+
   // Update later when backend is ready
   useInitAuth(); // Verify persisted user on every mount
   return (

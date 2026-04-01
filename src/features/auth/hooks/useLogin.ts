@@ -1,18 +1,17 @@
-
 import type { LoginPayload } from "../types/auth.types";
 import { authService } from "../service/authService";
-// import { useAuth, useAuthActions} from "./use-auth-store";
 import { toast } from "sonner";
 import { useAuthStore } from "../store/useAuthStore";
-import { useCurrentUser} from "./use-auth-store";
+import { useCurrentUser } from "./use-auth-store";
+import { supabase } from "@/lib/supabse";
+import { mapSupabaseUser } from "./Mapsupabaseuser";
 
 export const useLogin = () => {
   // Grabbing auth actions from store
-
-  const setAuth = useAuthStore((state) => state.setAuth)
-  const setLoading = useAuthStore((state) => state.setLoading)
+  const setAuth = useAuthStore((state) => state.setAuth);
+  const setLoading = useAuthStore((state) => state.setLoading);
   const setError = useAuthStore((state) => state.setError);
-  const user = useCurrentUser()
+  const user = useCurrentUser();
 
   const login = async (payload: LoginPayload) => {
     setError(null);
@@ -20,21 +19,38 @@ export const useLogin = () => {
 
     const toastId = toast.loading("Logging in...");
 
-    const result = await authService.login(payload);
+    // Hit the supabase signin with your payload
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: payload.email,
+      password: payload.password,
+    });
 
     toast.dismiss(toastId);
     setLoading(false);
 
-    if (result.error) {
-      setError(result.error.message);
-      toast.error(result.error.message);
-      return;
+    if (error) {
+      setError(error.message);
+      toast.error(error.message);
+      return false;
     }
 
-    setAuth(result.data.user, result.data.accessToken);
-    // setAuth already sets isLoading: false internally 
+    setAuth(mapSupabaseUser(data.user), data.session.access_token);
     toast.success(`Welcome back, ${user?.firstName}`);
+    return true;
   };
 
-  return { login };
+  const handleGoogleLogin = async () => {
+    const {error} = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: "http://localhost:5173"
+      }
+    });
+
+    if (error) {
+      toast.error(error.message)
+    }
+  };
+
+  return { login, handleGoogleLogin };
 };
