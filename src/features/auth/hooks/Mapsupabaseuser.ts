@@ -9,21 +9,35 @@ import type { AuthUser, UserRole } from "../types/auth.types";
 
 export const mapSupabaseUser = (supabaseUser: User): AuthUser => {
   const meta = supabaseUser.user_metadata;
-  const role = (meta?.role as UserRole) ?? "diner";
+  const role = (meta?.role as UserRole) ?? null;
+  console.log(meta)
 
-  const base =  {
+  // Google user — no role assigned yet
+  if (!role) {
+    const fullName = meta?.full_name ?? meta?.name ?? "";
+    const [first, ...rest] = fullName.split(" "); 
+
+    return {
+      id: supabaseUser.id,
+      email: supabaseUser.email ?? "",
+      firstName: first ?? "",
+      lastName: rest.join(" ") ?? "",
+      role: "diner",
+      avatarUrl: meta?.avatar_url,
+      createdAt: supabaseUser.created_at,
+    };
+  }
+
+  const base = {
     id: supabaseUser.id,
     email: supabaseUser.email ?? "",
     firstName: meta?.firstName ?? "",
     lastName: meta?.lastName ?? "",
-    role,
+    role: role as UserRole,
     avatarUrl: meta?.avatarUrl,
     createdAt: supabaseUser.created_at,
   };
 
-  // Return the correct shape based on role
-  // Extra fields like restaurantName come from your DB profiles table
-  // and can be merged in later via updateUser()
   if (role === "restaurant") {
     return {
       ...base,
@@ -34,14 +48,8 @@ export const mapSupabaseUser = (supabaseUser: User): AuthUser => {
   }
 
   if (role === "admin") {
-    return {
-      ...base,
-      role: "admin",
-    };
+    return { ...base, role: "admin" };
   }
 
-  return {
-    ...base,
-    role: "diner",
-  };
+  return { ...base, role: "diner" };
 };

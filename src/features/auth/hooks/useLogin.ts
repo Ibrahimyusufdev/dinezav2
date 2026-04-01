@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { useAuthStore } from "../store/useAuthStore";
 import { useCurrentUser } from "./use-auth-store";
 import { supabase } from "@/lib/supabse";
-import { mapSupabaseUser } from "./Mapsupabaseuser";
+import { mapSupabaseUser } from "./mapsupabaseuser";
 
 export const useLogin = () => {
   // Grabbing auth actions from store
@@ -40,15 +40,18 @@ export const useLogin = () => {
   };
 
   const handleGoogleLogin = async () => {
-    const {error} = await supabase.auth.signInWithOAuth({
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:5173"
-      }
+        redirectTo: "http://localhost:5173",
+      },
     });
 
     if (error) {
-      toast.error(error.message)
+      setError(error.message);
+      toast.error(error.message);
+      setLoading(false);
     }
   };
 

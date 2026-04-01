@@ -158,33 +158,17 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
 
             <FieldSeparator>Or continue with</FieldSeparator>
 
-            {/* OAuth buttons — stack on mobile, 3-col on sm+ */}
-            <Field className="grid grid-cols-1 gap-3 sm:grid-cols-3 mt-4">
+            {/* OAuth button */}
+            <Field className="mt-4 w-full">
               <Button
+                onClick={handleGoogleLogin}
                 variant="outline"
                 type="button"
                 className="flex w-full items-center justify-center gap-2"
-              >
-                <AppleIcon />
-                <span>Apple</span>
-              </Button>
-
-              <Button
-              onClick={handleGoogleLogin}
-                variant="outline"
-                type="button"
-                className="flex w-full items-center justify-center gap-2"
+                disabled={isLoading}
               >
                 <GoogleIcon />
                 <span>Google</span>
-              </Button>
-              <Button
-                variant="outline"
-                type="button"
-                className="flex w-full items-center justify-center gap-2"
-              >
-                <MetaIcon />
-                <span>Meta</span>
               </Button>
             </Field>
 
