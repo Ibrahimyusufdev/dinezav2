@@ -47,8 +47,13 @@ export interface Admin extends BaseUser {
   permissions?: string[]; // e.g. ["manage_users", "manage_restaurants", "view_analytics"]
 }
 
+// Unassigned User
+export interface UnassignedUser extends Omit<BaseUser, "role"> {
+  role: null;
+}
+
 // Making user to be either Diner, Restaurant, or Admin using discriminated Union in TS for AuthPurpose
-export type AuthUser = Diner | Restaurant | Admin;
+export type AuthUser = Diner | Restaurant | Admin | UnassignedUser;
 
 // Api PayLoads
 export interface LoginPayload {

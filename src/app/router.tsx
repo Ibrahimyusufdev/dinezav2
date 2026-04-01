@@ -21,15 +21,18 @@ import GlobalNoPage from "./pages/GlobalNoPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import { ROUTES } from "@/shared/types/constants";
 
+
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       {/* Public layout routing */}
-      <Route path="/" element={<PublicLayout />}></Route>
+      <Route path="/" element={<PublicLayout />}>
+      {/* Public route here */}
+      </Route>
 
       {/* Auth Layout Routing */}
       <Route element={<AuthLayout />}>
-        <Route index path={ROUTES.LOGIN} element={<LoginPage />} />
+        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
         {/* <Route path={ROUTES.REGISTER_SELECT} element={<RegisterSelect />} /> */}
       </Route>
 

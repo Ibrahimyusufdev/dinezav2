@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { supabase } from "@/lib/supabse";
-import { mapSupabaseUser } from "./mapsupabaseuser";
 import { fetchAndMergeProfile } from "../utils/fetchAndMergeProfile";
 
 export const useInitAuth = () => {
@@ -10,45 +9,42 @@ export const useInitAuth = () => {
 
   useEffect(() => {
     // Restore session on mount
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) return; // no session — nothing to restore
+    const init = async () => {
+      try {
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession();
+        if (error || !session?.user) {
+          clearAuth();
+          return;
+        }
 
-      const basicUser = mapSupabaseUser(session.user);
-      const hasRole = !!session.user.user_metadata?.role;
+        const fullUser = await fetchAndMergeProfile(session.user.id);
 
-      if (!hasRole) {
-        // Google user with no role yet — store basic user only
-        // App will redirect them to /select-role
-        setAuth(basicUser, session.access_token);
-        return;
+        if (fullUser) {
+          setAuth(fullUser);
+        } else {
+          clearAuth();
+        }
+      } catch (error) {
+        clearAuth();
       }
+    };
 
-      // Normal user — fetch full profile from DB and merge
-      fetchAndMergeProfile(basicUser, session.access_token, setAuth);
-    });
+    init();
 
-    // Listen for all future auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      if (!session) {
+    // Listen to Supabase auth state changes
+    const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (!session?.user) {
         clearAuth();
         return;
       }
-
-      const basicUser = mapSupabaseUser(session.user);
-      const hasRole = !!session.user.user_metadata?.role;
-
-      if (!hasRole) {
-        // Google user - store basic user, let app redirect to /select-role
-        setAuth(basicUser, session.access_token);
-        return;
-      }
-
-      // Normal user - fetch and merge full profile
-      fetchAndMergeProfile(basicUser, session.access_token, setAuth);
+      const fullUser = await fetchAndMergeProfile(session.user.id);
+      if (fullUser) {
+        setAuth(fullUser);
+      } else clearAuth();
     });
-
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => listener.subscription.unsubscribe();
+  }, [setAuth, clearAuth]);
 };
