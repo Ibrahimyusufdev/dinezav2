@@ -1,9 +1,10 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "@/app/router";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { useInitAuth } from "@/features/auth";
+import { useInitAuth, useRegister } from "@/features/auth";
 import { Toaster } from "./components/ui/sonner";
-
+import { useEffect } from "react";
+import { email } from "zod";
 
 // React Query
 const queryClient = new QueryClient({
@@ -22,13 +23,15 @@ const queryClient = new QueryClient({
 const App = () => {
 
   // Update later when backend is ready
-  useInitAuth(); // Verify persisted user on every mount
+  // useInitAuth(); // Verify persisted user on every mount
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster position="top-right" richColors />
       {/* All my routing composable here */}
       <RouterProvider router={router} />
     </QueryClientProvider>
+
+   
   );
 };
 

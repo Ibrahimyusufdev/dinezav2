@@ -5,7 +5,7 @@ import PublicLayout from "./layouts/PublicLayout";
 import AuthLayout from "./layouts/AuthLayout";
 
 // Pages
-import { LoginPage } from "@/features/auth";
+import { ConfirmEmailPage, LoginPage, RegisterPage } from "@/features/auth";
 
 // Protected Routes & Role Guard
 import ProtectedRoutes from "./routes/ProtectedRoutes";
@@ -20,20 +20,24 @@ import { adminRoutes } from "./routes/admin-routes";
 import GlobalNoPage from "./pages/GlobalNoPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import { ROUTES } from "@/shared/types/constants";
-
+import GuestRoute from "./routes/GuestRoute";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       {/* Public layout routing */}
       <Route path="/" element={<PublicLayout />}>
-      {/* Public route here */}
+        {/* Public route here */}
       </Route>
 
       {/* Auth Layout Routing */}
-      <Route element={<AuthLayout />}>
-        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-        {/* <Route path={ROUTES.REGISTER_SELECT} element={<RegisterSelect />} /> */}
+      <Route element={<GuestRoute />}>
+        <Route element={<AuthLayout />}>
+          <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+          {/* <Route path={ROUTES.REGISTER_SELECT} element={<RegisterSelect />} /> */}
+          <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+          <Route path={ROUTES.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
+        </Route>
       </Route>
 
       {/* Protected Routing */}

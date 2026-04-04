@@ -43,6 +43,7 @@ export interface Restaurant extends BaseUser {
 export interface Admin extends BaseUser {
   role: "admin";
   // Access control
+  isSuperAdmin: boolean;
   adminLevel?: "super" | "moderator" | "support";
   permissions?: string[]; // e.g. ["manage_users", "manage_restaurants", "view_analytics"]
 }
@@ -66,6 +67,13 @@ export interface RegisterDinerPayload {
   password: string;
   firstName: string;
   lastName: string;
+  
+}
+
+// Login and Register Payload for supabase auth pattern
+export interface LoginAndRegisterPayload {
+  email: string;
+  password: string
 }
 
 export interface RegisterRestaurantPayload {
@@ -75,6 +83,7 @@ export interface RegisterRestaurantPayload {
   lastName: string;
   restaurantName: string;
   businessEmail: string;
+ 
 }
 
 // AuthResponse Shape coming from Api, what the backend returns after successful login or register

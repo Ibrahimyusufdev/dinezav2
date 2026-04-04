@@ -2,13 +2,14 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GoogleIcon } from "@/shared/components/BrandIcons";
 import { cn } from "@/lib/utils";
+import { passwordRules, PasswordChecklist } from "./PasswordChecklist";
+import { logo } from "@/assets";
 
 import {
   Field,
   FieldLabel,
   FieldError,
   FieldDescription,
-  FieldGroup,
   FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -17,51 +18,73 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Eye, EyeOff } from "lucide-react";
 
-import type { LoginFormData } from "../validations/auth-schemas";
-import { loginSchema } from "../validations/auth-schemas";
+import type { RegisterFormData } from "../validations/auth-schemas";
+import { registerSchema } from "../validations/auth-schemas";
 import { useLogin } from "../hooks/useLogin";
 import { useAuthStore } from "../store/useAuthStore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { EXTERNAL_LINKS, ROUTES } from "@/shared/types/constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRegister } from "../hooks/useRegister";
 
-export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) => {
+export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
   // Wiring up the form for using useForm from rhf
-  const form = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
-  // Grab login from useLogin hook
-  const { login, handleGoogleLogin } = useLogin();
+  // Grab login from useRegister hook
+  const { register } = useRegister();
+  const { handleGoogleLogin } = useLogin();
 
   // Grab error and isLoading from authstore
   const error = useAuthStore((state) => state.error);
   const isLoading = useAuthStore((state) => state.isLoading);
 
-  // Logic to perform once the form is submitted successfully
-  const handleLogin = async (formData: LoginFormData) => {
-    await login({ email: formData.email, password: formData.password });
-  };
-
   // Show/Hide password
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  // Clear API error when user starts typing
+  useEffect(() => {
+    const unsubscribe = form.subscribe({
+      formState: { isDirty: true },
+      callback: () => {
+        if (useAuthStore.getState().error) {
+          useAuthStore.getState().clearError();
+        }
+      },
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Disabling form and button
   const isFormDisabled = form.formState.isSubmitting || isLoading;
   const isSubmitDisabled = !form.formState.isValid || form.formState.isSubmitting || isLoading;
+
+  // Logic to perform once the form is submitted successfully
+  const handleRegister = async (formData: RegisterFormData) => {
+    await register({
+      email: formData.email,
+      password: formData.password,
+    });
+
+    
+  };
 
   return (
     <div className={cn("flex w-full flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
           {/* Form side*/}
-          <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6 p-4 md:p-8">
+          <form onSubmit={form.handleSubmit(handleRegister)} className="space-y-6 p-4 md:p-8">
             {/* API error */}
             {error && (
               <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-500 dark:bg-red-950/30">
@@ -71,8 +94,8 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
 
             {/* Headline */}
             <div className="flex flex-col items-center gap-2 text-center md:items-start md:text-left">
-              <h1 className="text-2xl font-bold">Welcome back</h1>
-              <p className="text-muted-foreground text-balance">Login to your Dineza account</p>
+              <h1 className="text-2xl font-bold">Create an Account</h1>
+              <p className="text-muted-foreground text-balance">Sign Up to use Dineza</p>
             </div>
 
             {/* Email */}
@@ -103,15 +126,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <div className="flex items-center justify-between gap-2">
-                    <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                    <Link
-                      to={ROUTES.FORGET_PASSWORD}
-                      className="text-sm underline-offset-2 hover:underline"
-                    >
-                      Forgot your password?
-                    </Link>
-                  </div>
+                  <FieldLabel htmlFor={field.name}>Password</FieldLabel>
 
                   {/* Wrapper for input + toggle button */}
                   <div className="relative">
@@ -121,7 +136,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
                       id={field.name}
                       aria-invalid={fieldState.invalid}
                       placeholder="••••••••"
-                      autoComplete="current-password"
+                      autoComplete="new-password"
                       disabled={isFormDisabled}
                       className="pr-10"
                     />
@@ -129,10 +144,48 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
                       type="button"
                       onClick={() => setShowPassword((prev) => !prev)}
                       disabled={isFormDisabled}
-                      aria-label={showPassword ? "Hide password" : "Show password"} // ← was swapped
+                      aria-label={showPassword ? "Hide password" : "Show password"}
                       className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer transition-colors disabled:pointer-events-none disabled:opacity-50"
                     >
                       {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
+                    </button>
+                  </div>
+
+                  {field.value && !passwordRules.every((rule) => rule.test(field.value)) && (
+                    <PasswordChecklist value={field.value} />
+                  )}
+                </Field>
+              )}
+            />
+
+            {/* Confirm Password */}
+            <Controller
+              name="confirmPassword"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor={field.name}>Confirm Password</FieldLabel>
+
+                  {/* Wrapper for input + toggle button */}
+                  <div className="relative">
+                    <Input
+                      {...field}
+                      type={showConfirmPassword ? "text" : "password"}
+                      id={field.name}
+                      aria-invalid={fieldState.invalid}
+                      placeholder="••••••••"
+                      autoComplete="new-password"
+                      disabled={isFormDisabled}
+                      className="pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword((prev) => !prev)}
+                      disabled={isFormDisabled}
+                      aria-label={showConfirmPassword ? "Hide password" : "Show password"} // ← was swapped
+                      className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer transition-colors disabled:pointer-events-none disabled:opacity-50"
+                    >
+                      {showConfirmPassword ? <Eye size={16} /> : <EyeOff size={16} />}
                     </button>
                   </div>
 
@@ -147,10 +200,10 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
                 {form.formState.isSubmitting || isLoading ? (
                   <>
                     <Spinner />
-                    Signing in...
+                    Signing up...
                   </>
                 ) : (
-                  "Sign in"
+                  "Sign Up"
                 )}
               </Button>
             </Field>
@@ -172,18 +225,18 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
             </Field>
 
             <FieldDescription className="text-center">
-              Don&apos;t have an account?{" "}
-              <Link to={ROUTES.REGISTER} className="underline underline-offset-2">
-                Sign Up
+              Already have an account?{" "}
+              <Link to={ROUTES.LOGIN} className="underline underline-offset-2">
+                Sign In
               </Link>
             </FieldDescription>
           </form>
 
-          {/* ── Image side — hidden on mobile ── */}
+          {/* Images side - hidden on mobile */}
           <div className="bg-muted relative hidden md:block">
             <img
-              src="/images/auth/login-bg.jpg"
-              alt="Login visual"
+              src="/images/auth/signup-bg.png"
+              alt="Register visual"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />
           </div>

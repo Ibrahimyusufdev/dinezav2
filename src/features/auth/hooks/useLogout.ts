@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabse";
+import { supabase } from "@/lib/supabase";
 import { useAuthStore } from "../store/useAuthStore";
 import { toast } from "sonner";
 

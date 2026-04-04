@@ -9,7 +9,7 @@ export const PATHS = {
     INVITE: "invite",
     MESSAGES: "messages",
     PROFILE: "profile",
-    SETTINGS: "settings"
+    SETTINGS: "settings",
   },
 
   // Restaurant dashboard
@@ -22,7 +22,7 @@ export const PATHS = {
     PAYMENT: "payment",
     MESSAGES: "messages",
     PROFILE: "Profile",
-    SETTINGS: "settings"
+    SETTINGS: "settings",
   },
 
   // Admin dashboard
@@ -44,17 +44,19 @@ export const PATHS = {
 export const ROUTES = {
   // Public
   HOME: "/",
-  HOW_IT_WORKS: "how-it-works",
-  FOR_WOMEN: "for-women",
-  FOR_RESTAURANT: "for-restaurant",
-  SUCCESS_STORIES: "success-stories",
+  HOW_IT_WORKS: "/how-it-works",
+  FOR_WOMEN: "/for-women",
+  FOR_RESTAURANT: "/for-restaurant",
+  SUCCESS_STORIES: "/success-stories",
 
-  // Can only be access if not logged in
+  // Can only be access if not logged in (Guest Route)
   LOGIN: "/login",
-  REGISTER_SELECT: "/register",
-  DINER_REGISTER: "diner/register",
-  RESTAURANT_REGISTER: "restaurant/register",
-  FORGET_PASSWORD: "forget-password",
+  // REGISTER_SELECT: "/register",
+  REGISTER: "/register",
+  // DINER_REGISTER: "/diner/register",
+  // RESTAURANT_REGISTER: "/restaurant/register",
+  FORGET_PASSWORD: "/forget-password",
+  CONFIRM_EMAIL: "/confirm-email",
 
   // Error
   UNAUTHORIZED: "/unauthorized",
@@ -96,7 +98,7 @@ export const ROUTES = {
 } as const;
 
 export const EXTERNAL_LINKS = {
-  SUPPORT_EMAIL: "support@dineza.com",
+  SUPPORT_EMAIL: "ibrahim.techresources@gmail.com",
   SUPPORT_PHONE: "(234) 706-893-6114",
   HELP: "/help",
   TERMS_OF_SERVICE: "/terms-of-service",

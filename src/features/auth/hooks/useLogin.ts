@@ -3,7 +3,7 @@ import type { LoginPayload } from "../types/auth.types";
 import { toast } from "sonner";
 import { useAuthStore } from "../store/useAuthStore";
 
-import { supabase } from "@/lib/supabse";
+import { supabase } from "@/lib/supabase";
 
 import { fetchAndMergeProfile } from "../utils/fetchAndMergeProfile";
 import { ROUTES } from "@/shared/types/constants";
