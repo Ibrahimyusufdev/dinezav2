@@ -11,7 +11,7 @@ export const RoleGuard = ({ allowedRoles }: RoleGuardPropos) => {
   const user = useCurrentUser();
   
   if (!user) {
-    return <Navigate to={ROUTES.LOGIN} />;
+    return <Navigate to={ROUTES.LOGIN} replace />;
   }
 
   // Check if a user role is the in the allowed list

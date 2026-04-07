@@ -1,84 +1,71 @@
 import { useEffect } from "react";
-import { useAuthStore } from "../store/useAuthStore";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
+import { useAuthStore } from "../store/useAuthStore";
 import { fetchAndMergeProfile } from "../utils/fetchAndMergeProfile";
+import { ROUTES } from "@/shared/types/constants";
+import { getDashboardByRole } from "@/app/index";
 
 export const useInitAuth = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const { setUser, clearAuth, setAuth } = useAuthStore.getState();
+    const { setUser, clearAuth, setAuthReady } = useAuthStore.getState();
 
-    // Check if user have an active session on app load
-    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        try {
+          if (event === "SIGNED_OUT") {
+            clearAuth();
+            navigate(ROUTES.LOGIN);
+            return;
+          }
 
-    const { data: { subscription }} = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event === "SIGNED_OUT") {
-        clearAuth();
-        return;
-      }
+          if (event === "INITIAL_SESSION" || event === "SIGNED_IN") {
+            if (!session?.user) {
+              clearAuth();
+              return;
+            }
 
-      // INITIAL_SESSION fires on mount, covers session restore
-      // SIGNED_IN fires on login, email verification, OAuth
-      if (event === "INITIAL_SESSION" || event === "SIGNED_IN") {
-        if (!session?.user) {
+            const fullUser = await fetchAndMergeProfile(session.user.id);
+
+            if (!fullUser) {
+              // Profile doesn't exist at all — something went wrong
+              clearAuth();
+              navigate(ROUTES.LOGIN);
+              return;
+            }
+
+            setUser(fullUser);
+
+            if (!fullUser.isOnboarded) {
+              // Verified but hasn't filled in their details yet
+              navigate(ROUTES.REGISTER_SELECT);
+            } else if (event === "SIGNED_IN") {
+              // Fresh login — send to their role dashboard
+              navigate(getDashboardByRole[fullUser.role]);
+            }
+            // INITIAL_SESSION + isOnboarded → page refresh, stay put
+          }
+
+          if (event === "USER_UPDATED" && session?.user) {
+            const fullUser = await fetchAndMergeProfile(session.user.id);
+            if (fullUser) setUser(fullUser);
+          }
+
+          // TOKEN_REFRESHED — do nothing
+
+        } catch (error) {
+          console.error("useInitAuth error:", error);
           clearAuth();
-          return;
-        }
-
-        setAuth();
-
-        const fullUser = await fetchAndMergeProfile(session.user.id);
-        if (fullUser) {
-          setUser(fullUser);
-        } else {
-          clearAuth();
+          navigate(ROUTES.LOGIN);
+        } finally {
+          // Always called — unblocks the UI no matter what
+          setAuthReady();
         }
       }
-
-      // USER_UPDATED
-      if (event === "USER_UPDATED" && session?.user) {
-        const fullUser = await fetchAndMergeProfile(session.user.id);
-        if (fullUser) setUser(fullUser);
-      }
-    });
+    );
 
     return () => subscription.unsubscribe();
   }, []);
 };
-
-// useEffect(() => {
-//   // Restore session on mount
-//   const init = async () => {
-//     try {
-//       const { data: { session }, error} = await supabase.auth.getSession();
-//       if (error || !session?.user) {
-//         clearAuth();
-//         return;
-//       }
-
-//       const fullUser = await fetchAndMergeProfile(session.user.id);
-
-//       if (fullUser) {
-//         setUser(fullUser);
-//       } else {
-//         clearAuth();
-//       }
-//     } catch (error) {
-//       clearAuth();
-//     }
-//   };
-
-//   init();
-
-//   // Listen to Supabase auth state changes
-//   const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
-//     if (!session?.user) {
-//       clearAuth();
-//       return;
-//     }
-//     const fullUser = await fetchAndMergeProfile(session.user.id);
-//     if (fullUser) {
-//       setUser(fullUser);
-//     } else clearAuth();
-//   });
-//   return () => listener.subscription.unsubscribe();
-// }, []);

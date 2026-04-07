@@ -7,12 +7,11 @@ import { logo } from "@/assets";
 import { ROUTES } from "@/shared/types/constants";
 // import { useCurrentUser } from "@/features/auth";
 
-import { useAuthStore } from "@/features/auth";
+
 import { useCurrentUser } from "@/features/auth";
 
 // Wire up dashboard by role
-import { getDashboardByrole } from "../helpers/getDashboardByRole";
-
+import { getDashboardByRole } from "../helpers/getDashboardByRole";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,9 +20,7 @@ const Navbar = () => {
   const closeMenu = () => setIsMenuOpen(false);
 
   // get user and isAuthenticated from auth store
-  // const user = useCurrentUser();
   const user = useCurrentUser();
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const navigate = useNavigate();
 
@@ -31,7 +28,7 @@ const Navbar = () => {
   const getCorrectDashboard = (): string => {
     if (!user) return ROUTES.LOGIN;
 
-    return getDashboardByrole[user.role] ?? ROUTES.HOME;
+    return getDashboardByRole[user?.role] ?? ROUTES.HOME;
   };
 
   //  Navigate user to their dashboard based on role
@@ -51,7 +48,7 @@ const Navbar = () => {
         {/* Hamburger — visible on mobile, hidden on desktop */}
 
         <Button
-          className="border-primary cursor-pointer  border lg:hidden"
+          className="border-primary cursor-pointer border lg:hidden"
           variant="outline"
           onClick={toggleMenu}
           aria-label="Toggle menu"
@@ -76,8 +73,10 @@ const Navbar = () => {
 
         {/* Auth buttons — hidden on mobile, visible on desktop */}
         {/* TODO: Show "Go to Dashboard" if user is logged in, else show Sign Up + Login */}
-        {isAuthenticated && user ? (
-          <Button onClick={handleGoToDashboard} className="hidden cursor-pointer lg:flex">My Dashboard</Button>
+        {user ? (
+          <Button onClick={handleGoToDashboard} className="hidden cursor-pointer lg:flex">
+            My Dashboard
+          </Button>
         ) : (
           <div className="hidden items-center gap-3 lg:flex">
             <Link to={ROUTES.REGISTER_SELECT}>
@@ -108,13 +107,17 @@ const Navbar = () => {
           </ul>
 
           {/* Auth actions buttons visible on mobile */}
-          {/* Write a logic to display go to dashboard button if a user is loggedin */}
-          {isAuthenticated && user ? (
-            <Button onClick={handleGoToDashboard} className="mx-auto w-full max-w-xs">My Dashboard</Button>
+
+          {user ? (
+            <Button onClick={handleGoToDashboard} className="mx-auto w-full max-w-xs">
+              My Dashboard
+            </Button>
           ) : (
             <div className="mt-4 flex flex-col items-center gap-2">
-              <Link to={ROUTES.REGISTER_SELECT} onClick={closeMenu} className="w-full max-w-xs ">
-                <Button variant="outline" className="w-full cursor-pointer border border-primary">Sign Up</Button>
+              <Link to={ROUTES.REGISTER_SELECT} onClick={closeMenu} className="w-full max-w-xs">
+                <Button variant="outline" className="border-primary w-full cursor-pointer border">
+                  Sign Up
+                </Button>
               </Link>
               <Link to={ROUTES.LOGIN} onClick={closeMenu} className="w-full max-w-xs">
                 <Button className="w-full cursor-pointer">Login</Button>
@@ -128,4 +131,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

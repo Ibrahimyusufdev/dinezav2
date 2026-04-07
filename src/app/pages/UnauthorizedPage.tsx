@@ -6,7 +6,7 @@ import { ShieldAlert, Home, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Wire up dashboard by role
-import { getDashboardByrole } from "../helpers/getDashboardByRole";
+import { getDashboardByRole } from "../helpers/getDashboardByRole";
 import { useCurrentUser, useLogout } from "@/features/auth";
 
 const UnauthorizedPage = () => {
@@ -20,7 +20,7 @@ const UnauthorizedPage = () => {
   const getCorrectDashboard = (): string => {
     if (!user) return ROUTES.LOGIN;
 
-    return getDashboardByrole[user.role] ?? ROUTES.HOME;
+    return getDashboardByRole[user.role] ?? ROUTES.HOME;
   };
 
   // Handle going to the dashboard

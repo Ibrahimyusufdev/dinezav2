@@ -7,14 +7,13 @@ import { ROUTES } from "@/shared/types/constants";
 
 export const useRegister = () => {
   // Grabbing actions from auth store
-  const setAuth = useAuthStore((state) => state.setAuth);
-  const setLoading = useAuthStore((state) => state.setLoading);
-  const setError = useAuthStore((state) => state.setError);
+
   const navigate = useNavigate();
 
   const register = async (payload: LoginAndRegisterPayload) => {
-    setError(null);
+    const { setLoading, setError, clearError } = useAuthStore.getState();
     setLoading(true);
+    clearError();
 
     const toastId = toast.loading("Creating your account...");
 
@@ -26,14 +25,33 @@ export const useRegister = () => {
       });
 
       if (error) {
-        throw new Error(error?.message ?? "an error occured");
+        throw new Error(error?.message);
       }
 
-      toast.success("Please check your email to continue signup", { id: toastId });
+      if (data.user?.identities?.length === 0) {
+        throw new Error("EMAIL_EXISTS");
+      }
+
+      toast.success("Check your email to continue signing up", { id: toastId });
       navigate(ROUTES.CONFIRM_EMAIL);
     } catch (error) {
-      const message = error instanceof Error ? error.message : "An unexpected error occured";
-      setError(message);
+      const message = error instanceof Error ? error.message : "An unexpected error occurred";
+      if (message === "EMAIL_EXISTS") {
+        setError({
+          message: "This email is already in use.",
+          code: "EMAIL_EXISTS",
+        });
+        toast.error("This email is already in use, want to sign in?", {
+          id: toastId,
+          action: {
+            label: "Sign In",
+            onClick: () => navigate(ROUTES.LOGIN),
+          },
+        });
+
+        return;
+      }
+      setError({ message: message });
       toast.error(message, { id: toastId });
     } finally {
       setLoading(false);

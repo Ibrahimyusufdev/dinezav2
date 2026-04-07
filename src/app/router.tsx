@@ -21,10 +21,12 @@ import GlobalNoPage from "./pages/GlobalNoPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import { ROUTES } from "@/shared/types/constants";
 import GuestRoute from "./routes/GuestRoute";
+import { RegisterSelect } from "@/features/auth";
+import RootLayout from "./layouts/RootLayout";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <>
+    <Route element={<RootLayout />}>
       {/* Public layout routing */}
       <Route path="/" element={<PublicLayout />}>
         {/* Public route here */}
@@ -34,8 +36,8 @@ export const router = createBrowserRouter(
       <Route element={<GuestRoute />}>
         <Route element={<AuthLayout />}>
           <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-          {/* <Route path={ROUTES.REGISTER_SELECT} element={<RegisterSelect />} /> */}
           <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+          <Route path={ROUTES.REGISTER_SELECT} element={<RegisterSelect />} />
           <Route path={ROUTES.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
         </Route>
       </Route>
@@ -55,7 +57,7 @@ export const router = createBrowserRouter(
       {/* Global No page and Unauthorized page  */}
       <Route path="*" element={<GlobalNoPage />} />
       <Route path="/unauthorized" element={<UnauthorizedPage />} />
-    </>
+    </Route>
   )
 );
 // export const Router = () => {

@@ -8,14 +8,14 @@ import {
   FieldLabel,
   FieldError,
   FieldDescription,
-  FieldGroup,
   FieldSeparator,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, X } from "lucide-react";
+import { toast } from "sonner";
 
 import type { LoginFormData } from "../validations/auth-schemas";
 import { loginSchema } from "../validations/auth-schemas";
@@ -23,7 +23,8 @@ import { useLogin } from "../hooks/useLogin";
 import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
 import { EXTERNAL_LINKS, ROUTES } from "@/shared/types/constants";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { clearInputFieldError } from "@/shared/helpers/clearInputFieldError";
 
 export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) => {
   // Wiring up the form for using useForm from rhf
@@ -43,14 +44,21 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
   // Grab error and isLoading from authstore
   const error = useAuthStore((state) => state.error);
   const isLoading = useAuthStore((state) => state.isLoading);
+  const clearError = useAuthStore((state) => state.clearError);
+
+  // Show/Hide password
+  const [showPassword, setShowPassword] = useState(false);
 
   // Logic to perform once the form is submitted successfully
   const handleLogin = async (formData: LoginFormData) => {
     await login({ email: formData.email, password: formData.password });
   };
 
-  // Show/Hide password
-  const [showPassword, setShowPassword] = useState(false);
+  // Clear API error when user starts typing
+  useEffect(() => {
+    clearError();
+    toast.dismiss();
+  }, []);
 
   // Disabling form and button
   const isFormDisabled = form.formState.isSubmitting || isLoading;
@@ -63,10 +71,25 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
           {/* Form side*/}
           <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6 p-4 md:p-8">
             {/* API error */}
+       
             {error && (
-              <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-500 dark:bg-red-950/30">
-                {error}
-              </p>
+              <div
+                role="alert"
+                aria-live="assertive"
+                className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800 animate-in fade-in slide-in-from-top-2 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-400"
+              >
+                <div className="flex-1">
+                  <p className="font-medium">{error.message}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={clearError}
+                  className="text-red-600 hover:text-red-800 transition-colors dark:text-red-400 dark:hover:text-red-300"
+                  aria-label="Dismiss error"
+                >
+                  <X size={18} />
+                </button>
+              </div>
             )}
 
             {/* Headline */}
@@ -90,6 +113,11 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
                     placeholder="you@example.com"
                     autoComplete="email"
                     disabled={isFormDisabled}
+                    onChange={clearInputFieldError({
+                      fieldOnChange: field.onChange,
+                      error,
+                      clearError,
+                    })}
                   />
 
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -124,6 +152,11 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
                       autoComplete="current-password"
                       disabled={isFormDisabled}
                       className="pr-10"
+                      onChange={clearInputFieldError({
+                        fieldOnChange: field.onChange,
+                        error,
+                        clearError,
+                      })}
                     />
                     <button
                       type="button"
@@ -164,7 +197,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
                 variant="outline"
                 type="button"
                 className="flex w-full items-center justify-center gap-2"
-                disabled={isLoading}
+                disabled={isFormDisabled}
               >
                 <GoogleIcon />
                 <span>Google</span>

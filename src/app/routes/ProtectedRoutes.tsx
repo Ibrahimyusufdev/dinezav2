@@ -1,14 +1,14 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { Spinner } from "@/components/ui/spinner";
 
-import { useAuthStore } from "@/features/auth";
+import { useAuthStore, useCurrentUser } from "@/features/auth";
 import ContentWrapper from "@/shared/components/ContentWrapper";
 import { ROUTES } from "@/shared/types/constants";
 
 const ProtectedRoutes = () => {
-  // grab isAuthentication and isLoading from store
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  // Grab isLoading and user from store
   const isLoading = useAuthStore((state) => state.isLoading);
+  const user = useCurrentUser();
 
   // First checking is user is logged in
   if (isLoading) {
@@ -26,7 +26,7 @@ const ProtectedRoutes = () => {
     And also save where they were trying to go (to redirect back after login)
   */
 
-  if (!isAuthenticated) {
+  if (!user) {
     return <Navigate to={ROUTES.LOGIN} state={{ from: location.pathname }} replace />;
   }
 

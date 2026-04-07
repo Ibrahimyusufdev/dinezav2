@@ -1,13 +1,8 @@
-import { useAuthStore } from "@/features/auth";
 import AuthHome from "@/shared/components/AuthHome";
-import { Outlet, Navigate } from "react-router-dom";
-import { getDashboardByrole } from "../helpers/getDashboardByRole";
-import { ROUTES } from "@/shared/types/constants";
-import { useCurrentUser } from "@/features/auth";
+import { Outlet } from "react-router-dom";
 import Footer from "../navigations/Footer";
 
 const AuthLayout = () => {
-
   return (
     <main>
       <section className="bg-background relative min-h-screen md:p-6 lg:p-16">

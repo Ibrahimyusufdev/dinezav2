@@ -1,109 +1,90 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import { persist } from "zustand/middleware";
 import type { AuthUser } from "../types/auth.types";
 
+// AuthError
+type AuthError = {
+  message: string;
+  code?: "EMAIL_EXISTS" | "INVALID_CREDENTIALS" | "UNKNOWN";
+};
 // wiring up AuthState Shape
 interface AuthState {
   // State of data
   user: AuthUser | null; // Current logged in user or null
-  error: string | null; // error from Api
-  isAuthenticated: boolean; // Quick boolean check control to tell that a user is authenticated or not
+  error: AuthError | null; // error from Api
   isLoading: boolean; // Loading state for Auth check
-  // isCheckingAuth: boolean; // Boolean check if user is authenticated or not, use it to check on app//component mounted
+  isAuthReady: boolean; // For initial auth check on mount
 
   //Actions
-
-  setAuth: () => void; // Set Auth - called after successful login/register, and also mark as authenticated
-  setUser: (user: AuthUser) => void // Set the user to database after succesfully entering data to be sent to the database, and setUser and mark and isAuthenticated
-  setError: (error: string | null) => void; // Set Error
+  setUser: (user: AuthUser) => void; // Set the user to database after succesfully entering data to be sent to the database, and mark isAuthenticated
+  updateAuthUser: (userData: Partial<Omit<AuthUser, "role">>) => void; // Partially update user data
+  setError: (error: AuthError | null) => void; // Set Error
   setLoading: (loading: boolean) => void; // Control loading state, and use in auth initialization and Api calls
-  
-  // updateAuthUser: (userData: Partial<AuthUser>) => void; // Partially update user data
-
-  // checkAuth: () => void;   // Check Auth
-
+  setAuthReady: () => void;
   clearAuth: () => void; // Clears all auth data and reset to initial state
   clearError: () => void;
 }
 
-/**
-Auth Store - Global Authentication state, persisted to localstorage, so users stay logged in
- */
+// Auth Store - Global Authentication state using supabase
 
 export const useAuthStore = create<AuthState>()(
-  immer(
-    persist(
-      (set) => ({
-        // Setting initial state
-        user: null,
-        error: null,
-        isAuthenticated: false,
-        isLoading: false,
+  immer((set) => ({
+    // Setting initial state
+    user: null,
+    error: null,
+    isLoading: false,
+    isAuthReady: false,
 
-        // Called after successful login or register
-        setAuth: () => {
-          set((state) => {
-            state.isAuthenticated = true;
-            state.isLoading = false;
-            state.error = null;
-          });
-        },
-        // Called after entering data to be sent to the database (After filling diner or restaurant form)
-        setUser: (user) => {
-          set((state) => {
-            state.user = user;
-            state.isAuthenticated = true;
-            state.isLoading = false;
-            state.error = null;
-          })
-        },
+    // Called after entering data to be sent to the database (After filling diner or restaurant form)
+    setUser: (user) => {
+      set((state) => {
+        state.user = user;
+        state.isLoading = false;
+        state.error = null;
+      });
+    },
 
-        setError: (error) => {
-          set((state) => {
-            state.error = error;
-            state.isLoading = false;
-          });
-        },
-
-        // Control loading state, and use in auth initialization and Api calls
-        setLoading: (loading) => {
-          set((state) => {
-            state.isLoading = loading;
-          });
-        },
-
-        // Partially update user data without full re-fetch
-        // updateAuthUser: (userData) => {
-        //   set((state) => {
-        //     if (state.user) {
-        //       state.user = { ...state.user, ...userData };
-        //     }
-        //   });
-        // },
-
-        // Resets everything back to initial state
-        clearAuth: () => {
-          set((state) => {
-            state.user = null;
-            state.isAuthenticated = false;
-            state.isLoading = false;
-            state.error = null;
-          });
-        },
-
-        clearError: () => {
-          set((state) => {
-            state.error = null;
-          })
+    // Partially update user data without full re-fetch
+    updateAuthUser: (userData: Partial<Omit<AuthUser, "role">>) => {
+      set((state) => {
+        if (state.user) {
+          state.user = { ...state.user, ...userData } as AuthUser;
         }
-      }),
-      {
-        name: "dineza-auth",
-        partialize: (state) => ({
-          user: state.user, // only persist user — token lives in memory only
-        }),
-      }
-    )
-  )
+      });
+    },
+
+    setError: (error) => {
+      set((state) => {
+        state.error = error;
+      });
+    },
+
+    // Control loading state, and use in auth initialization and Api calls
+    setLoading: (loading) => {
+      set((state) => {
+        state.isLoading = loading;
+      });
+    },
+
+    // Called once when auth is first resolved, never resets to false
+    setAuthReady: () => {
+      set((state) => {
+        state.isAuthReady = true;
+      });
+    },
+    // Resets everything back to initial state
+    clearAuth: () => {
+      set((state) => {
+        state.user = null;
+        state.isLoading = false;
+        state.error = null;
+      });
+    },
+
+    clearError: () => {
+      set((state) => {
+        state.error = null;
+      });
+    },
+  }))
 );

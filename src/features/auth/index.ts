@@ -6,17 +6,13 @@ export type {
   Restaurant,
   Admin,
   AuthUser,
-  LoginPayload,
-  RegisterDinerPayload,
-  RegisterRestaurantPayload,
-  AuthResponse,
+  LoginAndRegisterPayload
 } from "./types/auth.types";
 
 //  Store
 export { useAuthStore } from "./store/useAuthStore";
 
 // Hooks
-// export {useAuth, useCurrentUser, useAuthActions, useRequiredUser} from "./hooks/use-auth-store";
 export {useLogin} from "./hooks/useLogin";
 export {useLogout} from "./hooks/useLogout";
 export {useRegister} from "./hooks/useRegister";
@@ -28,3 +24,4 @@ export {useInitAuth} from "./hooks/useInitAuth";
 export {LoginPage} from "./pages/LoginPage.tsx";
 export {RegisterPage} from "./pages/RegisterPage.tsx";
 export {ConfirmEmailPage} from "./pages/ConfirmEmailPage.tsx"
+export {RegisterSelect} from "./pages/RegisterSelect.tsx"

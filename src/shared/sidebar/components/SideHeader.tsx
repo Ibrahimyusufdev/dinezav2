@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { logo } from "@/assets";
 
 // Wire up dashboard by role
-import { getDashboardByrole } from "@/app/";
+import { getDashboardByRole } from "@/app/";
 import { useRequiredUser } from "@/features/auth";
 
 const SideHeader = () => {
@@ -16,7 +16,7 @@ const SideHeader = () => {
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton size="lg" asChild>
-          <Link to={getDashboardByrole[user.role]}>
+          <Link to={getDashboardByRole[user.role]}>
             <div className="bg-sidebar-secondary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
               <img src={logo} alt="Dineza logo" className="h-8 w-8" />
             </div>

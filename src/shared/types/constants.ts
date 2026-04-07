@@ -51,10 +51,8 @@ export const ROUTES = {
 
   // Can only be access if not logged in (Guest Route)
   LOGIN: "/login",
-  // REGISTER_SELECT: "/register",
   REGISTER: "/register",
-  // DINER_REGISTER: "/diner/register",
-  // RESTAURANT_REGISTER: "/restaurant/register",
+  REGISTER_SELECT: "/register-select",
   FORGET_PASSWORD: "/forget-password",
   CONFIRM_EMAIL: "/confirm-email",
 

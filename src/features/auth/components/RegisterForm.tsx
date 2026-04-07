@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { GoogleIcon } from "@/shared/components/BrandIcons";
 import { cn } from "@/lib/utils";
 import { passwordRules, PasswordChecklist } from "./PasswordChecklist";
-import { logo } from "@/assets";
 
 import {
   Field,
@@ -16,16 +15,18 @@ import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, X } from "lucide-react";
 
 import type { RegisterFormData } from "../validations/auth-schemas";
 import { registerSchema } from "../validations/auth-schemas";
 import { useLogin } from "../hooks/useLogin";
 import { useAuthStore } from "../store/useAuthStore";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { EXTERNAL_LINKS, ROUTES } from "@/shared/types/constants";
 import { useEffect, useState } from "react";
 import { useRegister } from "../hooks/useRegister";
+import { toast } from "sonner";
+import { clearInputFieldError } from "@/shared/helpers/clearInputFieldError";
 
 export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div">) => {
   // Wiring up the form for using useForm from rhf
@@ -47,22 +48,18 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
   // Grab error and isLoading from authstore
   const error = useAuthStore((state) => state.error);
   const isLoading = useAuthStore((state) => state.isLoading);
+  const clearError = useAuthStore((state) => state.clearError);
 
   // Show/Hide password
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Clear API error when user starts typing
+  // Clear API error and when user starts typing
   useEffect(() => {
-    const unsubscribe = form.subscribe({
-      formState: { isDirty: true },
-      callback: () => {
-        if (useAuthStore.getState().error) {
-          useAuthStore.getState().clearError();
-        }
-      },
-    });
-    return () => unsubscribe();
+    if (!error) return;
+    clearError();
+
+    toast.dismiss();
   }, []);
 
   // Disabling form and button
@@ -75,8 +72,6 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
       email: formData.email,
       password: formData.password,
     });
-
-    
   };
 
   return (
@@ -85,11 +80,30 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
         <CardContent className="grid p-0 md:grid-cols-2">
           {/* Form side*/}
           <form onSubmit={form.handleSubmit(handleRegister)} className="space-y-6 p-4 md:p-8">
-            {/* API error */}
+            {/* API/Server error */}
             {error && (
-              <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-500 dark:bg-red-950/30">
-                {error}
-              </p>
+              <div
+                role="alert"
+                aria-live="assertive"
+                className="animate-in fade-in slide-in-from-top-2 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-400"
+              >
+                <div className="flex items-center gap-2">
+                  <p className="font-medium">{error.message}</p>
+                  {error.code === "EMAIL_EXISTS" && (
+                    <Link to={ROUTES.LOGIN} className="underline">
+                      Sign in instead?
+                    </Link>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={clearError}
+                  className="text-red-600 transition-colors hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
+                  aria-label="Dismiss error"
+                >
+                  <X size={18} />
+                </button>
+              </div>
             )}
 
             {/* Headline */}
@@ -113,6 +127,11 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
                     placeholder="you@example.com"
                     autoComplete="email"
                     disabled={isFormDisabled}
+                    onChange={clearInputFieldError({
+                      fieldOnChange: field.onChange,
+                      error,
+                      clearError,
+                    })}
                   />
 
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -139,6 +158,11 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
                       autoComplete="new-password"
                       disabled={isFormDisabled}
                       className="pr-10"
+                      onChange={clearInputFieldError({
+                        fieldOnChange: field.onChange,
+                        error,
+                        clearError,
+                      })}
                     />
                     <button
                       type="button"
@@ -177,6 +201,11 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
                       autoComplete="new-password"
                       disabled={isFormDisabled}
                       className="pr-10"
+                      onChange={clearInputFieldError({
+                        fieldOnChange: field.onChange,
+                        error,
+                        clearError,
+                      })}
                     />
                     <button
                       type="button"
@@ -217,7 +246,7 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
                 variant="outline"
                 type="button"
                 className="flex w-full items-center justify-center gap-2"
-                disabled={isLoading}
+                disabled={isFormDisabled}
               >
                 <GoogleIcon />
                 <span>Google</span>

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { phoneSchema } from "@/shared/helpers/formatPhoneNumber";
+
 
 // Login Schema
 export const loginSchema = z.object({
@@ -24,6 +24,8 @@ export const registerSchema = z
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
+
+ 
   });
 
 // Diner User data schema

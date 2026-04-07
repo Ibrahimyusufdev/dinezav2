@@ -1,22 +1,21 @@
 import { useNavigate } from "react-router-dom";
-import { useAuthStore, useCurrentUser } from "@/features/auth";
+import { useCurrentUser } from "@/features/auth";
 import { ROUTES } from "@/shared/types/constants";
 
 import { FileQuestion, Home } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-import { getDashboardByrole } from "../helpers/getDashboardByRole";
+import { getDashboardByRole } from "../helpers/getDashboardByRole";
 
 const GlobalNoPage = () => {
   const navigate = useNavigate();
   const user = useCurrentUser();
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   // Handle going to dashboard or home depending if they're authenticated or not
   const handleGoHome = () => {
-    if (isAuthenticated && user) {
-      navigate(getDashboardByrole[user.role]);
+    if (user) {
+      navigate(getDashboardByRole[user.role]);
     } else {
       navigate(ROUTES.HOME);
     }
@@ -50,7 +49,7 @@ const GlobalNoPage = () => {
           {/* Primary Action */}
           <Button onClick={handleGoHome} className="w-full cursor-pointer" size="lg">
             <Home className="mr-2 h-4 w-4" />
-            {isAuthenticated ? "Go to Dashboard" : "Go to Home"}
+            {user ? "Go to Dashboard" : "Go to Home"}
           </Button>
 
           {/* Secondary Action */}
@@ -72,7 +71,7 @@ const GlobalNoPage = () => {
               Home
             </Button>
 
-            {!isAuthenticated && (
+            {!user && (
               <>
                 <Button
                   variant="link"

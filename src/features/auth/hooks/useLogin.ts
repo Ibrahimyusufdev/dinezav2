@@ -1,22 +1,18 @@
-import type { LoginPayload } from "../types/auth.types";
+import type { LoginAndRegisterPayload } from "../types/auth.types";
 
 import { toast } from "sonner";
 import { useAuthStore } from "../store/useAuthStore";
 
 import { supabase } from "@/lib/supabase";
-
-import { fetchAndMergeProfile } from "../utils/fetchAndMergeProfile";
 import { ROUTES } from "@/shared/types/constants";
 
 export const useLogin = () => {
   // Grabbing auth actions from store
-  const setAuth = useAuthStore((state) => state.setAuth);
-  const setLoading = useAuthStore((state) => state.setLoading);
-  const setError = useAuthStore((state) => state.setError);
 
-  const login = async (payload: LoginPayload) => {
+  const login = async (payload: LoginAndRegisterPayload) => {
+    const { setLoading, setError, clearError } = useAuthStore.getState();
     setLoading(true);
-    setError(null);
+    clearError();
 
     const toastId = toast.loading("Logging in...");
 
@@ -27,20 +23,17 @@ export const useLogin = () => {
         password: payload.password,
       });
 
-      if (error || !data.session?.user) {
-        throw new Error(error?.message ?? "Login failed");
+      if (error) {
+        throw new Error(error.message);
       }
 
-      const fullUser = await fetchAndMergeProfile(data.session.user.id);
-      if (!fullUser) {
-        throw new Error("User profile not found");
-      }
-
-      setAuth(fullUser);
-      toast.success(`Welcome back, ${fullUser.firstName}!`, { id: toastId });
+      toast.success("Welcome Back", {
+        description: "Redirecting to your dashboard...",
+        id: toastId,
+      });
     } catch (error) {
       const message = error instanceof Error ? error.message : "An unexpected error occured";
-      setError(message);
+      setError({ message: message });
       toast.error(message, { id: toastId });
     } finally {
       setLoading(false);
@@ -49,6 +42,7 @@ export const useLogin = () => {
 
   // Google login
   const handleGoogleLogin = async () => {
+    const { setLoading, setError } = useAuthStore.getState();
     setLoading(true);
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
@@ -58,7 +52,7 @@ export const useLogin = () => {
     });
 
     if (error) {
-      setError(error.message);
+      setError({ message: error.message });
       toast.error(error.message);
       setLoading(false);
     }

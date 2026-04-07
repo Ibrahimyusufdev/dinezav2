@@ -8,9 +8,10 @@ export interface BaseUser {
   firstName: string;
   lastName: string;
   role: UserRole;
+  isOnboarded: boolean;
   profilePicture?: string;
-  phoneNumber?: string;
-  avatarUrl?: string;
+  phoneNumber?: string | null;
+  avatarUrl?: string | null;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -42,52 +43,22 @@ export interface Restaurant extends BaseUser {
 // Admin User - extending from Base User with specific field added
 export interface Admin extends BaseUser {
   role: "admin";
-  // Access control
   isSuperAdmin: boolean;
   adminLevel?: "super" | "moderator" | "support";
-  permissions?: string[]; // e.g. ["manage_users", "manage_restaurants", "view_analytics"]
-}
-
-// Unassigned User
-export interface UnassignedUser extends Omit<BaseUser, "role"> {
-  role: null;
+  permissions?: string[];
 }
 
 // Making user to be either Diner, Restaurant, or Admin using discriminated Union in TS for AuthPurpose
-export type AuthUser = Diner | Restaurant | Admin | UnassignedUser;
-
-// Api PayLoads
-export interface LoginPayload {
-  email: string;
-  password: string;
-}
-
-export interface RegisterDinerPayload {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  
-}
+export type AuthUser = Diner | Restaurant | Admin;
 
 // Login and Register Payload for supabase auth pattern
 export interface LoginAndRegisterPayload {
   email: string;
-  password: string
-}
-
-export interface RegisterRestaurantPayload {
-  email: string;
   password: string;
-  firstName: string;
-  lastName: string;
-  restaurantName: string;
-  businessEmail: string;
- 
 }
 
-// AuthResponse Shape coming from Api, what the backend returns after successful login or register
-export interface AuthResponse {
-  accessToken: string;
-  user: AuthUser;
-}
+// // AuthResponse Shape coming from Api, what the backend returns after successful login or register
+// export interface AuthResponse {
+//   accessToken: string;
+//   user: AuthUser;
+// }

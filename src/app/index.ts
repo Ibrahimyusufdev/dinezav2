@@ -1,4 +1,4 @@
-export { getDashboardByrole } from "./helpers/getDashboardByRole.ts";
+export { getDashboardByRole } from "./helpers/getDashboardByRole.ts";
 
 
 
