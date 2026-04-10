@@ -1,24 +1,23 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
-import { AppLoader } from "@/shared/components/AppLoader";
+import { useQueryClient } from "@tanstack/react-query";
 
-const AuthCallbackPage = () => {
-  const navigate = useNavigate();
+export const useAuthListener = () => {
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") {
+        queryClient.setQueryData(["auth-user"], null);
+      }
+
       if (event === "SIGNED_IN" || event === "USER_UPDATED") {
-        navigate("/", { replace: true });
+        queryClient.invalidateQueries({ queryKey: ["auth-user"] });
       }
     });
 
     return () => subscription.unsubscribe();
   }, []);
-
-  return <AppLoader />;
 };
-
-export default AuthCallbackPage;

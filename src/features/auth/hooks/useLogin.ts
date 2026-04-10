@@ -1,16 +1,23 @@
-import type { LoginAndRegisterPayload } from "../types/auth.types";
+import type { AuthUser, LoginAndRegisterPayload } from "../types/auth.types";
 
 import { toast } from "sonner";
 import { useAuthStore } from "../store/useAuthStore";
 
 import { supabase } from "@/lib/supabase";
 import { ROUTES } from "@/shared/types/constants";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { fetchUser } from "../service/fetchUser";
+import { getDashboardByRole } from "@/app/index";
 
 export const useLogin = () => {
-  // Grabbing auth actions from store
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const login = async (payload: LoginAndRegisterPayload) => {
+    // Grabbing auth actions from store
     const { setLoading, setError, clearError } = useAuthStore.getState();
+
     setLoading(true);
     clearError();
 
@@ -18,7 +25,7 @@ export const useLogin = () => {
 
     try {
       // Hit the supabase signin with your payload
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email: payload.email,
         password: payload.password,
       });
@@ -27,10 +34,28 @@ export const useLogin = () => {
         throw new Error(error.message);
       }
 
+      // Refetch user
+      const authUser = await queryClient.fetchQuery<AuthUser | null>({
+        queryKey: ["auth-user"],
+        queryFn: fetchUser,
+      });
+
+      if (!authUser) {
+        navigate(ROUTES.LOGIN);
+        return;
+      }
+
+      if (!authUser || !authUser.role) {
+        navigate(ROUTES.REGISTER_SELECT);
+        return;
+      }
+
       toast.success("Welcome Back", {
         description: "Redirecting to your dashboard...",
         id: toastId,
       });
+
+      navigate(getDashboardByRole[authUser.role]);
     } catch (error) {
       const message = error instanceof Error ? error.message : "An unexpected error occured";
       setError({ message: message });
@@ -47,7 +72,7 @@ export const useLogin = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: ROUTES.HOME,
+        redirectTo: `${window.location.origin}/${ROUTES.AUTH_CALLBACK}`,
       },
     });
 

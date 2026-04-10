@@ -1,7 +1,5 @@
-
-
 export const SpecialOffersPage = () => {
-  return (
-    <div>SpecialOffersPage</div>
-  )
-}
+  return <div>SpecialOffersPage</div>;
+};
+
+export default SpecialOffersPage;

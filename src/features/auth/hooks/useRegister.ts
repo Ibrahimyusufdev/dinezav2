@@ -22,6 +22,10 @@ export const useRegister = () => {
       const { data, error } = await supabase.auth.signUp({
         email: payload.email,
         password: payload.password,
+
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
       });
 
       if (error) {

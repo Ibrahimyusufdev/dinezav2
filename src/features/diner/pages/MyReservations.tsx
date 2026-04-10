@@ -1,8 +1,5 @@
-
-
 export const MyReservations = () => {
-  return (
-    <div>MyReservations</div>
-  )
-}
+  return <div>MyReservations</div>;
+};
 
+export default MyReservations;

@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCurrentUser } from "@/features/auth";
-import { ROUTES } from "@/shared/types/constants";
+import { EXTERNAL_LINKS, ROUTES } from "@/shared/types/constants";
 
 import { FileQuestion, Home } from "lucide-react";
 
@@ -10,12 +10,14 @@ import { getDashboardByRole } from "../helpers/getDashboardByRole";
 
 const GlobalNoPage = () => {
   const navigate = useNavigate();
-  const user = useCurrentUser();
+
+  // get authUser from useAuthUser, react query
+  const { authUser } = useCurrentUser();
 
   // Handle going to dashboard or home depending if they're authenticated or not
   const handleGoHome = () => {
-    if (user) {
-      navigate(getDashboardByRole[user.role]);
+    if (authUser && authUser.role) {
+      navigate(getDashboardByRole[authUser.role]);
     } else {
       navigate(ROUTES.HOME);
     }
@@ -49,11 +51,16 @@ const GlobalNoPage = () => {
           {/* Primary Action */}
           <Button onClick={handleGoHome} className="w-full cursor-pointer" size="lg">
             <Home className="mr-2 h-4 w-4" />
-            {user ? "Go to Dashboard" : "Go to Home"}
+            {authUser && authUser.role ? "Go to Dashboard" : "Go to Home"}
           </Button>
 
           {/* Secondary Action */}
-          <Button onClick={handleGoBack} variant="outline" className="w-full cursor-pointer" size="lg">
+          <Button
+            onClick={handleGoBack}
+            variant="outline"
+            className="w-full cursor-pointer"
+            size="lg"
+          >
             Go Back
           </Button>
         </div>
@@ -62,44 +69,28 @@ const GlobalNoPage = () => {
         <div className="mt-8">
           <p className="mb-3 text-sm font-medium text-gray-700">Popular pages:</p>
           <div className="flex flex-wrap justify-center gap-2">
-            <Button
-              variant="link"
-              className="text-blue-500 underline cursor-pointer"
-              size="sm"
-              onClick={() => navigate(ROUTES.HOME)}
-            >
+            <Link to={ROUTES.HOME} className="cursor-pointer text-blue-500 underline">
               Home
-            </Button>
+            </Link>
 
-            {!user && (
+            {!authUser && (
               <>
-                <Button
-                  variant="link"
-                  className="text-blue-500 underline cursor-pointer"
-                  size="sm"
-                  onClick={() => navigate(ROUTES.LOGIN)}
-                >
+                <Link to={ROUTES.LOGIN} className="cursor-pointer text-blue-500 underline">
                   Login
-                </Button>
-                <Button
-                  variant="link"
-                  className="text-blue-500 underline cursor-pointer"
-                  size="sm"
-                  onClick={() => navigate(ROUTES.REGISTER_SELECT)}
-                >
+                </Link>
+                <Link to={ROUTES.REGISTER} className="cursor-pointer text-blue-500 underline">
                   Sign Up
-                </Button>
+                </Link>
               </>
             )}
 
-            <Button
-              variant="link"
-              className="text-blue-500 underline cursor-pointer"
-              size="sm"
-              onClick={() => navigate("/help")}
+            <Link
+              to={EXTERNAL_LINKS.HELP}
+              target="_blank"
+              className="cursor-pointer text-blue-500 underline"
             >
               Help
-            </Button>
+            </Link>
           </div>
         </div>
       </div>

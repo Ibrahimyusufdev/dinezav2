@@ -1,8 +1,5 @@
-
-
 export const MyEarnings = () => {
-  return (
-    <div>MyEarnings</div>
-  )
-}
+  return <div>MyEarnings</div>;
+};
 
+export default MyEarnings;

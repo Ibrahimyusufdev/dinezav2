@@ -2,6 +2,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GoogleIcon } from "@/shared/components/BrandIcons";
 import { cn } from "@/lib/utils";
+import { useShallow } from "zustand/react/shallow";
 import { passwordRules, PasswordChecklist } from "./PasswordChecklist";
 
 import {
@@ -46,19 +47,23 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
   const { handleGoogleLogin } = useLogin();
 
   // Grab error and isLoading from authstore
-  const error = useAuthStore((state) => state.error);
-  const isLoading = useAuthStore((state) => state.isLoading);
-  const clearError = useAuthStore((state) => state.clearError);
+  // Grab error and isLoading from authstore
+  const { error, isLoading, clearError } = useAuthStore(
+    useShallow((state) => ({
+      error: state.error,
+      isLoading: state.isLoading,
+      clearError: state.clearError,
+    }))
+  );
 
   // Show/Hide password
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // Clear API error and when user starts typing
+  // Clear API error from any component once user, if user mount from there
   useEffect(() => {
     if (!error) return;
     clearError();
-
     toast.dismiss();
   }, []);
 
@@ -261,7 +266,7 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
             </FieldDescription>
           </form>
 
-          {/* Images side - hidden on mobile */}
+          {/* Images side, hidden on mobile */}
           <div className="bg-muted relative hidden md:block">
             <img
               src="/images/auth/signup-bg.png"

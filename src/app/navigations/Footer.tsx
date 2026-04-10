@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { quickLinks, socialLinks } from "./footerConfig";
 import { EXTERNAL_LINKS } from "@/shared/types/constants";
+import { SOCIAL_ICONS } from "./footerConfig";
 
 const Footer = () => {
   return (
@@ -22,18 +23,22 @@ const Footer = () => {
         {/* Social Media */}
         <FooterSection title="Follow Us">
           <div className="flex items-center gap-5">
-            {socialLinks.map((social) => (
-              <a
-                href={social.href}
-                target="_blank"
-                key={social.name}
-                rel="noopener noreferrer"
-                aria-label={social.name}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <social.icon size={25} />
-              </a>
-            ))}
+            {socialLinks.map(({ name, href, icon }) => {
+              const Icon = SOCIAL_ICONS[icon];
+
+              return (
+                <a
+                  href={href}
+                  target="_blank"
+                  key={name}
+                  rel="noopener noreferrer"
+                  aria-label={name}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Icon size={23} />
+                </a>
+              );
+            })}
           </div>
         </FooterSection>
 
@@ -43,7 +48,7 @@ const Footer = () => {
             <p>
               Email:{" "}
               <a
-                href="mailto:support@dineza.com"
+                href={EXTERNAL_LINKS.SUPPORT_EMAIL}
                 className="hover:text-foreground transition-colors"
               >
                 {EXTERNAL_LINKS.SUPPORT_EMAIL}

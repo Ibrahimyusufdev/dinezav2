@@ -1,18 +1,18 @@
 import { Route } from "react-router-dom";
+import { lazy } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 // Pages for restaurant
-import {
-  RestaurantDashboard,
-  ReservationPage,
-  SpecialOffersPage,
-  AnalyticsPage,
-  PaymentsPage,
-} from "@/features/restaurant";
+const RestaurantDashboard = lazy(() => import("@/features/restaurant/pages/RestaurantDashboard"));
+const ReservationPage = lazy(() => import("@/features/restaurant/pages/ReservationPage"));
+const SpecialOffersPage = lazy(() => import("@/features/restaurant/pages/SpecialOffersPage"));
+const AnalyticsPage = lazy(() => import("@/features/restaurant/pages/AnalyticsPage"));
+const PaymentsPage = lazy(() => import("@/features/restaurant/pages/PaymentsPage"));
 
-import { InviteFriends } from "@/features/diner";
-import { MessagingPage } from "@/features/messaging";
-import { ProfilePage } from "@/features/profile";
+// Shared pages across
+const InviteFriends = lazy(() => import("@/features/diner/pages/InviteFriends"));
+const MessagingPage = lazy(() => import("@/features/messaging/pages/MessagingPage"));
+const ProfilePage = lazy(() => import("@/features/profile/pages/ProfilePage"));
 
 import { PATHS } from "@/shared/types/constants";
 import { ROUTE_META } from "@/shared/types/routeMeta";

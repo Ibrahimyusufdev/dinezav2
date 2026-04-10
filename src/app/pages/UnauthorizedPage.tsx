@@ -1,31 +1,24 @@
 // import { useAuth, useAuthActions, } from "@/features/auth";
 import { useNavigate, Link } from "react-router-dom";
-import { ROUTES } from "@/shared/types/constants";
 
 import { ShieldAlert, Home, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Wire up dashboard by role
-import { getDashboardByRole } from "../helpers/getDashboardByRole";
 import { useCurrentUser, useLogout } from "@/features/auth";
+import { getUserRedirect } from "../helpers/getUserRedirect";
 
 const UnauthorizedPage = () => {
-  // Grab logout and user from auth hook and auth store
-  const user = useCurrentUser();
-  const {logout} = useLogout();
+  // Grab logout and authUser from auth hook and auth store
+  const { authUser } = useCurrentUser();
+  const { logout } = useLogout();
 
   const navigate = useNavigate();
 
   // Determine where to send them back
-  const getCorrectDashboard = (): string => {
-    if (!user) return ROUTES.LOGIN;
-
-    return getDashboardByRole[user.role] ?? ROUTES.HOME;
-  };
-
   // Handle going to the dashboard
-  const handleGoToDashboard = () => {
-    navigate(getCorrectDashboard());
+  const handleGoToDashboard = () : void => {
+    navigate(getUserRedirect(authUser));
   };
 
   //  Handle go back to previous page
@@ -36,7 +29,6 @@ const UnauthorizedPage = () => {
   // Logout and re-login
   const handleLogout = async () => {
     await logout();
-    navigate(ROUTES.LOGIN);
   };
 
   return (
@@ -55,11 +47,11 @@ const UnauthorizedPage = () => {
 
         {/* Description */}
         <p className="mb-8 text-gray-600">
-          {user ? (
+          {authUser ? (
             <>
               You don&apos;t have permission to access this page.
               <span className="mt-2 block text-sm">
-                You&apos;re logged in as a <strong>{user.role}</strong>.
+                You&apos;re logged in as a <strong>{authUser.role}</strong>.
               </span>
             </>
           ) : (
@@ -79,7 +71,7 @@ const UnauthorizedPage = () => {
             Go Back
           </Button>
 
-          {user && (
+          {authUser && (
             <Button onClick={handleLogout} variant="outline" className="w-full text-gray-600">
               Logout and switch accounts
             </Button>

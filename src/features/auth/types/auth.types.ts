@@ -8,12 +8,15 @@ export interface BaseUser {
   firstName: string;
   lastName: string;
   role: UserRole;
-  isOnboarded: boolean;
-  profilePicture?: string;
+  avatarUrl?: string;
   phoneNumber?: string | null;
-  avatarUrl?: string | null;
   createdAt?: string;
   updatedAt?: string;
+}
+
+// Unassigned User
+export interface UnassignedUser extends Omit<BaseUser, "role"> {
+  role: null;
 }
 
 // Diner User - extending from Base User with specific field added
@@ -33,6 +36,9 @@ export interface Restaurant extends BaseUser {
   businessEmail?: string;
   address?: string;
   cuisineType?: string;
+  contactName?: string;
+  contactPhone?: string;
+  restaurantImagesUrl?: string[];
   isVerified?: boolean;
   rating?: number;
   totalReservations?: number;
@@ -49,7 +55,7 @@ export interface Admin extends BaseUser {
 }
 
 // Making user to be either Diner, Restaurant, or Admin using discriminated Union in TS for AuthPurpose
-export type AuthUser = Diner | Restaurant | Admin;
+export type AuthUser = Diner | Restaurant | Admin | UnassignedUser;
 
 // Login and Register Payload for supabase auth pattern
 export interface LoginAndRegisterPayload {

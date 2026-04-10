@@ -5,13 +5,11 @@ import { navLinks } from "./navbarConfig";
 import { Menu, X } from "lucide-react";
 import { logo } from "@/assets";
 import { ROUTES } from "@/shared/types/constants";
-// import { useCurrentUser } from "@/features/auth";
-
 
 import { useCurrentUser } from "@/features/auth";
 
 // Wire up dashboard by role
-import { getDashboardByRole } from "../helpers/getDashboardByRole";
+import { getUserRedirect } from "../helpers/getUserRedirect";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,33 +17,26 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
 
-  // get user and isAuthenticated from auth store
-  const user = useCurrentUser();
+  // get authUser from useAuthUser, react query
+  const { authUser } = useCurrentUser();
 
   const navigate = useNavigate();
 
-  //  Determine which dashboard route to send the user to
-  const getCorrectDashboard = (): string => {
-    if (!user) return ROUTES.LOGIN;
-
-    return getDashboardByRole[user?.role] ?? ROUTES.HOME;
-  };
-
-  //  Navigate user to their dashboard based on role
+  //  Navigate authUser to their dashboard based on role
   const handleGoToDashboard = (): void => {
-    navigate(getCorrectDashboard());
+    navigate(getUserRedirect(authUser));
   };
 
   return (
     <header>
       <nav className="container mx-auto flex items-center justify-between px-8 py-6">
-        {/* Logo — always visible always left */}
+        {/* Logo, always visible always left */}
         <Link to={ROUTES.HOME} className="flex items-center gap-2">
           <img src={logo} alt="Dineza Logo" className="h-8 w-8" />
           <p className="font-bold">Dineza</p>
         </Link>
 
-        {/* Hamburger — visible on mobile, hidden on desktop */}
+        {/* Hamburger, visible on mobile, hidden on desktop */}
 
         <Button
           className="border-primary cursor-pointer border lg:hidden"
@@ -57,7 +48,7 @@ const Navbar = () => {
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </Button>
 
-        {/* Nav links — hidden on mobile, visible on desktop */}
+        {/* Nav links, hidden on mobile, visible on desktop */}
         <ul className="hidden items-center gap-x-8 text-base lg:flex">
           {navLinks.map((link) => (
             <li key={link.path} className="cursor-pointer">
@@ -71,15 +62,14 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Auth buttons — hidden on mobile, visible on desktop */}
-        {/* TODO: Show "Go to Dashboard" if user is logged in, else show Sign Up + Login */}
-        {user ? (
+        {/* Auth buttons, hidden on mobile, visible on desktop */}
+        {authUser && authUser.role ? (
           <Button onClick={handleGoToDashboard} className="hidden cursor-pointer lg:flex">
             My Dashboard
           </Button>
         ) : (
           <div className="hidden items-center gap-3 lg:flex">
-            <Link to={ROUTES.REGISTER_SELECT}>
+            <Link to={ROUTES.REGISTER}>
               <Button variant="outline">Sign Up</Button>
             </Link>
             <Link to={ROUTES.LOGIN}>
@@ -89,7 +79,7 @@ const Navbar = () => {
         )}
       </nav>
 
-      {/* Mobile dropdown — visible on mobile, hidden on desktop */}
+      {/* Mobile dropdown, visible on mobile, hidden on desktop */}
       {isMenuOpen && (
         <div className="border-primary flex flex-col border px-4 pb-4 transition-all duration-300 ease-in-out lg:hidden">
           <ul className="flex flex-col items-center gap-y-3 p-4 pb-4">
@@ -107,14 +97,13 @@ const Navbar = () => {
           </ul>
 
           {/* Auth actions buttons visible on mobile */}
-
-          {user ? (
+          {authUser && authUser.role ? (
             <Button onClick={handleGoToDashboard} className="mx-auto w-full max-w-xs">
               My Dashboard
             </Button>
           ) : (
             <div className="mt-4 flex flex-col items-center gap-2">
-              <Link to={ROUTES.REGISTER_SELECT} onClick={closeMenu} className="w-full max-w-xs">
+              <Link to={ROUTES.REGISTER} onClick={closeMenu} className="w-full max-w-xs">
                 <Button variant="outline" className="border-primary w-full cursor-pointer border">
                   Sign Up
                 </Button>

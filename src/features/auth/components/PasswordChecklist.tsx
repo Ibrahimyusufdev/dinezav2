@@ -1,12 +1,12 @@
 import { cn } from "@/lib/utils";
 
 export const passwordRules = [
-  { label: "At least 8 characters",  test: (v: string) => v.length >= 8 },
-  { label: "At most 20 characters",  test: (v: string) => v.length <= 20 && v.length > 0 },
-  { label: "One lowercase letter",   test: (v: string) => /[a-z]/.test(v) },
-  { label: "One uppercase letter",   test: (v: string) => /[A-Z]/.test(v) },
-  { label: "One number",             test: (v: string) => /[0-9]/.test(v) },
-  { label: "One special character",  test: (v: string) => /[^a-zA-Z0-9]/.test(v) },
+  { label: "At least 8 characters", test: (v: string) => v.length >= 8 },
+  { label: "At most 20 characters", test: (v: string) => v.length <= 20 && v.length > 0 },
+  { label: "One lowercase letter", test: (v: string) => /[a-z]/.test(v) },
+  { label: "One uppercase letter", test: (v: string) => /[A-Z]/.test(v) },
+  { label: "One number", test: (v: string) => /[0-9]/.test(v) },
+  { label: "One special character", test: (v: string) => /[^a-zA-Z0-9]/.test(v) },
 ];
 
 export const PasswordChecklist = ({ value }: { value: string }) => {

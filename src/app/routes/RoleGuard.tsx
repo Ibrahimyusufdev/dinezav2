@@ -8,14 +8,14 @@ interface RoleGuardPropos {
   allowedRoles: UserRole[];
 }
 export const RoleGuard = ({ allowedRoles }: RoleGuardPropos) => {
-  const user = useCurrentUser();
-  
-  if (!user) {
+  const { authUser } = useCurrentUser();
+
+  if (!authUser) {
     return <Navigate to={ROUTES.LOGIN} replace />;
   }
 
-  // Check if a user role is the in the allowed list
-  if (!allowedRoles.includes(user.role)) {
+  // Check if a authUser role is the in the allowed list
+  if (!authUser.role || !allowedRoles.includes(authUser.role)) {
     return <Navigate to={ROUTES.UNAUTHORIZED} />;
   }
 

@@ -1,8 +1,13 @@
-import { Instagram, Twitter, Github, type LucideIcon } from "lucide-react";
-import { EXTERNAL_LINKS } from "@/shared/types/constants";
+import { EXTERNAL_LINKS, ROUTES } from "@/shared/types/constants";
+import { TwitterIcon, InstagramIcon, GitHubIcon } from "@/shared/components/BrandIcons";
 
+export const SOCIAL_ICONS = {
+  instagram: InstagramIcon,
+  twitter: TwitterIcon,
+  github: GitHubIcon,
+} as const;
 
-
+type SocialIconKey = keyof typeof SOCIAL_ICONS;
 
 export interface FooterLink {
   title: string;
@@ -12,32 +17,32 @@ export interface FooterLink {
 export interface SocialLink {
   name: string;
   href: string;
-  icon: LucideIcon;
+  icon: SocialIconKey;
 }
 
 export const quickLinks: FooterLink[] = [
-  { title: "About Us", path: "#" },
-  { title: "Contact", path: "#" },
-  { title: "FAQs", path: "#" },
-  { title: "Terms of Service", path: "#" },
-  { title: "Privacy Policy", path: "#" },
+  { title: "About Us", path: ROUTES.ABOUT_US },
+  { title: "Contact", path: ROUTES.CONTACT_US },
+  { title: "FAQs", path: ROUTES.FAQ },
+  { title: "Terms of Service", path: EXTERNAL_LINKS.TERMS_OF_SERVICE },
+  { title: "Privacy Policy", path: EXTERNAL_LINKS.PRIVACY_POLICY },
 ];
 
 export const socialLinks: SocialLink[] = [
   {
     name: "Instagram",
     href: EXTERNAL_LINKS.INSTAGRAM,
-    icon: Instagram,
+    icon: "instagram",
   },
   {
     name: "Github",
     href: EXTERNAL_LINKS.GITHUB,
-    icon: Github,
+    icon: "github",
   },
 
   {
     name: "twitter",
     href: EXTERNAL_LINKS.TWITTER,
-    icon: Twitter,
+    icon: "twitter",
   },
 ];

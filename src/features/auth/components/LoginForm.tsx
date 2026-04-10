@@ -2,6 +2,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GoogleIcon } from "@/shared/components/BrandIcons";
 import { cn } from "@/lib/utils";
+import { useShallow } from "zustand/react/shallow";
 
 import {
   Field,
@@ -19,8 +20,10 @@ import { toast } from "sonner";
 
 import type { LoginFormData } from "../validations/auth-schemas";
 import { loginSchema } from "../validations/auth-schemas";
+
 import { useLogin } from "../hooks/useLogin";
 import { useAuthStore } from "../store/useAuthStore";
+
 import { Link } from "react-router-dom";
 import { EXTERNAL_LINKS, ROUTES } from "@/shared/types/constants";
 import { useState, useEffect } from "react";
@@ -42,9 +45,13 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
   const { login, handleGoogleLogin } = useLogin();
 
   // Grab error and isLoading from authstore
-  const error = useAuthStore((state) => state.error);
-  const isLoading = useAuthStore((state) => state.isLoading);
-  const clearError = useAuthStore((state) => state.clearError);
+  const { error, isLoading, clearError } = useAuthStore(
+    useShallow((state) => ({
+      error: state.error,
+      isLoading: state.isLoading,
+      clearError: state.clearError,
+    }))
+  );
 
   // Show/Hide password
   const [showPassword, setShowPassword] = useState(false);
@@ -54,8 +61,9 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
     await login({ email: formData.email, password: formData.password });
   };
 
-  // Clear API error when user starts typing
+  // Clear API error from any component once user, if user mount from there
   useEffect(() => {
+    if (!error) return;
     clearError();
     toast.dismiss();
   }, []);
@@ -71,12 +79,12 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
           {/* Form side*/}
           <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6 p-4 md:p-8">
             {/* API error */}
-       
+
             {error && (
               <div
                 role="alert"
                 aria-live="assertive"
-                className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800 animate-in fade-in slide-in-from-top-2 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-400"
+                className="animate-in fade-in slide-in-from-top-2 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-400"
               >
                 <div className="flex-1">
                   <p className="font-medium">{error.message}</p>
@@ -84,7 +92,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
                 <button
                   type="button"
                   onClick={clearError}
-                  className="text-red-600 hover:text-red-800 transition-colors dark:text-red-400 dark:hover:text-red-300"
+                  className="text-red-600 transition-colors hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
                   aria-label="Dismiss error"
                 >
                   <X size={18} />
@@ -212,7 +220,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
             </FieldDescription>
           </form>
 
-          {/* ── Image side — hidden on mobile ── */}
+          {/* Image side, hidden on mobile*/}
           <div className="bg-muted relative hidden md:block">
             <img
               src="/images/auth/login-bg.jpg"

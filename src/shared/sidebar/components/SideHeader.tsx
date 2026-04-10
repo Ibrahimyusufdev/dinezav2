@@ -5,18 +5,19 @@ import { logo } from "@/assets";
 
 // Wire up dashboard by role
 import { getDashboardByRole } from "@/app/";
-import { useRequiredUser } from "@/features/auth";
+import { useCurrentUser } from "@/features/auth";
 
 const SideHeader = () => {
-  // getting user data from auth store
-  // const user = useRequiredUser();
-  const user = useRequiredUser();
+  // getting authUser data from auth store
+  const { authUser } = useCurrentUser();
+
+  if (!authUser || !authUser.role) return null;
 
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton size="lg" asChild>
-          <Link to={getDashboardByRole[user.role]}>
+          <Link to={getDashboardByRole[authUser.role]}>
             <div className="bg-sidebar-secondary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
               <img src={logo} alt="Dineza logo" className="h-8 w-8" />
             </div>

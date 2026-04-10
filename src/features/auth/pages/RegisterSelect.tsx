@@ -1,7 +1,15 @@
-
+import { Button } from "@/components/ui/button";
+import { useLogout } from "../hooks/useLogout";
 
 export const RegisterSelect = () => {
+  const { logout } = useLogout();
   return (
-    <div>RegisterSelect</div>
-  )
-}
+    <>
+      <h1>Register Select</h1>
+
+      <Button onClick={logout}>Logout</Button>
+    </>
+  );
+};
+
+export default RegisterSelect;

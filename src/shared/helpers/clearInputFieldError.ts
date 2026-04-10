@@ -1,7 +1,7 @@
 interface AuthError {
   message: string;
   code?: "EMAIL_EXISTS" | "INVALID_CREDENTIALS" | "UNKNOWN";
-};
+}
 
 interface clearInputFieldError {
   fieldOnChange: (...event: any[]) => void;

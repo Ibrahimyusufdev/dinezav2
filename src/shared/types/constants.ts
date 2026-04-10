@@ -21,7 +21,7 @@ export const PATHS = {
     INVITE: "invite",
     PAYMENT: "payment",
     MESSAGES: "messages",
-    PROFILE: "Profile",
+    PROFILE: "profile",
     SETTINGS: "settings",
   },
 
@@ -34,20 +34,27 @@ export const PATHS = {
     ANALYTICS: "analytics",
     RESERVATIONS: "reservations",
     SETTINGS: "settings",
-    NOTIFCATIONS: "notifications",
+    NOTIFICATIONS: "notifications",
     MESSAGES: "messages",
     PROFILE: "profile",
   },
+} as const;
+
+// Landing page pathID, single page
+export const LandingID = {
+  HOW_IT_WORKS: "how-it-works",
+  FOR_WOMEN: "for-women",
+  FOR_RESTAURANT: "for-restaurant",
+  SUCCESS_STORIES: "success-stories",
 } as const;
 
 // Full absolute path
 export const ROUTES = {
   // Public
   HOME: "/",
-  HOW_IT_WORKS: "/how-it-works",
-  FOR_WOMEN: "/for-women",
-  FOR_RESTAURANT: "/for-restaurant",
-  SUCCESS_STORIES: "/success-stories",
+  FAQ: "faq",
+  ABOUT_US: "about-us",
+  CONTACT_US: "contact-us",
 
   // Can only be access if not logged in (Guest Route)
   LOGIN: "/login",
@@ -55,6 +62,7 @@ export const ROUTES = {
   REGISTER_SELECT: "/register-select",
   FORGET_PASSWORD: "/forget-password",
   CONFIRM_EMAIL: "/confirm-email",
+  AUTH_CALLBACK: "auth/callback",
 
   // Error
   UNAUTHORIZED: "/unauthorized",

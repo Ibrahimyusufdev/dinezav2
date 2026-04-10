@@ -1,7 +1,5 @@
-
-
 export const MessagingPage = () => {
-  return (
-    <div>MessagingPage</div>
-  )
-}
+  return <div>MessagingPage</div>;
+};
+
+export default MessagingPage;

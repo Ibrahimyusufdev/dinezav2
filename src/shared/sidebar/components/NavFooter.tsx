@@ -15,7 +15,6 @@ import {
   SidebarMenuButton,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
 
 // Helpers
 import { getInitials } from "@/shared/helpers/getInitials";
@@ -24,32 +23,35 @@ import { getInitials } from "@/shared/helpers/getInitials";
 import { ChevronsUpDown, LogOut } from "lucide-react";
 
 // React router
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { ROUTES } from "@/shared/types/constants";
 
 import { getSidebarConfig } from "../helpers/getSidebarConfig";
-import { useLogout, useRequiredUser } from "@/features/auth";
+import { useLogout, useCurrentUser } from "@/features/auth";
 
 const NavFooter = () => {
-  // Getting user data from auth store
-  const user = useRequiredUser();
-
-  // Grab logout from useLogout hook
+  const { authUser } = useCurrentUser();
   const { logout } = useLogout();
+  const { isMobile } = useSidebar();
 
-  // Func to get sidebar based on user role form auth store user data
-  const config = getSidebarConfig(user.role);
+  if (!authUser || !authUser.role) return null;
 
-  const navigate = useNavigate();
+  // Func to get sidebar based on authUser role form auth store authUser data
+  const config = getSidebarConfig(authUser.role);
 
-  // logout logic and redirecting to login page
-  const handleLogout = async () => {
-    await logout();
-    navigate(ROUTES.LOGIN);
+  const getProfileRoute = () => {
+    switch (authUser.role) {
+      case "diner":
+        return ROUTES.DINER_PROFILE;
+      case "restaurant":
+        return ROUTES.RESTAURANT_PROFILE;
+      case "admin":
+        return ROUTES.ADMIN_PROFILE;
+      default:
+        return ROUTES.HOME;
+    }
   };
-
-  const isMobile = useSidebar();
 
   return (
     <SidebarMenu>
@@ -62,14 +64,14 @@ const NavFooter = () => {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={user.avatarUrl} alt={user?.firstName} />
+                <AvatarImage src={authUser.avatarUrl} alt={authUser?.firstName} />
                 <AvatarFallback className="rounded-lg">
-                  {getInitials(user?.firstName, user?.lastName)}
+                  {getInitials(authUser?.firstName, authUser?.lastName)}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user?.firstName}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-medium">{authUser?.firstName}</span>
+                <span className="truncate text-xs">{authUser.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -83,24 +85,30 @@ const NavFooter = () => {
             sideOffset={4}
           >
             {/* Change to routing you want to go to, and use TS */}
-            <Link to={`/${user.role}/profile`}>
-              <DropdownMenuLabel className="p-0 font-normal">
+
+            <DropdownMenuLabel asChild className="p-0 font-normal">
+              <Link to={getProfileRoute()}>
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="h-8 w-8 rounded-lg">
-                    <AvatarImage src={user.avatarUrl} alt={user?.firstName} />
+                    <AvatarImage
+                      src={authUser?.avatarUrl ?? ""}
+                      alt={authUser?.firstName ?? "User"}
+                    />
                     <AvatarFallback className="rounded-lg">
-                      {getInitials(user?.firstName, user?.lastName)}
+                      {getInitials(authUser?.firstName, authUser?.lastName)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium">{user?.firstName}</span>
-                    <span className="truncate text-xs">{user.email}</span>
+                    <span className="truncate font-medium">{authUser?.firstName}</span>
+                    <span className="truncate text-xs">{authUser?.email}</span>
                   </div>
                 </div>
-              </DropdownMenuLabel>
-            </Link>
+              </Link>
+            </DropdownMenuLabel>
+
             <DropdownMenuSeparator />
 
+            {/* Footer nav */}
             <DropdownMenuGroup>
               {config.footerItems.map((item) => (
                 <NavLink
@@ -114,18 +122,16 @@ const NavFooter = () => {
                   }
                 >
                   <DropdownMenuItem className="cursor-pointer">
-                    <item.icon />
+                    <item.icon className="mr-2 size-4" />
                     {item.title}
                   </DropdownMenuItem>
                 </NavLink>
               ))}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">
-              <Button onClick={handleLogout} variant="outline" className="cursor-pointer">
-                <LogOut />
-                Log out
-              </Button>
+            <DropdownMenuItem onClick={logout} className="cursor-pointer">
+              <LogOut />
+              Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -9,18 +9,17 @@ import {
 import { NavLink } from "react-router-dom";
 
 import { getSidebarConfig } from "../helpers/getSidebarConfig";
-import { useRequiredUser } from "@/features/auth";
-// import { useRequiredUser } from "@/features/auth";
+import { useCurrentUser } from "@/features/auth";
+// import { useCurrentUser } from "@/features/auth";
 
 const NavMain = () => {
-  // Getting user data from auth store, so you can access the role signed it with
-  const user = useRequiredUser();
- 
-
-  // Func to get sidebar based on user role form auth store user data
-  const config = getSidebarConfig(user.role);
-
+  // Getting authUser data from auth store, so you can access the role signed it with
+  const { authUser } = useCurrentUser();
   const { setOpenMobile } = useSidebar();
+  if (!authUser || !authUser.role) return null;
+
+  // Func to get sidebar based on authUser role form auth store authUser data
+  const config = getSidebarConfig(authUser.role);
 
   return (
     <SidebarMenu>
