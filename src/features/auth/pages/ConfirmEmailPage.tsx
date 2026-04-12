@@ -1,101 +1,97 @@
-import { Link, useNavigate } from "react-router-dom";
-import { EXTERNAL_LINKS, ROUTES } from "@/shared/types/constants";
-import { Mail, Home } from "lucide-react";
+// src/features/auth/pages/ConfirmEmailPage.tsx
+import { AuthPageShell } from "../components/AuthPageShell";
+import { Link, useLocation } from "react-router-dom";
+import { ROUTES } from "@/shared/types/constants";
+import { MailOpen, ArrowRight, RefreshCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useCurrentUser } from "@/features/auth";
-import { getUserRedirect } from "@/app/helpers/getUserRedirect";
+import { useState } from "react";
 
 export const ConfirmEmailPage = () => {
-  const { authUser } = useCurrentUser();
+  const location = useLocation();
+  // Email may be passed via router state from register
+  const email: string = location.state?.email ?? "your email";
+  const [resent, setResent] = useState(false);
 
-  const navigate = useNavigate();
-
-  //  Determine which dashboard route to send the authUser to
-  //  Navigate authUser to their dashboard based on role
-  const handleGoToDashboard = (): void => {
-    navigate(getUserRedirect(authUser));
+  const handleResend = () => {
+    // TODO: call supabase.auth.resend() or your auth service
+    setResent(true);
+    setTimeout(() => setResent(false), 5000);
   };
 
-  // If authUser is logged in and chosen role, take them to thier dashboard
-  if (authUser && authUser.role) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-        <div className="w-full max-w-md text-center">
-          {/* Title */}
-          <h2 className="mb-3 text-2xl font-semibold text-gray-900">Email Already Verified</h2>
-
-          {/* Description */}
-          <p className="mb-8 text-gray-600">Your email is already verified, and you're signed in</p>
-
-          {/* Actions */}
-          <div className="space-y-3">
-            <Button onClick={handleGoToDashboard} className="w-full" size="lg">
-              <Home className="mr-2 h-4 w-4" />
-              Go to My Dashboard
-            </Button>
-          </div>
-
-          {/* Help */}
-          <div className="mt-8 rounded-lg bg-blue-50 p-4 text-sm text-blue-900">
-            <p className="font-medium">Need help?</p>
-            <p className="mt-1 text-blue-700">
-              If you believe you should have access to this page,{" "}
-              <Link
-                to={EXTERNAL_LINKS.HELP}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium underline hover:text-blue-900"
-              >
-                contact support
-              </Link>
-              .
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Normal page to see after first signing up
   return (
-    <div className="bg-background flex min-h-screen items-center justify-center px-4">
-      <div className="flex w-full max-w-md flex-col items-center gap-6 text-center">
-        {/* Icon */}
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-50 dark:bg-orange-950/30">
-          <Mail className="h-8 w-8 text-[#FF5900]" />
-        </div>
+    <AuthPageShell>
+      <div className="mx-auto w-full max-w-[440px]">
+        <div className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-10 shadow-[0_4px_24px_rgba(0,0,0,0.06)] text-center">
 
-        {/* Text */}
-        <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-bold">Check your inbox</h1>
-          <p className="text-muted-foreground text-sm leading-relaxed text-balance">
-            We've sent a verification link to your email address. Click the link to activate your
-            Dineza account.
+          {/* Icon */}
+          <div className="mx-auto mb-7 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#FF5900]/8 ring-1 ring-[#FF5900]/15">
+            <MailOpen size={28} className="text-[#FF5900]" strokeWidth={1.5} />
+          </div>
+
+          {/* Step badge */}
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#FF5900]/20 bg-[#FF5900]/5 px-3.5 py-1 text-[10.5px] font-semibold uppercase tracking-widest text-[#FF5900]">
+            Almost there
           </p>
-        </div>
 
-        {/* Info box */}
-        <div className="w-full rounded-xl border border-orange-100 bg-orange-50/50 px-4 py-3 dark:border-orange-950/30 dark:bg-orange-950/10">
-          <p className="text-muted-foreground text-sm">
-            Can't find it? Check your{" "}
-            <span className="text-foreground font-medium">spam or junk</span> folder.
+          {/* Heading */}
+          <h1 className="mt-3 text-[1.65rem] font-bold tracking-tight text-gray-950">
+            Check your inbox
+          </h1>
+          <p className="mt-3 text-[14px] leading-relaxed text-gray-500">
+            We sent a verification link to{" "}
+            <span className="font-semibold text-gray-800">{email}</span>.
+            <br />
+            Click the link to activate your account.
           </p>
-        </div>
 
-        {/* Back to login */}
-        <div className="flex w-full flex-col items-center gap-3">
-          <Button asChild variant="outline" className="w-full">
-            <Link to={ROUTES.LOGIN}>Back to Sign In</Link>
+          {/* Divider */}
+          <div className="my-8 border-t border-gray-100" />
+
+          {/* Tips */}
+          <div className="space-y-3 rounded-xl bg-gray-50 p-4 text-left">
+            {[
+              "Check your spam or junk folder",
+              "The link expires in 24 hours",
+              "Make sure you used the right email",
+            ].map((tip) => (
+              <div key={tip} className="flex items-start gap-2.5">
+                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF5900]" />
+                <p className="text-[12.5px] text-gray-500">{tip}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Resend */}
+          <Button
+            type="button"
+            variant="outline"
+            onClick={handleResend}
+            disabled={resent}
+            className="mt-6 h-10 w-full rounded-xl border-gray-200 text-[13px] font-medium text-gray-700 hover:bg-gray-50 hover:border-gray-300 disabled:opacity-60 transition-colors"
+          >
+            {resent ? (
+              "Email sent ✓"
+            ) : (
+              <span className="flex items-center gap-2">
+                <RefreshCcw size={13} />
+                Resend verification email
+              </span>
+            )}
           </Button>
-          <p className="text-muted-foreground text-xs">
-            Wrong email?{" "}
-            <Link to={ROUTES.REGISTER} className="text-foreground underline underline-offset-2">
-              Sign up again
+
+          {/* Footer */}
+          <p className="mt-6 text-center text-[12.5px] text-gray-400">
+            Already verified?{" "}
+            <Link
+              to={ROUTES.LOGIN}
+              className="inline-flex items-center gap-1 font-semibold text-gray-700 underline-offset-2 hover:text-[#FF5900] hover:underline"
+            >
+              Sign in <ArrowRight size={11} />
             </Link>
           </p>
         </div>
       </div>
-    </div>
+    </AuthPageShell>
   );
 };
 

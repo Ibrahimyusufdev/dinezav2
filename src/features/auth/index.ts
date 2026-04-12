@@ -25,5 +25,6 @@ export { AuthProvider } from "./provider/AuthProvider.tsx";
 export { LoginPage } from "./pages/LoginPage.tsx";
 export { RegisterPage } from "./pages/RegisterPage.tsx";
 export { ConfirmEmailPage } from "./pages/ConfirmEmailPage.tsx";
-export { RegisterSelect } from "./pages/RegisterSelect.tsx";
+export { RegisterSelectPage } from "./pages/RegisterSelectPage.tsx";
 export { AuthCallbackPage } from "./pages/AuthCallbackPage.tsx";
+export {ForgotPasswordPage} from "./pages/ForgetPasswordPage.tsx";

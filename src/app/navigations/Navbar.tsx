@@ -5,11 +5,13 @@ import { navLinks } from "./navbarConfig";
 import { Menu, X } from "lucide-react";
 import { logo } from "@/assets";
 import { ROUTES } from "@/shared/types/constants";
+import { UtensilsCrossed } from "lucide-react";
 
 import { useCurrentUser } from "@/features/auth";
 
 // Wire up dashboard by role
 import { getUserRedirect } from "../helpers/getUserRedirect";
+import { Logo } from "@/shared/components/Logo";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,10 +33,7 @@ const Navbar = () => {
     <header>
       <nav className="container mx-auto flex items-center justify-between px-8 py-6">
         {/* Logo, always visible always left */}
-        <Link to={ROUTES.HOME} className="flex items-center gap-2">
-          <img src={logo} alt="Dineza Logo" className="h-8 w-8" />
-          <p className="font-bold">Dineza</p>
-        </Link>
+        <Logo />
 
         {/* Hamburger, visible on mobile, hidden on desktop */}
 

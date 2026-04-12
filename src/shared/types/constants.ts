@@ -60,9 +60,13 @@ export const ROUTES = {
   LOGIN: "/login",
   REGISTER: "/register",
   REGISTER_SELECT: "/register-select",
-  FORGET_PASSWORD: "/forget-password",
+  FORGOT_PASSWORD: "/forgot-password",
   CONFIRM_EMAIL: "/confirm-email",
   AUTH_CALLBACK: "auth/callback",
+
+  // Can only be access if logged in
+  ONBOARD_DINER: "/onboard/diner",
+  ONBOARD_RESTAURANT: "/onboard/restaurant",
 
   // Error
   UNAUTHORIZED: "/unauthorized",
@@ -105,7 +109,8 @@ export const ROUTES = {
 
 export const EXTERNAL_LINKS = {
   SUPPORT_EMAIL: "ibrahim.techresources@gmail.com",
-  SUPPORT_PHONE: "(234) 706-893-6114",
+  SUPPORT_PHONE_DISPLAY: "+234 706-893-6114",
+  SUPPORT_PHONE_LINK: "+2347068936114",
   HELP: "/help",
   TERMS_OF_SERVICE: "/terms-of-service",
   PRIVACY_POLICY: "/privacy-policy",

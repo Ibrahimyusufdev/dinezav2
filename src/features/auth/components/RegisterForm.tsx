@@ -17,6 +17,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Eye, EyeOff, X } from "lucide-react";
+import { AuthBrandPanel } from "./AuthBrandPanel";
 
 import type { RegisterFormData } from "../validations/auth-schemas";
 import { registerSchema } from "../validations/auth-schemas";
@@ -81,10 +82,19 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
 
   return (
     <div className={cn("flex w-full flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0">
-        <CardContent className="grid p-0 md:grid-cols-2">
+      <Card className="overflow-hidden rounded-2xl border border-gray-200/80 p-0 shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] transition-shadow duration-200 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(0,0,0,0.08)] md:grid md:grid-cols-[1fr_1.1fr]">
+        <>
           {/* Form side*/}
-          <form onSubmit={form.handleSubmit(handleRegister)} className="space-y-6 p-4 md:p-8">
+          <form
+            onSubmit={form.handleSubmit(handleRegister)}
+            className="space-y-6 p-4 sm:p-8 md:p-8 lg:p-10"
+          >
+            {/* Headline */}
+            <div className="flex flex-col items-center gap-2 text-center md:items-start md:text-left">
+              <h1 className="text-2xl font-bold">Create an Account</h1>
+              <p className="text-muted-foreground text-balance">Sign Up to use Dineza</p>
+            </div>
+
             {/* API/Server error */}
             {error && (
               <div
@@ -110,12 +120,6 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
                 </button>
               </div>
             )}
-
-            {/* Headline */}
-            <div className="flex flex-col items-center gap-2 text-center md:items-start md:text-left">
-              <h1 className="text-2xl font-bold">Create an Account</h1>
-              <p className="text-muted-foreground text-balance">Sign Up to use Dineza</p>
-            </div>
 
             {/* Email */}
             <Controller
@@ -267,14 +271,17 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
           </form>
 
           {/* Images side, hidden on mobile */}
-          <div className="bg-muted relative hidden md:block">
-            <img
-              src="/images/auth/signup-bg.png"
-              alt="Register visual"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-            />
-          </div>
-        </CardContent>
+          <AuthBrandPanel
+            heading={
+              <>
+                Your table
+                <br />
+                awaits.
+              </>
+            }
+            subheading="Join thousands of diners and restaurants already on Dineza."
+          />
+        </>
       </Card>
 
       <FieldDescription className="px-6 text-center">

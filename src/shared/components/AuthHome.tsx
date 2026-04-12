@@ -1,15 +1,13 @@
 import { Link } from "react-router-dom";
 import { logo } from "@/assets";
 import { ROUTES } from "../types/constants";
+import { Logo } from "./Logo";
 
 const AuthHome = () => {
   return (
-    <Link to={ROUTES.HOME} className="absolute top-6 left-6 flex items-center gap-2 cursor-pointer">
-      <div className="bg-sidebar-secondary text-sidebar-primary-foreground flex size-8 items-center justify-center rounded-lg">
-        <img src={logo} alt="Dineza logo" className="h-8 w-8" />
-      </div>
-      <span className="font-medium">Dineza</span>
-    </Link>
+    <div className="absolute top-4 left-4 z-20 md:top-6 md:left-6 lg:top-8 lg:left-8">
+      <Logo />
+    </div>
   );
 };
 

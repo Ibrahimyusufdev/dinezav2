@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { GoogleIcon } from "@/shared/components/BrandIcons";
 import { cn } from "@/lib/utils";
 import { useShallow } from "zustand/react/shallow";
+import { AlertCircle } from "lucide-react";
 
 import {
   Field,
@@ -14,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Eye, EyeOff, X } from "lucide-react";
 import { toast } from "sonner";
 
@@ -28,6 +29,7 @@ import { Link } from "react-router-dom";
 import { EXTERNAL_LINKS, ROUTES } from "@/shared/types/constants";
 import { useState, useEffect } from "react";
 import { clearInputFieldError } from "@/shared/helpers/clearInputFieldError";
+import { AuthBrandPanel } from "./AuthBrandPanel";
 
 export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) => {
   // Wiring up the form for using useForm from rhf
@@ -74,37 +76,43 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
 
   return (
     <div className={cn("flex w-full flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0">
-        <CardContent className="grid p-0 md:grid-cols-2">
+      <Card className="overflow-hidden rounded-2xl border border-gray-200/80 p-0 shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] transition-shadow duration-200 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(0,0,0,0.08)] md:grid md:grid-cols-[1fr_1.1fr]">
+        <>
           {/* Form side*/}
-          <form onSubmit={form.handleSubmit(handleLogin)} className="space-y-6 p-4 md:p-8">
-            {/* API error */}
+          <form
+            onSubmit={form.handleSubmit(handleLogin)}
+            className="space-y-6 p-4 sm:p-8 md:p-8 lg:p-10"
+          >
+            {/* Headline */}
+            <div className="flex flex-col gap-2 text-center md:items-start md:text-left">
+              <h1 className="text-2xl font-bold md:hidden">Welcome Back</h1>
+              <h1 className="hidden text-2xl font-bold tracking-tight text-gray-950 md:block">
+                Sign in
+              </h1>
+              <p className="text-muted-foreground text-sm sm:text-base">
+                Login to your Dineza account
+              </p>
+            </div>
 
+            {/* API error */}
             {error && (
               <div
                 role="alert"
                 aria-live="assertive"
-                className="animate-in fade-in slide-in-from-top-2 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-400"
+                className="animate-in fade-in slide-in-from-top-2 flex items-start gap-3 rounded-xl border border-red-100 bg-red-50 p-3.5 text-sm"
               >
-                <div className="flex-1">
-                  <p className="font-medium">{error.message}</p>
-                </div>
+                <AlertCircle size={16} className="mt-0.5 shrink-0 text-red-500" />
+                <p className="flex-1 font-medium text-red-700">{error.message}</p>
                 <button
                   type="button"
                   onClick={clearError}
-                  className="text-red-600 transition-colors hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
                   aria-label="Dismiss error"
+                  className="text-red-400 transition-colors hover:text-red-600"
                 >
-                  <X size={18} />
+                  <X size={15} />
                 </button>
               </div>
             )}
-
-            {/* Headline */}
-            <div className="flex flex-col items-center gap-2 text-center md:items-start md:text-left">
-              <h1 className="text-2xl font-bold">Welcome back</h1>
-              <p className="text-muted-foreground text-balance">Login to your Dineza account</p>
-            </div>
 
             {/* Email */}
             <Controller
@@ -142,7 +150,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
                   <div className="flex items-center justify-between gap-2">
                     <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                     <Link
-                      to={ROUTES.FORGET_PASSWORD}
+                      to={ROUTES.FORGOT_PASSWORD}
                       className="text-sm underline-offset-2 hover:underline"
                     >
                       Forgot your password?
@@ -221,14 +229,18 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
           </form>
 
           {/* Image side, hidden on mobile*/}
-          <div className="bg-muted relative hidden md:block">
-            <img
-              src="/images/auth/login-bg.jpg"
-              alt="Login visual"
-              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-            />
-          </div>
-        </CardContent>
+
+          <AuthBrandPanel
+            heading={
+              <>
+                Welcome
+                <br />
+                back.
+              </>
+            }
+            subheading="Sign in to your Dineza account and pick up where you left off."
+          />
+        </>
       </Card>
 
       <FieldDescription className="px-6 text-center">

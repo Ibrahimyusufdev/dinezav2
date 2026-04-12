@@ -23,7 +23,8 @@ import {
   ConfirmEmailPage,
   LoginPage,
   RegisterPage,
-  RegisterSelect,
+  RegisterSelectPage,
+  ForgotPasswordPage
 } from "@/features/auth";
 
 const GlobalNoPage = lazy(() => import("./pages/GlobalNoPage"));
@@ -46,13 +47,15 @@ export const router = createBrowserRouter(
           <Route path={ROUTES.LOGIN} element={<LoginPage />} />
           <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
           <Route path={ROUTES.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
+          <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage/>} />
+
         </Route>
       </Route>
 
       {/* Logged in, but not onboarded */}
       <Route element={<RequireOnboarding />}>
         <Route element={<AuthLayout />}>
-          <Route path={ROUTES.REGISTER_SELECT} element={<RegisterSelect />} />
+          <Route path={ROUTES.REGISTER_SELECT} element={<RegisterSelectPage />} />
         </Route>
       </Route>
 
