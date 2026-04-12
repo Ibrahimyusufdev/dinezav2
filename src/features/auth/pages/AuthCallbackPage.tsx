@@ -12,6 +12,13 @@ export const AuthCallbackPage = () => {
 
   useEffect(() => {
     const handleRedirect = async () => {
+
+      const hash = window.location.hash;
+
+      if(hash.includes("type=recovery")) {
+        navigate(ROUTES.RESET_PASSWORD);
+        return;
+      }
       // ensure session is ready
       const {
         data: { session },
@@ -41,7 +48,7 @@ export const AuthCallbackPage = () => {
     };
 
     handleRedirect();
-  }, [authUser, isLoading]);
+  }, [authUser, isLoading, navigate]);
 
   return <AppLoader />;
 };

@@ -1,6 +1,3 @@
-import { Link } from "react-router-dom";
-import { logo } from "@/assets";
-import { ROUTES } from "../types/constants";
 import { Logo } from "./Logo";
 
 const AuthHome = () => {

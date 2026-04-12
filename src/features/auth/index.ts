@@ -28,3 +28,4 @@ export { ConfirmEmailPage } from "./pages/ConfirmEmailPage.tsx";
 export { RegisterSelectPage } from "./pages/RegisterSelectPage.tsx";
 export { AuthCallbackPage } from "./pages/AuthCallbackPage.tsx";
 export {ForgotPasswordPage} from "./pages/ForgetPasswordPage.tsx";
+export { ResetPasswordPage } from "./pages/ResetPasswordPage.tsx";

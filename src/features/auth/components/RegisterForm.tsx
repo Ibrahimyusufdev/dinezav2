@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, } from "@/components/ui/card";
 import { Eye, EyeOff, X } from "lucide-react";
 import { AuthBrandPanel } from "./AuthBrandPanel";
 
@@ -49,11 +49,12 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
 
   // Grab error and isLoading from authstore
   // Grab error and isLoading from authstore
-  const { error, isLoading, clearError } = useAuthStore(
+  const { error, isLoading, clearError, setEmail } = useAuthStore(
     useShallow((state) => ({
       error: state.error,
       isLoading: state.isLoading,
       clearError: state.clearError,
+      setEmail: state.setEmail,
     }))
   );
 
@@ -78,6 +79,7 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
       email: formData.email,
       password: formData.password,
     });
+    setEmail(formData.email)
   };
 
   return (

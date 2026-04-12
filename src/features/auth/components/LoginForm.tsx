@@ -151,7 +151,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
                     <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                     <Link
                       to={ROUTES.FORGOT_PASSWORD}
-                      className="text-sm underline-offset-2 hover:underline"
+                      className="text-sm text-red-600 underline-offset-2 hover:underline"
                     >
                       Forgot your password?
                     </Link>

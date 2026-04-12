@@ -4,14 +4,21 @@ import { toast } from "sonner";
 import type { LoginAndRegisterPayload } from "../types/auth.types";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/shared/types/constants";
+import { useShallow } from "zustand/react/shallow";
 
 export const useRegister = () => {
   // Grabbing actions from auth store
 
   const navigate = useNavigate();
+  const { setLoading, setError, clearError } = useAuthStore(
+    useShallow((state) => ({
+      setLoading: state.setLoading,
+      setError: state.setError,
+      clearError: state.clearError,
+    }))
+  );
 
   const register = async (payload: LoginAndRegisterPayload) => {
-    const { setLoading, setError, clearError } = useAuthStore.getState();
     setLoading(true);
     clearError();
 
@@ -24,7 +31,7 @@ export const useRegister = () => {
         password: payload.password,
 
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          emailRedirectTo: `${window.location.origin}/${ROUTES.AUTH_CALLBACK}`,
         },
       });
 

@@ -62,6 +62,7 @@ export const ROUTES = {
   REGISTER_SELECT: "/register-select",
   FORGOT_PASSWORD: "/forgot-password",
   CONFIRM_EMAIL: "/confirm-email",
+  RESET_PASSWORD: "reset-password",
   AUTH_CALLBACK: "auth/callback",
 
   // Can only be access if logged in

@@ -24,7 +24,8 @@ import {
   LoginPage,
   RegisterPage,
   RegisterSelectPage,
-  ForgotPasswordPage
+  ForgotPasswordPage,
+  ResetPasswordPage,
 } from "@/features/auth";
 
 const GlobalNoPage = lazy(() => import("./pages/GlobalNoPage"));
@@ -38,7 +39,7 @@ export const router = createBrowserRouter(
         {/* Public route here */}
       </Route>
 
-      {/* Callback for auth */}
+      {/* Callback for auth on signup */}
       <Route path={ROUTES.AUTH_CALLBACK} element={<AuthCallbackPage />} />
 
       {/* Auth Layout Routing */}
@@ -47,9 +48,13 @@ export const router = createBrowserRouter(
           <Route path={ROUTES.LOGIN} element={<LoginPage />} />
           <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
           <Route path={ROUTES.CONFIRM_EMAIL} element={<ConfirmEmailPage />} />
-          <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage/>} />
-
         </Route>
+      </Route>
+
+      {/* Forgot and reset pass route, guest and auth can access */}
+      <Route element={<AuthLayout />}>
+        <Route path={ROUTES.RESET_PASSWORD} element={<ResetPasswordPage />} />
+        <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />
       </Route>
 
       {/* Logged in, but not onboarded */}

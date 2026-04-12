@@ -1,4 +1,3 @@
-
 import { AuthPageShell } from "../components/AuthPageShell";
 import { Link } from "react-router-dom";
 import { ROUTES } from "@/shared/types/constants";
@@ -11,9 +10,12 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
+import { useForgotPassword } from "../hooks/useForgotPassword";
+import { AlertCircle } from "lucide-react";
 
+// Schema
 const forgotSchema = z.object({
-  email: z.string().email("Enter a valid email address"),
+  email: z.email({ pattern: z.regexes.email }),
 });
 
 type ForgotFormData = z.infer<typeof forgotSchema>;
@@ -27,22 +29,34 @@ export const ForgotPasswordPage = () => {
 
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (data: ForgotFormData) => {
-    // TODO: call supabase.auth.resetPasswordForEmail(data.email, { redirectTo: ... })
-    console.log("Reset email for:", data.email);
-    setSubmitted(true);
-  };
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const isSubmitDisabled =
-    !form.formState.isValid || form.formState.isSubmitting;
+  const forgotPassMutation = useForgotPassword();
+
+  // Single source of truth for disabled state
+  const isBusy = form.formState.isSubmitting || forgotPassMutation.isPending;
+  const isSubmitDisabled = !form.formState.isValid || isBusy;
+
+  const handleSubmit = async (formData: ForgotFormData) => {
+    setSubmitError(null);
+
+    try {
+      await forgotPassMutation.mutateAsync(formData.email);
+
+      setSubmitted(true);
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      setSubmitError(message);
+    }
+  };
 
   return (
     <AuthPageShell>
-      <div className="mx-auto w-full max-w-[420px]">
+      <div className="mx-auto w-full max-w-md">
         <div className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-10 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
-
           {submitted ? (
-            /* ── Success state ── */
+            /* Success state*/
             <div className="text-center">
               <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 ring-1 ring-emerald-100">
                 <CheckCircle2 size={28} className="text-emerald-500" strokeWidth={1.5} />
@@ -51,22 +65,18 @@ export const ForgotPasswordPage = () => {
                 Check your email
               </h1>
               <p className="mt-3 text-[14px] leading-relaxed text-gray-500">
-                If{" "}
-                <span className="font-semibold text-gray-800">
-                  {form.getValues("email")}
-                </span>{" "}
-                is registered, you'll receive a password reset link shortly.
+                If <span className="font-semibold text-gray-800">{form.getValues("email")}</span> is
+                registered, you'll receive a password reset link shortly.
               </p>
               <div className="mt-8 space-y-3 rounded-xl bg-gray-50 p-4 text-left">
-                {[
-                  "Check spam/junk if you don't see it",
-                  "The link expires in 1 hour",
-                ].map((tip) => (
-                  <div key={tip} className="flex items-start gap-2.5">
-                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF5900]" />
-                    <p className="text-[12.5px] text-gray-500">{tip}</p>
-                  </div>
-                ))}
+                {["Check spam/junk if you don't see it", "The link expires in 1 hour"].map(
+                  (tip) => (
+                    <div key={tip} className="flex items-start gap-2.5">
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF5900]" />
+                      <p className="text-[12.5px] text-gray-500">{tip}</p>
+                    </div>
+                  )
+                )}
               </div>
               <Link
                 to={ROUTES.LOGIN}
@@ -77,7 +87,7 @@ export const ForgotPasswordPage = () => {
               </Link>
             </div>
           ) : (
-            /* ── Form state ── */
+            /* Form state */
             <>
               {/* Icon */}
               <div className="mb-7 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FF5900]/8 ring-1 ring-[#FF5900]/15">
@@ -94,10 +104,19 @@ export const ForgotPasswordPage = () => {
                 </p>
               </div>
 
-              <form
-                onSubmit={form.handleSubmit(handleSubmit)}
-                className="space-y-5"
-              >
+              <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5">
+                {/* Inline API error */}
+                {submitError && (
+                  <div
+                    role="alert"
+                    aria-live="assertive"
+                    className="animate-in fade-in slide-in-from-top-2 flex items-start gap-3 rounded-xl border border-red-100 bg-red-50 p-3.5 text-sm"
+                  >
+                    <AlertCircle size={16} className="mt-0.5 shrink-0 text-red-500" />
+                    <p className="font-medium text-red-700">{submitError}</p>
+                  </div>
+                )}
+
                 <Controller
                   name="email"
                   control={form.control}
@@ -111,7 +130,8 @@ export const ForgotPasswordPage = () => {
                         placeholder="you@example.com"
                         autoComplete="email"
                         aria-invalid={fieldState.invalid}
-                        className="border-gray-200 bg-gray-50/60 focus-visible:border-[#FF5900] focus-visible:ring-[#FF5900]/20 focus-visible:bg-white transition-colors"
+                        disabled={isBusy}
+                        className="border-gray-200 bg-gray-50/60 transition-colors focus-visible:border-[#FF5900] focus-visible:bg-white focus-visible:ring-[#FF5900]/20"
                       />
                       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                     </Field>
@@ -121,9 +141,9 @@ export const ForgotPasswordPage = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitDisabled}
-                  className="h-11 w-full rounded-xl bg-[#FF5900] text-[14px] font-semibold text-white shadow-none hover:bg-[#e04f00] focus-visible:ring-[#FF5900]/40 disabled:opacity-50 transition-colors"
+                  className="h-11 w-full rounded-xl bg-[#FF5900] text-[14px] font-semibold text-white shadow-none transition-colors hover:bg-[#e04f00] focus-visible:ring-[#FF5900]/40 disabled:opacity-50"
                 >
-                  {form.formState.isSubmitting ? (
+                  {isBusy ? (
                     <span className="flex items-center gap-2">
                       <Spinner /> Sending link...
                     </span>
@@ -149,8 +169,5 @@ export const ForgotPasswordPage = () => {
     </AuthPageShell>
   );
 };
-
-// Don't forget this import at the top:
-
 
 export default ForgotPasswordPage;

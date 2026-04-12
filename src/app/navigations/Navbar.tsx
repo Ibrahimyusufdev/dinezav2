@@ -3,9 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { navLinks } from "./navbarConfig";
 import { Menu, X } from "lucide-react";
-import { logo } from "@/assets";
 import { ROUTES } from "@/shared/types/constants";
-import { UtensilsCrossed } from "lucide-react";
 
 import { useCurrentUser } from "@/features/auth";
 

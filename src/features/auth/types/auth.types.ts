@@ -63,6 +63,10 @@ export interface LoginAndRegisterPayload {
   password: string;
 }
 
+// export interface ResetPassPayload {
+//   newPassword: string;
+// }
+
 // // AuthResponse Shape coming from Api, what the backend returns after successful login or register
 // export interface AuthResponse {
 //   accessToken: string;

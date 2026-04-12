@@ -42,7 +42,7 @@ export const RegisterSelectPage = () => {
             </p>
             <h1 className="text-[2rem] leading-tight font-bold tracking-tight text-gray-950 sm:text-[2.5rem]">
               How will you use <span className="text-[#FF5900]">Dineza?</span>
-            </h1>
+            </h1>``
             <p className="mt-3 text-[15px] leading-relaxed text-gray-500">
               Choose your role to personalise your experience.
               <br className="hidden sm:block" />
@@ -65,7 +65,7 @@ export const RegisterSelectPage = () => {
                 {/* Top accent bar, slides in on hover */}
                 <span
                   aria-hidden
-                  className="absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0 bg-[#FF5900] transition-transform duration-300 group-hover:scale-x-100"
+                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-[#FF5900] transition-transform duration-300 group-hover:scale-x-100"
                 />
 
                 {/* Icon */}
