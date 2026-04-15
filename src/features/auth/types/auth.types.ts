@@ -8,7 +8,7 @@ export interface BaseUser {
   firstName: string;
   lastName: string;
   role: UserRole;
-  avatarUrl?: string;
+  avatarPath?: string;
   phoneNumber?: string | null;
   createdAt?: string;
   updatedAt?: string;
@@ -32,13 +32,13 @@ export interface Diner extends BaseUser {
 export interface Restaurant extends BaseUser {
   role: "restaurant";
   restaurantName?: string;
-  restaurantLogo?: string;
+  restaurantLogo?: string | null;
   businessEmail?: string;
   address?: string;
   cuisineType?: string;
   contactName?: string;
   contactPhone?: string;
-  restaurantImagesUrl?: string[];
+  restaurantImages?: string[] | null;
   isVerified?: boolean;
   rating?: number;
   totalReservations?: number;
@@ -63,9 +63,30 @@ export interface LoginAndRegisterPayload {
   password: string;
 }
 
-// export interface ResetPassPayload {
-//   newPassword: string;
-// }
+// Diner payload
+export interface OnboardDinerPayload {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  preferredDiningLocations: string[];
+  avatarFile?: File | null;
+}
+
+// Restaurant payload
+export interface OnboardRestaurantPayload {
+  firstName: string;
+  lastName: string;
+  restaurantName: string;
+  businessEmail: string;
+  address: string;
+  cuisineType: string[];
+  contactName: string;
+  contactPhone: string;
+
+  logoFile?: File;
+  imageFiles?: File[];
+  documentFiles?: File[];
+}
 
 // // AuthResponse Shape coming from Api, what the backend returns after successful login or register
 // export interface AuthResponse {

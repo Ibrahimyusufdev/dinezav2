@@ -10,7 +10,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
-import { useForgotPassword } from "../hooks/useForgotPassword";
+import { useForgotPassword } from "../queries/useForgotPassword";
 import { AlertCircle } from "lucide-react";
 
 // Schema

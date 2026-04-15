@@ -18,7 +18,7 @@ import { ROUTES } from "@/shared/types/constants";
 import { passwordRules, PasswordChecklist } from "../components/PasswordChecklist";
 
 import { supabase } from "@/lib/supabase";
-import { useResetPassword } from "../hooks/useResetPassword";
+import { useResetPassword } from "../queries/useResetPassword";
 import { toast } from "sonner";
 
 export const ResetPasswordPage = () => {

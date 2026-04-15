@@ -3,14 +3,17 @@ import { supabase } from "@/lib/supabase";
 export const uploadFile = async (file: File, path: string): Promise<string> => {
   const fileExt = file.name.split(".").pop();
   const fileName = `${crypto.randomUUID()}.${fileExt}`;
+  const filePath = `${path}/${fileName}`;
 
-  const { error } = await supabase.storage
-    .from("dineza_uploads")
-    .upload(`${path}/${fileName}`, file);
+  const { error } = await supabase.storage.from("dineza_uploads").upload(filePath, file, {
+    cacheControl: "3600",
+    upsert: false,
+  });
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.error("Upload error:", error);
+    throw new Error(error.message);
+  }
 
-  const { data } = supabase.storage.from("dineza_uploads").getPublicUrl(`${path}/${fileName}`);
-
-  return data.publicUrl;
+  return filePath;
 };

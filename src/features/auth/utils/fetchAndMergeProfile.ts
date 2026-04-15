@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import type { AuthUser } from "../types/auth.types";
+import { getSignedFileUrl } from "./getSignedFileUrl";
 
 export const fetchAndMergeProfile = async (userId: string): Promise<AuthUser | null> => {
   try {
@@ -30,8 +31,6 @@ export const fetchAndMergeProfile = async (userId: string): Promise<AuthUser | n
       email: profile.email,
       firstName: profile.first_name ?? "",
       lastName: profile.last_name ?? "",
-      isOnboarded: profile.is_onboarded,
-      avatarUrl: profile.profile_picture_url ?? null,
       phoneNumber: profile.phone_number ?? null,
       createdAt: profile.created_at,
     };
@@ -49,16 +48,21 @@ export const fetchAndMergeProfile = async (userId: string): Promise<AuthUser | n
       const { data: dinerProfile, error: dinerError } = await supabase
         .from("diner_profiles")
         .select("*")
-        .eq("id", userId)
+        .eq("profile_id", userId)
         .single();
 
       if (dinerError) {
-        console.warn("fetchAndMergeProfile: diner profile not found, using defaults");
+        console.warn("fetchAndMergeProfile: diner profile not found, using defaults", dinerError);
+      }
+
+      if (dinerProfile) {
+        console.log(dinerProfile);
       }
       return {
         ...baseUser,
         role: "diner",
         // Diner specific fields
+        avatarPath: dinerProfile.avatar_path ?? null,
         preferredLocations: dinerProfile?.preferred_locations ?? [],
         totalEarnings: dinerProfile?.total_earnings ?? 0,
         pendingEarnings: dinerProfile?.pending_earnings ?? 0,
@@ -66,28 +70,37 @@ export const fetchAndMergeProfile = async (userId: string): Promise<AuthUser | n
       };
     }
     if (role === "restaurant") {
-      const { data: restaurantProfile, error: restaurantError } = await supabase
+      const { data: restaurantProfile } = await supabase
         .from("restaurant_profiles")
         .select("*")
-        .eq("id", userId)
+        .eq("profile_id", userId)
         .single();
 
-      if (restaurantError) {
-        console.warn("fetchAndMergeProfile: restaurant profile not found, using defaults");
+      let logoUrl = null;
+      let imageUrls: string[] = [];
+
+      if (restaurantProfile?.restaurant_logo) {
+        logoUrl = await getSignedFileUrl(restaurantProfile.restaurant_logo);
       }
+
+      if (restaurantProfile?.restaurant_images?.length) {
+        imageUrls = await Promise.all(
+          restaurantProfile.restaurant_images.map((path: string) => getSignedFileUrl(path))
+        );
+      }
+
       return {
         ...baseUser,
         role: "restaurant",
-        // Restaurant specific fields
         restaurantName: restaurantProfile?.restaurant_name ?? null,
-        restaurantLogo: restaurantProfile?.restaurant_logo ?? null,
+        restaurantLogo: logoUrl,
+        restaurantImages: imageUrls,
         businessEmail: restaurantProfile?.business_email ?? null,
         address: restaurantProfile?.address ?? null,
-        cuisineType: restaurantProfile?.cuisine_type ?? null,
+        cuisineType: restaurantProfile?.cuisine_type ?? [],
         isVerified: restaurantProfile?.is_verified ?? false,
         rating: restaurantProfile?.rating ?? 0,
         totalReservations: restaurantProfile?.total_reservations ?? 0,
-        pendingReservations: restaurantProfile?.pending_reservations ?? 0,
         totalRevenue: restaurantProfile?.total_revenue ?? 0,
       };
     }

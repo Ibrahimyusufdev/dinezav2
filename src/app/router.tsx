@@ -26,6 +26,8 @@ import {
   RegisterSelectPage,
   ForgotPasswordPage,
   ResetPasswordPage,
+  DinerOnboardingPage,
+  RestaurantOnboardPage,
 } from "@/features/auth";
 
 const GlobalNoPage = lazy(() => import("./pages/GlobalNoPage"));
@@ -41,6 +43,12 @@ export const router = createBrowserRouter(
 
       {/* Callback for auth on signup */}
       <Route path={ROUTES.AUTH_CALLBACK} element={<AuthCallbackPage />} />
+
+      {/* Onboading Route */}
+      <Route element={<AuthLayout />}>
+        <Route path={ROUTES.ONBOARD_DINER} element={<DinerOnboardingPage />} />
+        <Route path={ROUTES.ONBOARD_RESTAURANT} element={<RestaurantOnboardPage />} />
+      </Route>
 
       {/* Auth Layout Routing */}
       <Route element={<RequireGuest />}>
@@ -66,16 +74,14 @@ export const router = createBrowserRouter(
 
       {/* Protected Routing */}
       <Route element={<RequireAuth />}>
-        <Route element={<RequireOnboarding />}>
-          {/* Diner Protected routes Routes */}
-          <Route element={<RoleGuard allowedRoles={["diner"]} />}>{dinerRoutes}</Route>
+        {/* Diner Protected routes Routes */}
+        <Route element={<RoleGuard allowedRoles={["diner"]} />}>{dinerRoutes}</Route>
 
-          {/* Restaurant Protected routes Routes */}
-          <Route element={<RoleGuard allowedRoles={["restaurant"]} />}>{restaurantRoutes}</Route>
+        {/* Restaurant Protected routes Routes */}
+        <Route element={<RoleGuard allowedRoles={["restaurant"]} />}>{restaurantRoutes}</Route>
 
-          {/* Admin Protected routes Routes */}
-          <Route element={<RoleGuard allowedRoles={["admin"]} />}>{adminRoutes}</Route>
-        </Route>
+        {/* Admin Protected routes Routes */}
+        <Route element={<RoleGuard allowedRoles={["admin"]} />}>{adminRoutes}</Route>
       </Route>
 
       {/* Global No page and Unauthorized page  */}

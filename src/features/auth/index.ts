@@ -27,5 +27,7 @@ export { RegisterPage } from "./pages/RegisterPage.tsx";
 export { ConfirmEmailPage } from "./pages/ConfirmEmailPage.tsx";
 export { RegisterSelectPage } from "./pages/RegisterSelectPage.tsx";
 export { AuthCallbackPage } from "./pages/AuthCallbackPage.tsx";
-export {ForgotPasswordPage} from "./pages/ForgetPasswordPage.tsx";
+export { ForgotPasswordPage } from "./pages/ForgetPasswordPage.tsx";
 export { ResetPasswordPage } from "./pages/ResetPasswordPage.tsx";
+export { DinerOnboardingPage } from "./pages/DinerOnboardingPage.tsx";
+export { RestaurantOnboardPage } from "./pages/RestaurantOnboardPage.tsx";

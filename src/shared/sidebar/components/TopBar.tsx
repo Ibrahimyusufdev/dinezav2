@@ -22,7 +22,7 @@ export const TopBar = () => {
       {/* User avatar */}
       <Link to={`${getDashboardByRole[authUser?.role]}/profile`}>
         <Avatar className="h-8 w-8 rounded-lg">
-          <AvatarImage src={authUser?.avatarUrl ?? ""} alt={authUser?.firstName ?? "User"} />
+          <AvatarImage src={authUser?.avatarPath ?? ""} alt={authUser?.firstName ?? "User"} />
           <AvatarFallback className="rounded-lg">
             {getInitials(authUser?.firstName, authUser?.lastName)}
           </AvatarFallback>
