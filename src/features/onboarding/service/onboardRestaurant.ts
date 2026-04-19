@@ -2,7 +2,11 @@ import { supabase } from "@/lib/supabase";
 import { uploadFile } from "../utils/uploadFile";
 import { deleteFiles } from "../utils/deleteFile";
 import type { OnboardRestaurantPayload } from "../types/auth.types";
-import { STORAGE_BUCKETS, STORAGE_PATHS, type StorageBucket } from "../constants/storage.constants";
+import {
+  STORAGE_BUCKETS,
+  STORAGE_PATHS,
+  type StorageBucket,
+} from "../../onboarding/constants/storage.constants";
 
 interface OnboardResult {
   success: true;

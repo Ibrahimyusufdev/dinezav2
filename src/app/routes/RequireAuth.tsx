@@ -4,10 +4,10 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { AppLoader } from "@/shared/components/AppLoader";
 
 const RequireAuth = () => {
-  const { data: authUser, isLoading } = useAuthUser();
+  const { data: authUser, isPending } = useAuthUser();
   const location = useLocation();
 
-  if (isLoading) return <AppLoader />;
+  if (isPending) return <AppLoader />;
 
   // Not Logged in go to login
   if (!authUser) return <Navigate to={ROUTES.LOGIN} state={{ from: location.pathname }} replace />;

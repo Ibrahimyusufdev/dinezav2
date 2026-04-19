@@ -13,8 +13,8 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
 
-import { useLocations } from "../queries/useLocations";
-import type { Location } from "../types/auth.types";
+import { useLocations } from "../../auth/queries/useLocations";
+import type { Location } from "../../auth/types/auth.types";
 import { cn } from "@/lib/utils";
 
 interface Props {

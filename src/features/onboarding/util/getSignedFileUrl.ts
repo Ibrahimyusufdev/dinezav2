@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { STORAGE_BUCKETS } from "../constants/storage.constants";
+import { STORAGE_BUCKETS } from "../../onboarding/constants/storage.constants";
 
 const DEFAULT_EXPIRES_IN = 60 * 60; // 1 hour
 

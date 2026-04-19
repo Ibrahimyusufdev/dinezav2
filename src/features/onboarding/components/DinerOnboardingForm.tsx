@@ -1,7 +1,7 @@
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { dinerOnboardSchema } from "../validations/auth-schemas";
-import type { DinerOnboardData } from "../validations/auth-schemas";
+import { dinerOnboardSchema } from "../../auth/validations/auth-schemas";
+import type { DinerOnboardData } from "../../auth/validations/auth-schemas";
 import { formatInternationalPhone } from "@/shared/helpers/formatPhoneNumber";
 
 import { EXTERNAL_LINKS } from "@/shared/types/constants";
@@ -15,9 +15,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 import { User, Phone, MapPin, Upload, X, AlertCircle, UtensilsCrossed } from "lucide-react";
 
-import { LocationSelect } from "./LocationSelect";
+import { LocationSelect } from "../../auth/components/LocationSelect";
 import { useState } from "react";
-import { useOnboardDiner } from "../queries/useOnboardDiner";
+import { useOnboardDiner } from "../../auth/queries/useOnboardDiner";
 
 export const DinerOnboardingForm = () => {
   // Avatar and avatar preview

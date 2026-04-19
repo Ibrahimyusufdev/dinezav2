@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { type StorageBucket } from "../constants/storage.constants";
+import { type StorageBucket } from "../../onboarding/constants/storage.constants";
 
 // Deletes a single file from the specified bucket.
 export const deleteFile = async (path: string, bucket: StorageBucket): Promise<void> => {

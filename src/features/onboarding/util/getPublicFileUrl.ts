@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { STORAGE_BUCKETS } from "../constants/storage.constants";
+import { STORAGE_BUCKETS } from "../../onboarding/constants/storage.constants";
 
 // Returns a permanent public URL for a file in the public bucket.
 export const getPublicFileUrl = (path: string): string | null => {

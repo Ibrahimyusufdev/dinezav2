@@ -2,7 +2,7 @@ import { supabase } from "@/lib/supabase";
 import type { OnboardDinerPayload } from "../types/auth.types";
 import { uploadFile } from "../utils/uploadFile";
 import { deleteFile } from "../utils/deleteFile";
-import { STORAGE_BUCKETS, STORAGE_PATHS } from "../constants/storage.constants";
+import { STORAGE_BUCKETS, STORAGE_PATHS } from "../../onboarding/constants/storage.constants";
 
 interface OnboardResult {
   success: true;

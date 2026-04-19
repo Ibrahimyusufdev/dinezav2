@@ -44,12 +44,6 @@ export const router = createBrowserRouter(
       {/* Callback for auth on signup */}
       <Route path={ROUTES.AUTH_CALLBACK} element={<AuthCallbackPage />} />
 
-      {/* Onboading Route, move to Requireboarding */}
-      <Route element={<AuthLayout />}>
-        <Route path={ROUTES.ONBOARD_DINER} element={<DinerOnboardingPage />} />
-        <Route path={ROUTES.ONBOARD_RESTAURANT} element={<RestaurantOnboardPage />} />
-      </Route>
-
       {/* RequireGuest routing */}
       <Route element={<RequireGuest />}>
         <Route element={<AuthLayout />}>
@@ -69,6 +63,8 @@ export const router = createBrowserRouter(
       <Route element={<RequireOnboarding />}>
         <Route element={<AuthLayout />}>
           <Route path={ROUTES.REGISTER_SELECT} element={<RegisterSelectPage />} />
+          <Route path={ROUTES.ONBOARD_DINER} element={<DinerOnboardingPage />} />
+          <Route path={ROUTES.ONBOARD_RESTAURANT} element={<RestaurantOnboardPage />} />
         </Route>
       </Route>
 

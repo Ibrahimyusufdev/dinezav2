@@ -5,7 +5,7 @@ import {
   MAX_IMAGE_SIZE_BYTES,
   MAX_DOCUMENT_SIZE_BYTES,
   type StorageBucket,
-} from "../constants/storage.constants";
+} from "../../onboarding/constants/storage.constants";
 
 const validateFile = (file: File, folderPath: string): void => {
   const isDocumentFolder = folderPath.includes("/documents");

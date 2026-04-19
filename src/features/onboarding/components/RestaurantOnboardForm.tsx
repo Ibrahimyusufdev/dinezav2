@@ -1,8 +1,8 @@
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
-import type { RestaurantOnboardData } from "../validations/auth-schemas";
-import { restaurantOnboardSchema } from "../validations/auth-schemas";
+import type { RestaurantOnboardData } from "../../auth/validations/auth-schemas";
+import { restaurantOnboardSchema } from "../../auth/validations/auth-schemas";
 
 import { Field, FieldLabel, FieldError, FieldDescription } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 
 import { useState, useRef } from "react";
-import { useOnboardRestaurant } from "../queries/useOnboardRestaurant";
+import { useOnboardRestaurant } from "../../auth/queries/useOnboardRestaurant";
 import { EXTERNAL_LINKS } from "@/shared/types/constants";
 import {
   ALLOWED_IMAGE_TYPES,
@@ -33,7 +33,7 @@ import {
   ACCEPT_DOCUMENT_INPUT,
   MAX_IMAGE_SIZE_BYTES,
   MAX_DOCUMENT_SIZE_BYTES,
-} from "@/features/auth/constants/storage.constants";
+} from "@/features/onboarding/constants/storage.constants";
 
 const CUISINE_OPTIONS = [
   "Nigerian",

@@ -1,5 +1,5 @@
 import { AuthPageShell } from "../components/AuthPageShell";
-import { DinerOnboardingForm } from "../components/DinerOnboardingForm";
+import { DinerOnboardingForm } from "../../onboarding/components/DinerOnboardingForm";
 
 export const DinerOnboardingPage = () => {
   return (
