@@ -1,13 +1,13 @@
 import { useAuthUser } from "@/features/auth";
 import { ROUTES } from "@/shared/types/constants";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { PageSkeleton } from "@/shared/components/skeletons";
+import { AppLoader } from "@/shared/components/AppLoader";
 
 const RequireAuth = () => {
   const { data: authUser, isLoading } = useAuthUser();
   const location = useLocation();
 
-  if (isLoading) return <PageSkeleton />;
+  if (isLoading) return <AppLoader />;
 
   // Not Logged in go to login
   if (!authUser) return <Navigate to={ROUTES.LOGIN} state={{ from: location.pathname }} replace />;
