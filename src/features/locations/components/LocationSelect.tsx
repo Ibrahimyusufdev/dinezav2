@@ -60,7 +60,7 @@ export const LocationSelect = ({ value, onChange, disabled }: Props) => {
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0" align="start">
+        <PopoverContent className="w-(--radix-popover-trigger-width) p-0" align="start">
           <Command>
             <CommandInput placeholder="Search locations..." />
             <CommandList>

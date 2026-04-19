@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
-import type { Location } from "../types/auth.types";
+import type { Location } from "../types/location.types";
 
 export const fetchLocations = async (): Promise<Location[]> => {
   const { data, error } = await supabase

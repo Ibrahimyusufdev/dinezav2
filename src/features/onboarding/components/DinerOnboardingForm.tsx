@@ -93,7 +93,7 @@ export const DinerOnboardingForm = () => {
     <div className="mx-auto w-full max-w-2xl">
       <div className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]">
         {/* Header */}
-        <div className="border-b border-gray-100 bg-gradient-to-br from-[#FF5900]/5 to-transparent p-8">
+        <div className="border-b border-gray-100 bg-linear-to-br from-[#FF5900]/5 to-transparent p-8">
           <div className="flex items-center gap-3">
             <div className="flex size-12 items-center justify-center rounded-xl bg-[#FF5900]/10 ring-1 ring-[#FF5900]/20">
               <UtensilsCrossed size={24} className="text-[#FF5900]" strokeWidth={1.5} />
