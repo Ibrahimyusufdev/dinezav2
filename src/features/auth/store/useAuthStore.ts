@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { immer } from "zustand/middleware/immer";
-import {persist} from "zustand/middleware"
+import { persist } from "zustand/middleware";
 
 // AuthError
 type AuthError = {
@@ -24,41 +24,46 @@ interface AuthState {
 // Auth Store - Global Authentication state using supabase
 
 export const useAuthStore = create<AuthState>()(
-  immer(persist((set) => ({
-    // Setting initial state
-    user: null,
-    error: null,
-    isLoading: false,
-    email: null,
+  immer(
+    persist(
+      (set) => ({
+        // Setting initial state
+        user: null,
+        error: null,
+        isLoading: false,
+        email: null,
 
-    setError: (error) => {
-      set((state) => {
-        state.error = error;
-      });
-    },
+        setError: (error) => {
+          set((state) => {
+            state.error = error;
+          });
+        },
 
-    // Control loading state, and use in auth initialization and Api calls
-    setLoading: (loading) => {
-      set((state) => {
-        state.isLoading = loading;
-      });
-    },
+        // Control loading state, and use in auth initialization and Api calls
+        setLoading: (loading) => {
+          set((state) => {
+            state.isLoading = loading;
+          });
+        },
 
-    clearError: () => {
-      set((state) => {
-        state.error = null;
-      });
-    },
+        clearError: () => {
+          set((state) => {
+            state.error = null;
+          });
+        },
 
-    setEmail: (email) => {
-      set((state) => {
-        state.email = email;
-      });
-    },
-  }), {
-    name: "dineza-auth",
-    partialize: (state) => ({
-      email: state.email,
-    })
-  })
-));
+        setEmail: (email) => {
+          set((state) => {
+            state.email = email;
+          });
+        },
+      }),
+      {
+        name: "dineza-auth",
+        partialize: (state) => ({
+          email: state.email,
+        }),
+      }
+    )
+  )
+);

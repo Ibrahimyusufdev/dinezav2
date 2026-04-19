@@ -1,54 +1,57 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import { fetchUser } from "../service/fetchUser";
 import { AppLoader } from "@/shared/components/AppLoader";
-import { useAuthUser } from "../queries/useAuthUser";
 import { ROUTES } from "@/shared/types/constants";
-import { getDashboardByRole } from "@/app/index";
+import { getDashboardByRole } from "@/shared/helpers/getDashboardByRole";
+import type { AuthUser } from "../types/auth.types";
 
 export const AuthCallbackPage = () => {
   const navigate = useNavigate();
-  const { data: authUser, isLoading } = useAuthUser();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
-    const handleRedirect = async () => {
-
-      const hash = window.location.hash;
-
-      if(hash.includes("type=recovery")) {
+    const handleCallback = async () => {
+      // Password recovery redirect
+      if (window.location.hash.includes("type=recovery")) {
         navigate(ROUTES.RESET_PASSWORD);
         return;
       }
-      // ensure session is ready
+
       const {
         data: { session },
       } = await supabase.auth.getSession();
 
-      if (!session?.user) {
+      if (!session) {
         navigate(ROUTES.LOGIN);
         return;
       }
 
-      // wait for React Query to resolve user
-      if (isLoading) return;
+      // Cache is empty after redirect - staleTime: 0 forces a fresh DB fetch
+      // and also populates the cache for the rest of the app
+      const authUser = await queryClient.fetchQuery<AuthUser | null>({
+        queryKey: ["auth-user"],
+        queryFn: fetchUser,
+        staleTime: 0,
+      });
 
       if (!authUser) {
         navigate(ROUTES.LOGIN);
         return;
       }
 
-      // onboarding
       if (!authUser.role) {
         navigate(ROUTES.REGISTER_SELECT);
         return;
       }
 
-      // fully onboarded
       navigate(getDashboardByRole[authUser.role]);
     };
 
-    handleRedirect();
-  }, [authUser, isLoading, navigate]);
+    handleCallback();
+  }, []); // runs once — this is intentional
 
   return <AppLoader />;
 };

@@ -8,13 +8,12 @@ export interface BaseUser {
   firstName: string;
   lastName: string;
   role: UserRole;
-  avatarPath?: string;
   phoneNumber?: string | null;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt?: string | null;
+  updatedAt?: string | null;
 }
 
-// Unassigned User
+// Unassigned User - Email verified, but haven't onboarded
 export interface UnassignedUser extends Omit<BaseUser, "role"> {
   role: null;
 }
@@ -22,6 +21,8 @@ export interface UnassignedUser extends Omit<BaseUser, "role"> {
 // Diner User - extending from Base User with specific field added
 export interface Diner extends BaseUser {
   role: "diner";
+  avatarUrl: string | null;
+  avatarPath?: string | null;
   preferredLocations?: string[];
   totalEarnings?: number;
   pendingEarnings?: number;
@@ -31,14 +32,16 @@ export interface Diner extends BaseUser {
 // Restaurant User - extending from Base User with specific field added
 export interface Restaurant extends BaseUser {
   role: "restaurant";
-  restaurantName?: string;
+  restaurantName?: string | null;
   restaurantLogo?: string | null;
-  businessEmail?: string;
-  address?: string;
-  cuisineType?: string;
-  contactName?: string;
-  contactPhone?: string;
-  restaurantImages?: string[] | null;
+  businessEmail?: string | null;
+  address?: string | null;
+  cuisineType?: string[];
+  contactName?: string | null;
+  contactPhone?: string | null;
+  restaurantImages?: string[];
+  documents: string[];
+  documentUrls: string[];
   isVerified?: boolean;
   rating?: number;
   totalReservations?: number;
@@ -49,12 +52,12 @@ export interface Restaurant extends BaseUser {
 // Admin User - extending from Base User with specific field added
 export interface Admin extends BaseUser {
   role: "admin";
-  isSuperAdmin: boolean;
-  adminLevel?: "super" | "moderator" | "support";
-  permissions?: string[];
+  // isSuperAdmin: boolean;
+  // adminLevel?: "super" | "moderator" | "support";
+  // permissions?: string[];
 }
 
-// Making user to be either Diner, Restaurant, or Admin using discriminated Union in TS for AuthPurpose
+// Making user to be either Diner, Restaurant, Admin, or UnassignedUser using discriminated Union in TS for AuthPurpose
 export type AuthUser = Diner | Restaurant | Admin | UnassignedUser;
 
 // Login and Register Payload for supabase auth pattern
@@ -88,8 +91,8 @@ export interface OnboardRestaurantPayload {
   documentFiles?: File[];
 }
 
-// // AuthResponse Shape coming from Api, what the backend returns after successful login or register
-// export interface AuthResponse {
-//   accessToken: string;
-//   user: AuthUser;
-// }
+// Location types
+export interface Location {
+  id: string;
+  name: string;
+}

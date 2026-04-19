@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 // Wire up dashboard by role
 import { useCurrentUser, useLogout } from "@/features/auth";
-import { getUserRedirect } from "../helpers/getUserRedirect";
+import { getUserRedirect } from "@/shared/helpers/getUserRedirect";
 
 const UnauthorizedPage = () => {
   // Grab logout and authUser from auth hook and auth store

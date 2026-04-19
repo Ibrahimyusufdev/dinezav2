@@ -8,6 +8,7 @@ const DinerDashboard = lazy(() => import("@/features/diner/pages/DinerDashboard"
 const MyReservations = lazy(() => import("@/features/diner/pages/MyReservations"));
 const MyEarnings = lazy(() => import("@/features/diner/pages/MyEarnings"));
 const InviteFriends = lazy(() => import("@/features/diner/pages/InviteFriends"));
+const GlobalNoPage = lazy(() => import("../pages/GlobalNoPage.tsx"));
 
 // Shared pages across roles
 const ExploreRestaurants = lazy(() => import("@/features/restaurants/pages/ExploreRestaurants"));
@@ -56,5 +57,6 @@ export const dinerRoutes = (
     />
 
     {/* Global no page */}
+    <Route path="*" element={<GlobalNoPage />} />
   </Route>
 );

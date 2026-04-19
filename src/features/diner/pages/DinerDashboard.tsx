@@ -1,5 +1,5 @@
 export const DinerDashboard = () => {
-  return <div>DinerDashboard</div>;
+  return <p>Diner Dashboard</p>;
 };
 
 export default DinerDashboard;

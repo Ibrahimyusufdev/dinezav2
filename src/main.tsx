@@ -14,6 +14,7 @@ const queryClient = new QueryClient({
       retry: false,
       gcTime: 1000 * 60 * 60 * 24, // 24 hours
       refetchOnWindowFocus: false,
+      refetchOnMount: true,
     },
   },
 });
@@ -28,7 +29,6 @@ createRoot(document.getElementById("root")!).render(
       client={queryClient}
       persistOptions={{
         persister: asyncStoragePersister,
-     
       }}
     >
       <AuthProvider>

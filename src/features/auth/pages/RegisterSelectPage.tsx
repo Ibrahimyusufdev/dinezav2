@@ -42,7 +42,8 @@ export const RegisterSelectPage = () => {
             </p>
             <h1 className="text-[2rem] leading-tight font-bold tracking-tight text-gray-950 sm:text-[2.5rem]">
               How will you use <span className="text-[#FF5900]">Dineza?</span>
-            </h1>``
+            </h1>
+            ``
             <p className="mt-3 text-[15px] leading-relaxed text-gray-500">
               Choose your role to personalise your experience.
               <br className="hidden sm:block" />
@@ -116,7 +117,7 @@ export const RegisterSelectPage = () => {
           </div>
 
           {/* Footer */}
-          <p className="mt-10 text-center text-[13px] flex flex-wrap items-center justify-center gap-2 text-gray-400">
+          <p className="mt-10 flex flex-wrap items-center justify-center gap-2 text-center text-[13px] text-gray-400">
             Already have an account?{" "}
             <Link
               to={ROUTES.LOGIN}

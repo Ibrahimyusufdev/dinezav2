@@ -66,8 +66,8 @@ export const ROUTES = {
   AUTH_CALLBACK: "auth/callback",
 
   // Can only be access if logged in
-  ONBOARD_DINER: "/onboard/diner",
-  ONBOARD_RESTAURANT: "/onboard/restaurant",
+  ONBOARD_DINER: "/diner/onboard",
+  ONBOARD_RESTAURANT: "/restaurant/onboard",
 
   // Error
   UNAUTHORIZED: "/unauthorized",

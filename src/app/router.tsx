@@ -44,13 +44,13 @@ export const router = createBrowserRouter(
       {/* Callback for auth on signup */}
       <Route path={ROUTES.AUTH_CALLBACK} element={<AuthCallbackPage />} />
 
-      {/* Onboading Route */}
+      {/* Onboading Route, move to Requireboarding */}
       <Route element={<AuthLayout />}>
         <Route path={ROUTES.ONBOARD_DINER} element={<DinerOnboardingPage />} />
         <Route path={ROUTES.ONBOARD_RESTAURANT} element={<RestaurantOnboardPage />} />
       </Route>
 
-      {/* Auth Layout Routing */}
+      {/* RequireGuest routing */}
       <Route element={<RequireGuest />}>
         <Route element={<AuthLayout />}>
           <Route path={ROUTES.LOGIN} element={<LoginPage />} />

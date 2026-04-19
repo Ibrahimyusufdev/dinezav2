@@ -2,6 +2,7 @@ import { Route } from "react-router-dom";
 import { lazy } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 
+
 // Lazy-loaded admin pages
 const AdminDashboard = lazy(() => import("@/features/admin/pages/AdminDashboard"));
 const ManageRestaurants = lazy(() => import("@/features/admin/pages/ManageRestaurants"));
@@ -12,8 +13,9 @@ const Settings = lazy(() => import("@/features/admin/pages/Settings"));
 const Notifications = lazy(() => import("@/features/admin/pages/Notifications"));
 const Reservations = lazy(() => import("@/features/admin/pages/Reservations"));
 const Messages = lazy(() => import("@/features/admin/pages/Messages"));
-
 const ProfilePage = lazy(() => import("@/features/profile/pages/ProfilePage"));
+
+const GlobalNoPage = lazy(() => import("../pages/GlobalNoPage.tsx"));
 
 import { PATHS } from "@/shared/types/constants";
 import { ROUTE_META } from "@/shared/types/routeMeta";
@@ -71,5 +73,8 @@ export const adminRoutes = (
       element={<ProfilePage />}
       handle={ROUTE_META.ADMIN.PROFILE satisfies RouteHandle}
     />
+
+    {/* Global no page */}
+    <Route path="*" element={<GlobalNoPage />} />
   </Route>
 );

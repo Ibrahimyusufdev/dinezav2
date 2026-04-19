@@ -3,7 +3,7 @@ import { LoginForm } from "../components/LoginForm";
 
 export const LoginPage = () => (
   <AuthPageShell>
-    <div className="mx-auto w-full max-w-lg md:max-w-4xl">
+    <div className="mx-auto w-full max-w-lg md:max-w-6xl">
       <LoginForm />
     </div>
   </AuthPageShell>

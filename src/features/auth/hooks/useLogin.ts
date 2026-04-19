@@ -8,7 +8,7 @@ import { ROUTES } from "@/shared/types/constants";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { fetchUser } from "../service/fetchUser";
-import { getDashboardByRole } from "@/app/index";
+import { getDashboardByRole } from "@/shared/helpers/getDashboardByRole";
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
@@ -34,10 +34,11 @@ export const useLogin = () => {
         throw new Error(error.message);
       }
 
-      // Refetch user
+      // One DB hit, force fresh fetch, bypasses staleTime: Infinity
       const authUser = await queryClient.fetchQuery<AuthUser | null>({
         queryKey: ["auth-user"],
         queryFn: fetchUser,
+        staleTime: 0,
       });
 
       if (!authUser) {
@@ -45,7 +46,7 @@ export const useLogin = () => {
         return;
       }
 
-      if (!authUser || !authUser.role) {
+      if (!authUser.role) {
         navigate(ROUTES.REGISTER_SELECT);
         return;
       }
@@ -79,7 +80,6 @@ export const useLogin = () => {
     if (error) {
       setError({ message: error.message });
       toast.error(error.message);
-      setLoading(false);
     }
   };
 

@@ -8,7 +8,7 @@ import { ROUTES } from "@/shared/types/constants";
 import { useCurrentUser } from "@/features/auth";
 
 // Wire up dashboard by role
-import { getUserRedirect } from "../helpers/getUserRedirect";
+import { getUserRedirect } from "@/shared/helpers/getUserRedirect";
 import { Logo } from "@/shared/components/Logo";
 
 const Navbar = () => {

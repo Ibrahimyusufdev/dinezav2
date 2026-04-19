@@ -8,5 +8,7 @@ export const useAuthUser = () => {
     queryFn: fetchUser,
     refetchOnMount: true,
     staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 };

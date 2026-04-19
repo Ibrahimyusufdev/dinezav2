@@ -2,7 +2,7 @@ import { useAuthUser } from "@/features/auth";
 import { ROUTES } from "@/shared/types/constants";
 import { Navigate, Outlet } from "react-router-dom";
 
-import { getDashboardByRole } from "../helpers/getDashboardByRole";
+import { getDashboardByRole } from "@/shared/helpers/getDashboardByRole";
 
 export const RequireGuest = () => {
   const { data: authUser } = useAuthUser();

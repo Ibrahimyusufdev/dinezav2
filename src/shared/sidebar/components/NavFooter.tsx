@@ -18,6 +18,7 @@ import {
 
 // Helpers
 import { getInitials } from "@/shared/helpers/getInitials";
+import { getAvatarUrl } from "@/shared/helpers/getAvatarUrl";
 
 // Lucide react
 import { ChevronsUpDown, LogOut } from "lucide-react";
@@ -39,6 +40,10 @@ const NavFooter = () => {
 
   // Func to get sidebar based on authUser role form auth store authUser data
   const config = getSidebarConfig(authUser.role);
+
+  const avatarUrl = getAvatarUrl(authUser);
+  const displayName = authUser.firstName;
+  const initials = getInitials(authUser.firstName, authUser.lastName);
 
   const getProfileRoute = () => {
     switch (authUser.role) {
@@ -64,10 +69,8 @@ const NavFooter = () => {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage src={authUser.avatarPath} alt={authUser?.firstName} />
-                <AvatarFallback className="rounded-lg">
-                  {getInitials(authUser?.firstName, authUser?.lastName)}
-                </AvatarFallback>
+                <AvatarImage src={avatarUrl ?? undefined} alt={displayName} />
+                <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{authUser?.firstName}</span>
@@ -84,22 +87,17 @@ const NavFooter = () => {
             align="end"
             sideOffset={4}
           >
-            {/* Change to routing you want to go to, and use TS */}
+            {/* Change to routing you want to go to */}
 
             <DropdownMenuLabel asChild className="p-0 font-normal">
               <Link to={getProfileRoute()}>
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="h-8 w-8 rounded-lg">
-                    <AvatarImage
-                      src={authUser?.avatarPath ?? ""}
-                      alt={authUser?.firstName ?? "User"}
-                    />
-                    <AvatarFallback className="rounded-lg">
-                      {getInitials(authUser?.firstName, authUser?.lastName)}
-                    </AvatarFallback>
+                    <AvatarImage src={avatarUrl ?? ""} alt={displayName ?? "User"} />
+                    <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-medium">{authUser?.firstName}</span>
+                    <span className="truncate font-medium">{displayName}</span>
                     <span className="truncate text-xs">{authUser?.email}</span>
                   </div>
                 </div>

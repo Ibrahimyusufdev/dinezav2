@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { logo } from "@/assets";
 
 // Wire up dashboard by role
-import { getDashboardByRole } from "@/app/";
+import { getDashboardByRole } from "@/shared/helpers/getDashboardByRole";
 import { useCurrentUser } from "@/features/auth";
 
 const SideHeader = () => {

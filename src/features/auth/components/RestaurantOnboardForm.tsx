@@ -26,8 +26,15 @@ import {
 import { useState, useRef } from "react";
 import { useOnboardRestaurant } from "../queries/useOnboardRestaurant";
 import { EXTERNAL_LINKS } from "@/shared/types/constants";
+import {
+  ALLOWED_IMAGE_TYPES,
+  ALLOWED_DOCUMENT_TYPES,
+  ACCEPT_IMAGE_INPUT,
+  ACCEPT_DOCUMENT_INPUT,
+  MAX_IMAGE_SIZE_BYTES,
+  MAX_DOCUMENT_SIZE_BYTES,
+} from "@/features/auth/constants/storage.constants";
 
-// constants
 const CUISINE_OPTIONS = [
   "Nigerian",
   "Continental",
@@ -43,13 +50,37 @@ const CUISINE_OPTIONS = [
   "Pastry & Bakery",
 ];
 
+// Validate a file client-side before adding to state.
+// Mirrors the server-side validateFile logic so errors surface immediately.
+const validateFileClientSide = (file: File, type: "image" | "document"): string | null => {
+  const allowedTypes =
+    type === "image"
+      ? (ALLOWED_IMAGE_TYPES as readonly string[])
+      : (ALLOWED_DOCUMENT_TYPES as readonly string[]);
+  const maxSize = type === "image" ? MAX_IMAGE_SIZE_BYTES : MAX_DOCUMENT_SIZE_BYTES;
+  const maxMB = (maxSize / (1024 * 1024)).toFixed(0);
+
+  if (!allowedTypes.includes(file.type)) {
+    return `"${file.name}" is not an allowed file type.`;
+  }
+  if (file.size > maxSize) {
+    return `"${file.name}" exceeds the ${maxMB}MB limit.`;
+  }
+  return null;
+};
+
 export const RestaurantOnboardingForm = () => {
-  // States for files and preview
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [documentFiles, setDocumentFiles] = useState<File[]>([]);
+  // Separate error state for file inputs
+  const [fileErrors, setFileErrors] = useState<{
+    logo?: string;
+    images?: string;
+    documents?: string;
+  }>({});
 
   const logoInputRef = useRef<HTMLInputElement>(null);
   const imagesInputRef = useRef<HTMLInputElement>(null);
@@ -79,58 +110,86 @@ export const RestaurantOnboardingForm = () => {
     },
   });
 
-  // Func to handle logo change
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    e.target.value = "";
     if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
-      form.setError("root", { message: "Please upload a valid image file" });
-      return;
-    }
-    if (file.size > 5 * 1024 * 1024) {
-      form.setError("root", { message: "Image must be less than 5MB" });
+    const err = validateFileClientSide(file, "image");
+    if (err) {
+      setFileErrors((prev) => ({ ...prev, logo: err }));
       return;
     }
 
+    setFileErrors((prev) => ({ ...prev, logo: undefined }));
     setLogoFile(file);
-
-    // Create preview
     const reader = new FileReader();
     reader.onloadend = () => setLogoPreview(reader.result as string);
     reader.readAsDataURL(file);
-    e.target.value = "";
   };
 
-  // Listen to logo remove and update state
   const removeLogo = () => {
     setLogoFile(null);
     setLogoPreview(null);
-    form.clearErrors("root");
+    setFileErrors((prev) => ({ ...prev, logo: undefined }));
   };
 
-  // Funct to handle Restaurant Images changes
   const handleImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files ?? []).filter((f) => f.type.startsWith("image/"));
-    setImageFiles((prev) => [...prev, ...files]);
-    setImagePreviews((prev) => [...prev, ...files.map((f) => URL.createObjectURL(f))]);
+    const incoming = Array.from(e.target.files ?? []);
     e.target.value = "";
+
+    const errors: string[] = [];
+    const valid: File[] = [];
+
+    for (const file of incoming) {
+      const err = validateFileClientSide(file, "image");
+      if (err) errors.push(err);
+      else valid.push(file);
+    }
+
+    if (errors.length) {
+      setFileErrors((prev) => ({ ...prev, images: errors.join(" ") }));
+    } else {
+      setFileErrors((prev) => ({ ...prev, images: undefined }));
+    }
+
+    if (valid.length) {
+      setImageFiles((prev) => [...prev, ...valid]);
+      setImagePreviews((prev) => [...prev, ...valid.map((f) => URL.createObjectURL(f))]);
+    }
   };
 
-  // Listen to restaurant images remove and update state
   const removeImage = (idx: number) => {
     URL.revokeObjectURL(imagePreviews[idx]);
     setImageFiles((prev) => prev.filter((_, i) => i !== idx));
     setImagePreviews((prev) => prev.filter((_, i) => i !== idx));
   };
 
-  // Funct to handle Restaurant docs changes
   const handleDocsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDocumentFiles((prev) => [...prev, ...Array.from(e.target.files ?? [])]);
+    const incoming = Array.from(e.target.files ?? []);
     e.target.value = "";
+
+    const errors: string[] = [];
+    const valid: File[] = [];
+
+    for (const file of incoming) {
+      const err = validateFileClientSide(file, "document");
+      if (err) errors.push(err);
+      else valid.push(file);
+    }
+
+    if (errors.length) {
+      setFileErrors((prev) => ({ ...prev, documents: errors.join(" ") }));
+    } else {
+      setFileErrors((prev) => ({ ...prev, documents: undefined }));
+    }
+
+    // Always append valid files
+    if (valid.length) {
+      setDocumentFiles((prev) => [...prev, ...valid]);
+    }
   };
 
-  // Listen to restaurant docs remove and update state
   const removeDoc = (idx: number) => {
     setDocumentFiles((prev) => prev.filter((_, i) => i !== idx));
   };
@@ -291,7 +350,6 @@ export const RestaurantOnboardingForm = () => {
                   </Field>
                 )}
               />
-
               <Controller
                 name="businessEmail"
                 control={form.control}
@@ -318,7 +376,6 @@ export const RestaurantOnboardingForm = () => {
                   </Field>
                 )}
               />
-
               <Controller
                 name="address"
                 control={form.control}
@@ -343,8 +400,6 @@ export const RestaurantOnboardingForm = () => {
                   </Field>
                 )}
               />
-
-              {/* Cuisine Type */}
               <Controller
                 name="cuisineType"
                 control={form.control}
@@ -490,7 +545,7 @@ export const RestaurantOnboardingForm = () => {
                     <input
                       ref={logoInputRef}
                       type="file"
-                      accept="image/*"
+                      accept={ACCEPT_IMAGE_INPUT}
                       onChange={handleLogoChange}
                       disabled={isFormDisabled}
                       className="hidden"
@@ -505,23 +560,28 @@ export const RestaurantOnboardingForm = () => {
                       <Upload size={16} />
                       Upload Logo
                     </Button>
-                    <FieldDescription className="mt-2">PNG, JPG up to 5MB.</FieldDescription>
+                    <FieldDescription className="mt-2">PNG, JPG, WebP up to 5MB.</FieldDescription>
                   </div>
                 </div>
-                {form.formState.errors.root && <FieldError errors={[form.formState.errors.root]} />}
+                {fileErrors.logo && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600">
+                    <AlertCircle size={14} />
+                    {fileErrors.logo}
+                  </p>
+                )}
               </Field>
 
               {/* Restaurant Photos */}
               <Field>
                 <FieldLabel>Restaurant Photos (Optional)</FieldLabel>
                 <FieldDescription>
-                  Interior, dishes, ambience - multiple files allowed
+                  Interior, dishes, ambience — multiple files allowed
                 </FieldDescription>
                 <div className="mt-1">
                   <input
                     ref={imagesInputRef}
                     type="file"
-                    accept="image/*"
+                    accept={ACCEPT_IMAGE_INPUT}
                     multiple
                     onChange={handleImagesChange}
                     disabled={isFormDisabled}
@@ -538,10 +598,16 @@ export const RestaurantOnboardingForm = () => {
                     Add Photos
                   </Button>
                 </div>
+                {fileErrors.images && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600">
+                    <AlertCircle size={14} />
+                    {fileErrors.images}
+                  </p>
+                )}
                 {imagePreviews.length > 0 && (
                   <div className="mt-3 grid grid-cols-4 gap-2 sm:grid-cols-6">
                     {imagePreviews.map((src, i) => (
-                      <div key={i} className="group relative aspect-square">
+                      <div key={src} className="group relative aspect-square">
                         <img
                           src={src}
                           alt={`Restaurant photo ${i + 1}`}
@@ -550,7 +616,7 @@ export const RestaurantOnboardingForm = () => {
                         <button
                           type="button"
                           onClick={() => removeImage(i)}
-                          aria-label="Remove photo"
+                          aria-label={`Remove photo ${i + 1}`}
                           className="absolute -top-1.5 -right-1.5 hidden size-5 items-center justify-center rounded-full bg-red-500 text-white shadow-sm group-hover:flex hover:bg-red-600"
                         >
                           <X size={12} />
@@ -564,13 +630,15 @@ export const RestaurantOnboardingForm = () => {
               {/* Documents */}
               <Field>
                 <FieldLabel>Business Documents (Optional)</FieldLabel>
-                <FieldDescription>CAC certificate, food safety permit, menu, etc.</FieldDescription>
+                <FieldDescription>
+                  CAC certificate, food safety permit, menu — PDF or image files
+                </FieldDescription>
                 <div className="mt-1">
                   <input
                     ref={docsInputRef}
                     type="file"
                     multiple
-                    accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+                    accept={ACCEPT_DOCUMENT_INPUT}
                     onChange={handleDocsChange}
                     disabled={isFormDisabled}
                     className="hidden"
@@ -586,11 +654,19 @@ export const RestaurantOnboardingForm = () => {
                     Attach Documents
                   </Button>
                 </div>
+                {fileErrors.documents && (
+                  <p className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600">
+                    <AlertCircle size={14} />
+                    {fileErrors.documents}
+                  </p>
+                )}
                 {documentFiles.length > 0 && (
                   <ul className="mt-3 space-y-2">
                     {documentFiles.map((doc, i) => (
+                      // Fix: key on name+size, not index — prevents stale renders
+                      // when a middle item is removed
                       <li
-                        key={i}
+                        key={`${doc.name}-${doc.size}`}
                         className="flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm"
                       >
                         <FileText size={14} className="shrink-0 text-gray-400" />
@@ -667,7 +743,7 @@ export const RestaurantOnboardingForm = () => {
           <Button
             type="submit"
             disabled={isSubmitDisabled}
-            className="h-12 w-full rounded-xl bg-primary text-base font-semibold text-white shadow-none transition-all hover:bg-[#e04f00] focus-visible:ring-[#FF5900]/40 disabled:opacity-50"
+            className="bg-primary h-12 w-full rounded-xl text-base font-semibold text-white shadow-none transition-all hover:bg-[#e04f00] focus-visible:ring-[#FF5900]/40 disabled:opacity-50"
           >
             {isFormDisabled ? (
               <span className="flex items-center gap-2">
@@ -684,4 +760,4 @@ export const RestaurantOnboardingForm = () => {
   );
 };
 
-export default RestaurantOnboardingForm
+export default RestaurantOnboardingForm;

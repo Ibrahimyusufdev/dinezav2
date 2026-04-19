@@ -2,12 +2,17 @@ import { supabase } from "@/lib/supabase";
 import { fetchAndMergeProfile } from "../utils/fetchAndMergeProfile";
 
 export const fetchUser = async () => {
-  // Verify session exists before querying
   const {
     data: { session },
+    error: sessionError,
   } = await supabase.auth.getSession();
+
+  if (sessionError) {
+    console.error("fetchUser: failed to get session", sessionError.message);
+    return null;
+  }
+
   if (!session?.user) {
-    console.error("No active session found");
     return null;
   }
 

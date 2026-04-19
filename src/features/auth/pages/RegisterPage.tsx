@@ -3,7 +3,7 @@ import { RegisterForm } from "../components/RegisterForm";
 
 export const RegisterPage = () => (
   <AuthPageShell>
-    <div className="mx-auto w-full max-w-lg md:max-w-4xl">
+    <div className="mx-auto w-full max-w-lg md:max-w-6xl ">
       <RegisterForm />
     </div>
   </AuthPageShell>

@@ -1,20 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import type { Location } from "../types/auth.types";
 
-export const fetchLocation = async () => {
-  const { data, error } = await supabase.from("locations").select("*");
-  console.log("locations", data)
+export const fetchLocations = async (): Promise<Location[]> => {
+  const { data, error } = await supabase
+    .from("locations")
+    .select("id, name")
+    .order("name", { ascending: true });
 
   if (error) throw new Error(error.message);
-  return data;
+
+  return data ?? [];
 };
 
-
-
 export const useLocations = () => {
-  return useQuery({
+  return useQuery<Location[]>({
     queryKey: ["locations"],
-    queryFn: fetchLocation,
-    staleTime: 1000 * 60 * 10, // 10 mins
+    queryFn: fetchLocations,
+    staleTime: 1000 * 60 * 10, // 10 min
+    gcTime: 1000 * 60 * 30, // keep in cache 30 min after unmount
   });
+};
+
+export const useResolvedLocations = (locationIds: string[]): string[] => {
+  const { data: locations } = useLocations();
+  if (!locations || !locationIds.length) return [];
+  return locations.filter((loc) => locationIds.includes(loc.id)).map((loc) => loc.name);
 };

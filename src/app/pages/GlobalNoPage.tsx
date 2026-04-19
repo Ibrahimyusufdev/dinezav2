@@ -6,7 +6,7 @@ import { FileQuestion, Home } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-import { getDashboardByRole } from "../helpers/getDashboardByRole";
+import { getDashboardByRole } from "@/shared/helpers/getDashboardByRole";
 
 const GlobalNoPage = () => {
   const navigate = useNavigate();

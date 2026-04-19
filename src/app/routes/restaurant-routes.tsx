@@ -8,6 +8,7 @@ const ReservationPage = lazy(() => import("@/features/restaurant/pages/Reservati
 const SpecialOffersPage = lazy(() => import("@/features/restaurant/pages/SpecialOffersPage"));
 const AnalyticsPage = lazy(() => import("@/features/restaurant/pages/AnalyticsPage"));
 const PaymentsPage = lazy(() => import("@/features/restaurant/pages/PaymentsPage"));
+const GlobalNoPage = lazy(() => import("../pages/GlobalNoPage.tsx"));
 
 // Shared pages across
 const InviteFriends = lazy(() => import("@/features/diner/pages/InviteFriends"));
@@ -60,5 +61,7 @@ export const restaurantRoutes = (
       element={<ProfilePage />}
       handle={ROUTE_META.RESTAURANT.PROFILE satisfies RouteHandle}
     />
+    {/* Global no page */}
+    <Route path="*" element={<GlobalNoPage />} />
   </Route>
 );

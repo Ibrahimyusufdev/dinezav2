@@ -11,9 +11,10 @@ export const useAuthListener = () => {
     } = supabase.auth.onAuthStateChange((event) => {
       if (event === "SIGNED_OUT") {
         queryClient.setQueryData(["auth-user"], null);
+        queryClient.removeQueries({ queryKey: ["auth-user"] });
       }
 
-      if (event === "SIGNED_IN" || event === "USER_UPDATED") {
+      if (event === "USER_UPDATED") {
         queryClient.invalidateQueries({ queryKey: ["auth-user"] });
       }
     });
