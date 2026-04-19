@@ -23,15 +23,14 @@ import {
   ConfirmEmailPage,
   LoginPage,
   RegisterPage,
-  RegisterSelectPage,
   ForgotPasswordPage,
   ResetPasswordPage,
-  DinerOnboardingPage,
-  RestaurantOnboardPage,
-} from "@/features/auth";
+} from "@/pages/auth";
 
-const GlobalNoPage = lazy(() => import("./pages/GlobalNoPage"));
-const UnauthorizedPage = lazy(() => import("./pages/UnauthorizedPage"));
+import { DinerOnboardingPage, RegisterSelectPage, RestaurantOnboardPage } from "@/pages/onboarding";
+
+const GlobalNoPage = lazy(() => import("../pages/shared/GlobalNoPage"));
+const UnauthorizedPage = lazy(() => import("../pages/shared/UnauthorizedPage"));
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

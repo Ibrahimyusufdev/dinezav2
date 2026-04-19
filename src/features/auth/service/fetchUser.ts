@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { fetchAndMergeProfile } from "../utils/fetchAndMergeProfile";
+import { fetchAndMergeProfile } from "./fetchAndMergeProfile";
 
 export const fetchUser = async () => {
   const {

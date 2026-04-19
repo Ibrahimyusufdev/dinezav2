@@ -2,20 +2,21 @@ import { Route } from "react-router-dom";
 import { lazy } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 
-
 // Lazy-loaded admin pages
-const AdminDashboard = lazy(() => import("@/features/admin/pages/AdminDashboard"));
-const ManageRestaurants = lazy(() => import("@/features/admin/pages/ManageRestaurants"));
-const ManageUsers = lazy(() => import("@/features/admin/pages/ManageUsers"));
-const Analytics = lazy(() => import("@/features/admin/pages/Analytics"));
-const Transactions = lazy(() => import("@/features/admin/pages/Transactions"));
-const Settings = lazy(() => import("@/features/admin/pages/Settings"));
-const Notifications = lazy(() => import("@/features/admin/pages/Notifications"));
-const Reservations = lazy(() => import("@/features/admin/pages/Reservations"));
-const Messages = lazy(() => import("@/features/admin/pages/Messages"));
+const AdminDashboard = lazy(() => import("@/pages/admin/AdminDashboard.tsx"));
+const ManageRestaurants = lazy(() => import("@/pages/admin/ManageRestaurants.tsx"));
+const ManageUsers = lazy(() => import("@/pages/admin/ManageUsers.tsx"));
+const Analytics = lazy(() => import("@/pages/admin/Analytics.tsx"));
+const Transactions = lazy(() => import("@/pages/admin/Transactions.tsx"));
+const Settings = lazy(() => import("@/pages/admin/Settings.tsx"));
+const Notifications = lazy(() => import("@/pages/admin/Notifications.tsx"));
+const Reservations = lazy(() => import("@/pages/admin/Reservations.tsx"));
+const Messages = lazy(() => import("@/pages/admin/Messages.tsx"));
+
+// Move pages to pages folder when you start building featues for the below
 const ProfilePage = lazy(() => import("@/features/profile/pages/ProfilePage"));
 
-const GlobalNoPage = lazy(() => import("../pages/GlobalNoPage.tsx"));
+const GlobalNoPage = lazy(() => import("@/pages/shared/GlobalNoPage.tsx"));
 
 import { PATHS } from "@/shared/types/constants";
 import { ROUTE_META } from "@/shared/types/routeMeta";

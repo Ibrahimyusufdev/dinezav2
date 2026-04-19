@@ -1,4 +1,4 @@
-import { AppSideBar, TopBar } from "@/shared/sidebar";
+import { AppSideBar, TopBar } from "@/sidebar";
 
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { ChevronLeft } from "lucide-react";

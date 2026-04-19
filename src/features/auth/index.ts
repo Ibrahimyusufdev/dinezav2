@@ -9,22 +9,32 @@ export type {
   LoginAndRegisterPayload,
 } from "./types/auth.types";
 
-//  Store
-export { useAuthStore } from "./store/useAuthStore";
+// Validation
+export type { ResetPasswordFormData } from "./validations/auth-schemas.ts";
+export { resetPasswordSchema } from "./validations/auth-schemas.ts";
 
 // Hooks
 export { useLogin } from "./hooks/useLogin";
 export { useLogout } from "./hooks/useLogout";
 export { useRegister } from "./hooks/useRegister";
 export { useCurrentUser } from "./hooks/useCurrentUser.ts";
+export { useAuthListener } from "./hooks/useAuthListener.ts";
 
+//  Store
+export { useAuthStore } from "./store/useAuthStore";
+
+// Queries
 export { useAuthUser } from "./queries/useAuthUser.ts";
-export { AuthProvider } from "./provider/AuthProvider.tsx";
+export { useAuthSession } from "./queries/useAuthSession.ts";
+export { useForgotPassword } from "./queries/useForgotPassword.ts";
+export { useResetPassword } from "./queries/useResetPassword.ts";
 
-// Pages
-export { LoginPage } from "./pages/LoginPage.tsx";
-export { RegisterPage } from "./pages/RegisterPage.tsx";
-export { ConfirmEmailPage } from "./pages/ConfirmEmailPage.tsx";
-export { AuthCallbackPage } from "./pages/AuthCallbackPage.tsx";
-export { ForgotPasswordPage } from "./pages/ForgetPasswordPage.tsx";
-export { ResetPasswordPage } from "./pages/ResetPasswordPage.tsx";
+// Components
+export { AuthBrandPanel } from "./components/AuthBrandPanel.tsx";
+export { AuthPageShell } from "./components/AuthPageShell";
+export { LoginForm } from "./components/LoginForm";
+export { RegisterForm } from "./components/RegisterForm";
+export { passwordRules, PasswordChecklist } from "./components/PasswordChecklist.tsx";
+
+// Service
+export { fetchUser } from "./service/fetchUser.ts";

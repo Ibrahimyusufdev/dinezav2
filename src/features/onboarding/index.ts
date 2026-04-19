@@ -1,5 +1,4 @@
 // Pages
 
-export { RegisterSelectPage } from "./pages/RegisterSelectPage";
-export { DinerOnboardingPage } from "./pages/DinerOnboardingPage";
-export { RestaurantOnboardPage } from "./pages/RestaurantOnboardPage";
+export { DinerOnboardingForm } from "./components/DinerOnboardingForm";
+export { RestaurantOnboardingForm } from "./components/RestaurantOnboardForm";

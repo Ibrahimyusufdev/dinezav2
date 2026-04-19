@@ -18,7 +18,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Eye, EyeOff, X } from "lucide-react";
 import { toast } from "sonner";
-
 import type { LoginFormData } from "../validations/auth-schemas";
 import { loginSchema } from "../validations/auth-schemas";
 
@@ -64,6 +63,7 @@ export const LoginForm = ({ className, ...props }: React.ComponentProps<"div">) 
   };
 
   // Clear API error from any component once user, if user mount from there
+
   useEffect(() => {
     if (!error) return;
     clearError();

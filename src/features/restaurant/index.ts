@@ -1,5 +1,5 @@
-export { AnalyticsPage } from "./pages/AnalyticsPage";
-export { PaymentsPage } from "./pages/PaymentsPage";
-export { ReservationPage } from "./pages/ReservationPage";
-export { RestaurantDashboard } from "./pages/RestaurantDashboard";
-export { SpecialOffersPage } from "./pages/SpecialOffersPage";
+export { AnalyticsPage } from "../../pages/restaurant/AnalyticsPage";
+export { PaymentsPage } from "../../pages/restaurant/PaymentsPage";
+export { ReservationPage } from "../../pages/restaurant/ReservationPage";
+export { RestaurantDashboard } from "../../pages/restaurant/RestaurantDashboard";
+export { SpecialOffersPage } from "../../pages/restaurant/SpecialOffersPage";

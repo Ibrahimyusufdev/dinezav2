@@ -22,9 +22,3 @@ export interface OnboardRestaurantPayload {
   imageFiles?: File[];
   documentFiles?: File[];
 }
-
-// Location types
-export interface Location {
-  id: string;
-  name: string;
-}

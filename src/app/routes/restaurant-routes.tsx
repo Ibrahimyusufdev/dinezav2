@@ -3,15 +3,15 @@ import { lazy } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 // Pages for restaurant
-const RestaurantDashboard = lazy(() => import("@/features/restaurant/pages/RestaurantDashboard"));
-const ReservationPage = lazy(() => import("@/features/restaurant/pages/ReservationPage"));
-const SpecialOffersPage = lazy(() => import("@/features/restaurant/pages/SpecialOffersPage"));
-const AnalyticsPage = lazy(() => import("@/features/restaurant/pages/AnalyticsPage"));
-const PaymentsPage = lazy(() => import("@/features/restaurant/pages/PaymentsPage"));
-const GlobalNoPage = lazy(() => import("../pages/GlobalNoPage.tsx"));
+const RestaurantDashboard = lazy(() => import("@/pages/restaurant/RestaurantDashboard.tsx"));
+const ReservationPage = lazy(() => import("@/pages/restaurant/ReservationPage.tsx"));
+const SpecialOffersPage = lazy(() => import("@/pages/restaurant/SpecialOffersPage.tsx"));
+const AnalyticsPage = lazy(() => import("@/pages/restaurant/AnalyticsPage.tsx"));
+const PaymentsPage = lazy(() => import("@/pages/restaurant/PaymentsPage.tsx"));
+const GlobalNoPage = lazy(() => import("@/pages/shared/GlobalNoPage.tsx"));
 
-// Shared pages across
-const InviteFriends = lazy(() => import("@/features/diner/pages/InviteFriends"));
+// Shared pages across - Move pages to pages folder when you start building featues for the below
+const InviteFriends = lazy(() => import("@/pages/diner/InviteFriends.tsx"));
 const MessagingPage = lazy(() => import("@/features/messaging/pages/MessagingPage"));
 const ProfilePage = lazy(() => import("@/features/profile/pages/ProfilePage"));
 

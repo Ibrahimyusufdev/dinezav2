@@ -4,13 +4,13 @@ import { lazy } from "react";
 import { PATHS } from "@/shared/types/constants";
 
 // Lazy-loaded pages for Diners
-const DinerDashboard = lazy(() => import("@/features/diner/pages/DinerDashboard"));
-const MyReservations = lazy(() => import("@/features/diner/pages/MyReservations"));
-const MyEarnings = lazy(() => import("@/features/diner/pages/MyEarnings"));
-const InviteFriends = lazy(() => import("@/features/diner/pages/InviteFriends"));
-const GlobalNoPage = lazy(() => import("../pages/GlobalNoPage.tsx"));
+const DinerDashboard = lazy(() => import("@/pages/diner/DinerDashboard"));
+const MyReservations = lazy(() => import("@/pages/diner/MyReservations"));
+const MyEarnings = lazy(() => import("@/pages/diner/MyEarnings"));
+const InviteFriends = lazy(() => import("@/pages/diner/InviteFriends"));
+const GlobalNoPage = lazy(() => import("@/pages/shared/GlobalNoPage.tsx"));
 
-// Shared pages across roles
+// Shared pages across roles - Move pages to pages folder when you start building featues for the below
 const ExploreRestaurants = lazy(() => import("@/features/restaurants/pages/ExploreRestaurants"));
 const MessagingPage = lazy(() => import("@/features/messaging/pages/MessagingPage"));
 const ProfilePage = lazy(() => import("@/features/profile/pages/ProfilePage"));
