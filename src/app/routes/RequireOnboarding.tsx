@@ -2,12 +2,12 @@ import { useAuthUser } from "@/features/auth";
 import { ROUTES } from "@/shared/types/constants";
 import { Navigate, Outlet } from "react-router-dom";
 import { getDashboardByRole } from "@/shared/helpers/getDashboardByRole";
-import { AppLoader } from "@/shared/components/AppLoader";
+import { PageSkeleton } from "@/shared/components/skeletons";
 
 export const RequireOnboarding = () => {
   const { data: authUser, isLoading } = useAuthUser();
 
-  if (isLoading) return <AppLoader />;
+  if (isLoading) return <PageSkeleton />;
 
   if (!authUser) {
     return <Navigate to={ROUTES.LOGIN} replace />;

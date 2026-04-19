@@ -3,20 +3,11 @@ import { fetchAndMergeProfile } from "../utils/fetchAndMergeProfile";
 
 export const fetchUser = async () => {
   const {
-    data: { session },
-    error: sessionError,
-  } = await supabase.auth.getSession();
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
 
-  if (sessionError) {
-    console.error("fetchUser: failed to get session", sessionError.message);
-    return null;
-  }
+  if (error || !user) return null;
 
-  if (!session?.user) {
-    return null;
-  }
-
-  console.log("Session verified, querying profile table");
-
-  return fetchAndMergeProfile(session.user.id);
+  return fetchAndMergeProfile(user.id);
 };
