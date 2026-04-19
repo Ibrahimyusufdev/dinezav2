@@ -2,7 +2,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 import { getInitials } from "@/shared/helpers/getInitials";
 import { getDashboardByRole } from "@/shared/helpers/getDashboardByRole";
-import { logo } from "@/assets";
+import { UtensilsCrossed } from "lucide-react";
+
 import { Link } from "react-router-dom";
 import { useCurrentUser } from "@/features/auth";
 
@@ -35,8 +36,10 @@ export const TopBar = () => {
     <header className="bg-background sticky top-0 z-40 flex items-center justify-between border-b px-4 py-3">
       {/* Logo */}
       <Link to={getDashboardByRole[authUser?.role]} className="flex items-center gap-2">
-        <img src={logo} alt="Dineza Logo" className="h-8 w-8" />
-        <p className="text-xl font-bold">Dineza</p>
+        <div className="from-primary flex h-8 w-8 items-center justify-center rounded-2xl bg-linear-to-tr via-orange-500 to-amber-400">
+          <UtensilsCrossed size={18} className="text-white" strokeWidth={3} />
+        </div>
+        <span className="text-xl font-bold tracking-tight">Dineza</span>
       </Link>
 
       {/* User avatar */}
