@@ -9,7 +9,7 @@ export const PATHS = {
     INVITE: "invite",
     MESSAGES: "messages",
     PROFILE: "profile",
-    SETTINGS: "settings"
+    SETTINGS: "settings",
   },
 
   // Restaurant dashboard
@@ -21,8 +21,8 @@ export const PATHS = {
     INVITE: "invite",
     PAYMENT: "payment",
     MESSAGES: "messages",
-    PROFILE: "Profile",
-    SETTINGS: "settings"
+    PROFILE: "profile",
+    SETTINGS: "settings",
   },
 
   // Admin dashboard
@@ -34,26 +34,37 @@ export const PATHS = {
     ANALYTICS: "analytics",
     RESERVATIONS: "reservations",
     SETTINGS: "settings",
-    NOTIFCATIONS: "notifications",
+    NOTIFICATIONS: "notifications",
     MESSAGES: "messages",
     PROFILE: "profile",
   },
+} as const;
+
+// Landing page pathID, single page
+export const LandingID = {
+  HOW_IT_WORKS: "how-it-works",
+  FOR_WOMEN: "for-women",
+  FOR_RESTAURANT: "for-restaurant",
+  SUCCESS_STORIES: "success-stories",
 } as const;
 
 // Full absolute path
 export const ROUTES = {
   // Public
   HOME: "/",
-  HOW_IT_WORKS: "how-it-works",
-  FOR_WOMEN: "for-women",
-  FOR_RESTAURANT: "for-restaurant",
-  SUCCESS_STORIES: "success-stories",
 
-  // Can only be access if not logged in
+  // Can only be access if not logged in (Guest Route)
   LOGIN: "/login",
-  REGISTER_SELECT: "/register",
-  DINER_REGISTER: "diner/register",
-  RESTAURANT_REGISTER: "restaurant/register",
+  REGISTER: "/register",
+  REGISTER_SELECT: "/register-select",
+  FORGOT_PASSWORD: "/forgot-password",
+  CONFIRM_EMAIL: "/confirm-email",
+  RESET_PASSWORD: "reset-password",
+  AUTH_CALLBACK: "auth/callback",
+
+  // Can only be access if logged in
+  ONBOARD_DINER: "/diner/onboard",
+  ONBOARD_RESTAURANT: "/restaurant/onboard",
 
   // Error
   UNAUTHORIZED: "/unauthorized",
@@ -95,13 +106,18 @@ export const ROUTES = {
 } as const;
 
 export const EXTERNAL_LINKS = {
-  SUPPORT_EMAIL: "support@dineza.com",
-  SUPPORT_PHONE: "(234) 706-893-6114",
+  SUPPORT_EMAIL: "ibrahim.techresources@gmail.com",
+  SUPPORT_PHONE_DISPLAY: "+234 706-893-6114",
+  SUPPORT_PHONE_LINK: "+2347068936114",
   HELP: "/help",
+  FAQ: "/faq",
+  ABOUT_US: "/about-us",
+  CONTACT_US: "/contact-us",
   TERMS_OF_SERVICE: "/terms-of-service",
   PRIVACY_POLICY: "/privacy-policy",
   INSTAGRAM: "https://instagram.com/ibrahimyusufdev",
   FACEBOOK: "https://facebook.com/",
   TWITTER: "https://x.com/ibrahimyusufdev",
   GITHUB: "https://github.com/ibrahimyusufdev",
+  LINKEDIN: "https://www.linkedin.com/in/ibrahim-yusuf-dev/",
 } as const;

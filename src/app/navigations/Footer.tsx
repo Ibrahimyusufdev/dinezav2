@@ -1,89 +1,85 @@
-import { Link } from "react-router-dom";
-import { quickLinks, socialLinks } from "./footerConfig";
+import { footerLinkGroupDynamic, footerLinkGroupStatic, socialLinks } from "./footerConfig";
 import { EXTERNAL_LINKS } from "@/shared/types/constants";
+import { SOCIAL_ICONS } from "./footerConfig";
+import { Logo } from "@/shared/components/Logo";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-muted mt-20 border-t">
-      <div className="container mx-auto grid gap-10 px-6 py-12 md:grid-cols-3">
-        {/* Quick Links */}
-        <FooterSection title="Quick Links">
-          <ul className="text-muted-foreground space-y-3 text-sm">
-            {quickLinks.map((link) => (
-              <li key={link.path}>
-                <Link to={link.path} className="hover:text-foreground transition-colors">
-                  {link.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </FooterSection>
+    <footer className="bg-foreground mt-40 border-t">
+      <div className="container mx-auto px-4 py-16 sm:px-6">
+        <div className="mb-12 grid gap-10 sm:grid-cols-2 md:grid-cols-4">
+          {/* Brand */}
+          <div>
+            <div className="mb-4">
+              <Logo />
+            </div>
 
-        {/* Social Media */}
-        <FooterSection title="Follow Us">
-          <div className="flex items-center gap-5">
-            {socialLinks.map((social) => (
-              <a
-                href={social.href}
-                target="_blank"
-                key={social.name}
-                rel="noopener noreferrer"
-                aria-label={social.name}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <social.icon size={25} />
-              </a>
-            ))}
-          </div>
-        </FooterSection>
-
-        {/* Contact Info */}
-        <FooterSection title="Contact">
-          <div className="text-muted-foreground space-y-2 text-sm">
-            <p>
-              Email:{" "}
-              <a
-                href="mailto:support@dineza.com"
-                className="hover:text-foreground transition-colors"
-              >
-                {EXTERNAL_LINKS.SUPPORT_EMAIL}
-              </a>
+            <p className="text-sm leading-relaxed text-white/70">
+              Dining that pays you back. Every table, every time.
             </p>
-            <p>
-              Phone:{" "}
-              <a
-                href={EXTERNAL_LINKS.SUPPORT_PHONE}
-                className="hover:text-foreground transition-colors"
-              >
-                {EXTERNAL_LINKS.SUPPORT_PHONE}
-              </a>
-            </p>
-          </div>
-        </FooterSection>
-      </div>
 
-      {/* Bottom Bar */}
-      <div className="text-muted-foreground border-t py-6 text-center text-xs">
-        © {new Date().getFullYear()} Dineza. All rights reserved.
+            <div className="mt-6 flex gap-3">
+              {socialLinks.map(({ name, href, icon }) => {
+                const Icon = SOCIAL_ICONS[icon];
+
+                return (
+                  <a
+                    key={name}
+                    href={href}
+                    target="_blank"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
+                  >
+                    <Icon size={16} className="text-white/70" />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Link Groups */}
+          {footerLinkGroupStatic.map((group) => (
+            <div key={group.title}>
+              <h2 className="mb-4 text-sm font-semibold text-white">{group.title}</h2>
+              <ul className="space-y-3 text-sm text-white/70">
+                {group.links.map((link) => (
+                  <li key={link.path}>
+                    <a href={`#${link.path}`} className="transition-colors hover:text-white">
+                      {link.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {footerLinkGroupDynamic.map((group) => (
+            <div key={group.title}>
+              <h2 className="mb-4 text-sm font-semibold text-white">{group.title}</h2>
+              <ul className="space-y-3 text-sm text-white/70">
+                {group.links.map((link) => (
+                  <li key={link.path}>
+                    <Link to={link.path} className="transition-colors hover:text-white">
+                      {link.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/70 md:flex-row">
+          <p>© {new Date().getFullYear()} Dineza. All rights reserved.</p>
+          <div>
+            <a href={`mailto:${EXTERNAL_LINKS.SUPPORT_EMAIL}`}>{EXTERNAL_LINKS.SUPPORT_EMAIL}</a> ·{" "}
+            <span>{EXTERNAL_LINKS.SUPPORT_PHONE_DISPLAY}</span>
+          </div>
+        </div>
       </div>
     </footer>
   );
 };
-
-// Reysable component section
-
-type FooterSectionProps = {
-  title: string;
-  children: React.ReactNode;
-};
-
-function FooterSection({ title, children }: FooterSectionProps) {
-  return (
-    <div>
-      <h3 className="mb-4 text-lg font-semibold">{title}</h3>
-      {children}
-    </div>
-  );
-}
 
 export default Footer;

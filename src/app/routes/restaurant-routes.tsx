@@ -1,18 +1,19 @@
 import { Route } from "react-router-dom";
+import { lazy } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 
 // Pages for restaurant
-import {
-  RestaurantDashboard,
-  ReservationPage,
-  SpecialOffersPage,
-  AnalyticsPage,
-  PaymentsPage,
-} from "@/features/restaurant";
+const RestaurantDashboard = lazy(() => import("@/pages/restaurant/RestaurantDashboard.tsx"));
+const ReservationPage = lazy(() => import("@/pages/restaurant/ReservationPage.tsx"));
+const SpecialOffersPage = lazy(() => import("@/pages/restaurant/SpecialOffersPage.tsx"));
+const AnalyticsPage = lazy(() => import("@/pages/restaurant/AnalyticsPage.tsx"));
+const PaymentsPage = lazy(() => import("@/pages/restaurant/PaymentsPage.tsx"));
+const GlobalNoPage = lazy(() => import("@/pages/shared/GlobalNoPage.tsx"));
 
-import { InviteFriends } from "@/features/diner";
-import { MessagingPage } from "@/features/messaging";
-import { ProfilePage } from "@/features/profile";
+// Shared pages across - Move pages to pages folder when you start building featues for the below
+const InviteFriends = lazy(() => import("@/pages/diner/InviteFriends.tsx"));
+const MessagingPage = lazy(() => import("@/features/messaging/pages/MessagingPage"));
+const ProfilePage = lazy(() => import("@/features/profile/pages/ProfilePage"));
 
 import { PATHS } from "@/shared/types/constants";
 import { ROUTE_META } from "@/shared/types/routeMeta";
@@ -60,5 +61,7 @@ export const restaurantRoutes = (
       element={<ProfilePage />}
       handle={ROUTE_META.RESTAURANT.PROFILE satisfies RouteHandle}
     />
+    {/* Global no page */}
+    <Route path="*" element={<GlobalNoPage />} />
   </Route>
 );

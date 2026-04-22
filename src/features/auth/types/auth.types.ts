@@ -1,0 +1,67 @@
+// User Roles
+export type UserRole = "diner" | "restaurant" | "admin";
+
+// Base User Interface - where I will extend the shape for Diner, Restaurant and admin
+export interface BaseUser {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: UserRole;
+  phoneNumber?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+
+// Unassigned User - Email verified, but haven't onboarded
+export interface UnassignedUser extends Omit<BaseUser, "role"> {
+  role: null;
+}
+
+// Diner User - extending from Base User with specific field added
+export interface Diner extends BaseUser {
+  role: "diner";
+  avatarUrl: string | null;
+  avatarPath?: string | null;
+  preferredLocations?: string[];
+  totalEarnings?: number;
+  pendingEarnings?: number;
+  availableBalance?: number;
+}
+
+// Restaurant User - extending from Base User with specific field added
+export interface Restaurant extends BaseUser {
+  role: "restaurant";
+  restaurantName?: string | null;
+  restaurantLogo?: string | null;
+  businessEmail?: string | null;
+  address?: string | null;
+  cuisineType?: string[];
+  contactName?: string | null;
+  contactPhone?: string | null;
+  restaurantImages?: string[];
+  documents: string[];
+  documentUrls: string[];
+  isVerified?: boolean;
+  rating?: number;
+  totalReservations?: number;
+  pendingReservations?: number;
+  totalRevenue?: number;
+}
+
+// Admin User - extending from Base User with specific field added
+export interface Admin extends BaseUser {
+  role: "admin";
+  // isSuperAdmin: boolean;
+  // adminLevel?: "super" | "moderator" | "support";
+  // permissions?: string[];
+}
+
+// Making user to be either Diner, Restaurant, Admin, or UnassignedUser using discriminated Union in TS for AuthPurpose
+export type AuthUser = Diner | Restaurant | Admin | UnassignedUser;
+
+// Login and Register Payload for supabase auth pattern
+export interface LoginAndRegisterPayload {
+  email: string;
+  password: string;
+}

@@ -1,4 +1,4 @@
-import { AppSideBar, TopBar } from "@/shared/sidebar";
+import { AppSideBar, TopBar } from "@/sidebar";
 
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { ChevronLeft } from "lucide-react";
@@ -22,16 +22,16 @@ const DashboardLayout = () => {
 
   return (
     <div className="flex flex-col">
-      {/* TopBar — full width, always on top, outside provider */}
+      {/* TopBar, full width, always on top */}
       <TopBar />
 
-      {/* Sidebar + content row — provider lives here */}
+      {/* Sidebar + content row  */}
       <div className="flex flex-1 overflow-hidden">
         <SidebarProvider>
           <AppSideBar />
 
           <SidebarInset className="bg-neutral">
-            {/* Trigger lives here — inside provider, visually top-left of content */}
+            {/* SidebarTrigger here, visually top-left of content */}
             <div className="px-4 py-2">
               <SidebarTrigger className="" />
             </div>

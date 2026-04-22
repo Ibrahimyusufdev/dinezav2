@@ -1,4 +1,4 @@
-import { ROUTES } from "@/shared/types/constants";
+import { LandingID} from "@/shared/types/constants";
 
 export interface NavLinks {
   title: string;
@@ -6,8 +6,8 @@ export interface NavLinks {
 }
 
 export const navLinks: NavLinks[] = [
-  { title: "How It Works", path: ROUTES.HOW_IT_WORKS },
-  { title: "For Women", path: ROUTES.FOR_WOMEN },
-  { title: "For Restaurants", path: ROUTES.FOR_RESTAURANT },
-  { title: "Success Stories", path: ROUTES.SUCCESS_STORIES },
+  { title: "How It Works", path: LandingID.HOW_IT_WORKS },
+  { title: "For Women", path: LandingID.FOR_WOMEN },
+  { title: "For Restaurants", path: LandingID.FOR_RESTAURANT },
+  { title: "Success Stories", path: LandingID.SUCCESS_STORIES },
 ];
