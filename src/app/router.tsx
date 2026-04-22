@@ -30,7 +30,14 @@ import {
 import { DinerOnboardingPage, RegisterSelectPage, RestaurantOnboardPage } from "@/pages/onboarding";
 import { LandingPage } from "@/pages/landing/LandingPage";
 import { FaqPage } from "@/features/landing";
-import { AboutUsPage, ContactUsPage, ExternalLayout, HelpPage } from "@/features/landing/external";
+import {
+  AboutUsPage,
+  ContactUsPage,
+  ExternalLayout,
+  HelpPage,
+  PrivacyPolicyPage,
+  TermsOfServicePage,
+} from "@/features/landing/external";
 
 const GlobalNoPage = lazy(() => import("../pages/shared/GlobalNoPage"));
 const UnauthorizedPage = lazy(() => import("../pages/shared/UnauthorizedPage"));
@@ -49,6 +56,8 @@ export const router = createBrowserRouter(
         <Route path={EXTERNAL_LINKS.ABOUT_US} element={<AboutUsPage />} />
         <Route path={EXTERNAL_LINKS.CONTACT_US} element={<ContactUsPage />} />
         <Route path={EXTERNAL_LINKS.HELP} element={<HelpPage />} />
+        <Route path={EXTERNAL_LINKS.PRIVACY_POLICY} element={<PrivacyPolicyPage />} />
+        <Route path={EXTERNAL_LINKS.TERMS_OF_SERVICE} element={<TermsOfServicePage />} />
       </Route>
 
       {/* Callback for auth on signup */}
