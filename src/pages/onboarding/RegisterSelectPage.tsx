@@ -37,14 +37,14 @@ export const RegisterSelectPage = () => {
         <div className="mx-auto w-full max-w-4xl">
           {/* Header */}
           <div className="mb-14 text-center">
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--brand-secondary-orange)]/20 bg-[var(--brand-secondary-orange)]/5 px-4 py-1.5 text-xs font-semibold tracking-widest text-[var(--brand-secondary-orange)] uppercase">
+            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#FF5900]/20 bg-[#FF5900]/5 px-4 py-1.5 text-xs font-semibold tracking-widest text-[#FF5900] uppercase">
               Step 1
             </p>
             <h1 className="text-[2rem] leading-tight font-bold tracking-tight text-gray-950 sm:text-[2.5rem]">
-              How will you use <span className="text-[var(--brand-secondary-orange)]">Dineza?</span>
+              How will you use <span className="text-[#FF5900]">Dineza?</span>
             </h1>
             ``
-            <p className="mt-3 text-[15px] leading-relaxed text-gray-500">
+            <p className="mt-3 text-sm leading-relaxed text-gray-500">
               Choose your role to personalise your experience.
               <br className="hidden sm:block" />
               This cannot be changed later.
@@ -59,27 +59,23 @@ export const RegisterSelectPage = () => {
                 onClick={() => navigate(role.route)}
                 className={cn(
                   "group relative flex cursor-pointer flex-col items-start overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-7 text-left shadow-sm transition-all duration-300",
-                  "hover:-translate-y-0.5 hover:border-[var(--brand-secondary-orange)]/30 hover:shadow-[0_8px_32px_rgb(255_89_0/0.10)]",
-                  "focus-visible:ring-2 focus-visible:ring-[var(--brand-secondary-orange)]/50 focus-visible:outline-none"
+                  "hover:-translate-y-0.5 hover:border-[#FF5900]/30 hover:shadow-[0_8px_32px_rgba(255,89,0,0.10)]",
+                  "focus-visible:ring-2 focus-visible:ring-[#FF5900]/50 focus-visible:outline-none"
                 )}
               >
                 {/* Top accent bar, slides in on hover */}
                 <span
                   aria-hidden
-                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-[var(--brand-secondary-orange)] transition-transform duration-300 group-hover:scale-x-100"
+                  className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-[#FF5900] transition-transform duration-300 group-hover:scale-x-100"
                 />
 
                 {/* Icon */}
-                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--brand-secondary-orange)]/8 ring-1 ring-[var(--brand-secondary-orange)]/15 transition-colors duration-300 group-hover:bg-[var(--brand-secondary-orange)]/12">
-                  <role.Icon
-                    size={20}
-                    className="text-[var(--brand-secondary-orange)]"
-                    strokeWidth={1.75}
-                  />
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-[#FF5900]/8 ring-1 ring-[#FF5900]/15 transition-colors duration-300 group-hover:bg-[#FF5900]/12">
+                  <role.Icon size={20} className="text-[#FF5900]" strokeWidth={1.75} />
                 </div>
 
                 {/* Eyebrow */}
-                <p className="mb-1.5 text-[11px] font-semibold tracking-widest text-gray-400 uppercase">
+                <p className="mb-1.5 text-xs font-semibold tracking-widest text-gray-400 uppercase">
                   {role.eyebrow}
                 </p>
 
@@ -89,16 +85,14 @@ export const RegisterSelectPage = () => {
                 </h2>
 
                 {/* Description */}
-                <p className="mb-6 text-[13.5px] leading-relaxed text-gray-500">
-                  {role.description}
-                </p>
+                <p className="mb-6 text-sm leading-relaxed text-gray-500">{role.description}</p>
 
                 {/* Tags */}
                 <div className="mb-7 flex flex-wrap gap-1.5">
                   {role.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="rounded-md bg-gray-100 px-2.5 py-1 text-[11px] font-medium text-gray-600"
+                      className="rounded-md bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600"
                     >
                       {tag}
                     </span>
@@ -107,13 +101,13 @@ export const RegisterSelectPage = () => {
 
                 {/* CTA row */}
                 <div className="mt-auto flex w-full items-center justify-between">
-                  <span className="text-[13px] font-semibold text-[var(--brand-secondary-orange)]">
+                  <span className="text-sm font-semibold text-[var(--brand-secondary-orange)]">
                     Get started
                   </span>
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--brand-secondary-orange)]/8 transition-all duration-300 group-hover:bg-[var(--brand-secondary-orange)] group-hover:text-white">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FF5900]/8 transition-all duration-300 group-hover:bg-[#FF5900] group-hover:text-white">
                     <ArrowRight
                       size={14}
-                      className="text-[var(--brand-secondary-orange)] transition-colors duration-300 group-hover:text-white"
+                      className="text-[#FF5900] transition-colors duration-300 group-hover:text-white"
                       strokeWidth={2.5}
                     />
                   </span>
@@ -123,11 +117,11 @@ export const RegisterSelectPage = () => {
           </div>
 
           {/* Footer */}
-          <p className="mt-10 flex flex-wrap items-center justify-center gap-2 text-center text-[13px] text-gray-400">
+          <p className="mt-10 flex flex-wrap items-center justify-center gap-2 text-center text-xs text-gray-400">
             Already have an account?{" "}
             <Link
               to={ROUTES.LOGIN}
-              className="font-semibold text-gray-800 underline underline-offset-2 hover:text-[var(--brand-secondary-orange)] hover:underline"
+              className="font-semibold text-gray-800 underline underline-offset-2 hover:text-[#FF5900] hover:underline"
             >
               Sign in
             </Link>

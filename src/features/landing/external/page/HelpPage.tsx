@@ -136,3 +136,5 @@ export const HelpPage = () => (
     </section>
   </>
 );
+
+export default HelpPage;

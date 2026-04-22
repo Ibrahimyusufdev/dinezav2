@@ -10,8 +10,7 @@ export const AuthBrandPanel = ({ heading, subheading }: AuthBrandPanelProps) => 
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 opacity-[0.035]"
       style={{
-        backgroundImage:
-          "radial-gradient(circle, var(--brand-secondary-orange) 1px, transparent 1px)",
+        backgroundImage: "radial-gradient(circle, #FF5900 1px, transparent 1px)",
         backgroundSize: "24px 24px",
       }}
     />
@@ -19,12 +18,12 @@ export const AuthBrandPanel = ({ heading, subheading }: AuthBrandPanelProps) => 
     {/* Orange glow */}
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute -top-16 -right-16 size-72 rounded-full bg-[var(--brand-secondary-orange)] opacity-20 blur-3xl"
+      className="pointer-events-none absolute -top-16 -right-16 size-72 rounded-full bg-[#FF5900] opacity-20 blur-3xl"
     />
 
     {/* Main copy */}
     <div className="relative z-10 space-y-4">
-      <p className="text-xs font-semibold tracking-widest text-[var(--brand-secondary-orange)] uppercase">
+      <p className="text-xs font-semibold tracking-widest text-[#FF5900] uppercase">
         The dining platform
       </p>
       <h2 className="text-4xl leading-tight font-bold tracking-tight text-white">{heading}</h2>

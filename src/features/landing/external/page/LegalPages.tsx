@@ -1,7 +1,7 @@
 const Section = ({ title, children }: SectionProps) => (
   <div className="mb-10">
-    <h2 className="font-display text-foreground mb-4 text-[24px] font-semibold">{title}</h2>
-    <div className="text-muted-foreground space-y-3 text-[15px] leading-relaxed">{children}</div>
+    <h2 className="font-display text-foreground mb-4 text-2xl font-semibold">{title}</h2>
+    <div className="text-muted-foreground space-y-3 text-sm leading-relaxed">{children}</div>
   </div>
 );
 
@@ -9,7 +9,7 @@ export const PrivacyPolicyPage = () => (
   <>
     <section className="bg-brand-dark py-16">
       <div className="mx-auto max-w-3xl px-5 md:px-10">
-        <p className="text-brand-primary mb-4 text-[13px] font-semibold tracking-widest uppercase">
+        <p className="text-brand-primary mb-4 text-xs font-semibold tracking-widest uppercase">
           Legal
         </p>
         <h1

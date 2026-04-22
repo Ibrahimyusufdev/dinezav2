@@ -1,3 +1,5 @@
+import { EXTERNAL_LINKS } from "@/shared/types/constants";
+
 interface SectionProps {
   title: string;
   children: React.ReactNode;
@@ -5,8 +7,8 @@ interface SectionProps {
 
 const Section = ({ title, children }: SectionProps) => (
   <div className="mb-10">
-    <h2 className="font-display text-foreground mb-4 text-[24px] font-semibold">{title}</h2>
-    <div className="text-muted-foreground space-y-3 text-[15px] leading-relaxed">{children}</div>
+    <h2 className="text-foreground mb-4 text-2xl font-semibold">{title}</h2>
+    <div className="text-muted-foreground space-y-3 text-sm leading-relaxed">{children}</div>
   </div>
 );
 
@@ -14,16 +16,16 @@ export const PrivacyPolicyPage = () => (
   <>
     <section className="bg-brand-dark py-16">
       <div className="mx-auto max-w-3xl px-5 md:px-10">
-        <p className="text-brand-primary mb-4 text-[13px] font-semibold tracking-widest uppercase">
+        <p className="text-brand-primary mb-4 text-xs font-semibold tracking-widest uppercase">
           Legal
         </p>
         <h1
-          className="font-display leading-tight font-medium text-white"
+          className="leading-tight font-medium text-white"
           style={{ fontSize: "clamp(36px, 5vw, 56px)" }}
         >
           Privacy Policy
         </h1>
-        <p className="mt-4 text-sm text-white/50">Last updated: January 2025</p>
+        <p className="mt-4 text-sm text-white/50">Last updated: January 2026</p>
       </div>
     </section>
 
@@ -94,8 +96,11 @@ export const PrivacyPolicyPage = () => (
         <Section title="8. Contact">
           <p>
             Privacy questions? Contact our data team at{" "}
-            <a href="mailto:privacy@dineza.com" className="text-brand-primary hover:underline">
-              privacy@dineza.com
+            <a
+              href={`mailto:${EXTERNAL_LINKS.SUPPORT_EMAIL}`}
+              className="text-brand-primary hover:underline"
+            >
+              {EXTERNAL_LINKS.SUPPORT_EMAIL}
             </a>
             .
           </p>

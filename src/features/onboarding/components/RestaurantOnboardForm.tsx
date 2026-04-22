@@ -220,16 +220,12 @@ export const RestaurantOnboardingForm = () => {
 
   return (
     <div className="mx-auto w-full max-w-2xl">
-      <div className="overflow-hidden rounded-2xl border border-[var(--brand-gray-200)]/80 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]">
+      <div className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]">
         {/* Header */}
-        <div className="border-b border-gray-100 bg-linear-to-br from-[var(--brand-secondary-orange)]/5 to-transparent p-8">
+        <div className="border-b border-gray-100 bg-linear-to-br from-[#FF5900]/5 to-transparent p-8">
           <div className="flex items-center gap-3">
-            <div className="flex size-12 items-center justify-center rounded-xl bg-[var(--brand-secondary-orange)]/10 ring-1 ring-[var(--brand-secondary-orange)]/20">
-              <UtensilsCrossed
-                size={24}
-                className="text-[var(--brand-secondary-orange)]"
-                strokeWidth={1.5}
-              />
+            <div className="flex size-12 items-center justify-center rounded-xl bg-[#FF5900]/10 ring-1 ring-[#FF5900]/20">
+              <UtensilsCrossed size={24} className="text-[#FF5900]" strokeWidth={1.5} />
             </div>
             <div>
               <h1 className="text-2xl font-bold tracking-tight text-gray-950">
@@ -413,7 +409,7 @@ export const RestaurantOnboardingForm = () => {
                     <FieldLabel>
                       Cuisine Type
                       {field.value.length > 0 && (
-                        <span className="ml-2 rounded-full bg-[var(--brand-secondary-orange)]/10 px-2 py-0.5 text-xs font-medium text-[var(--brand-secondary-orange)]">
+                        <span className="ml-2 rounded-full bg-[#FF5900]/10 px-2 py-0.5 text-xs font-medium text-[#FF5900]">
                           {field.value.length} selected
                         </span>
                       )}
@@ -437,12 +433,12 @@ export const RestaurantOnboardingForm = () => {
                             className={[
                               "cursor-pointer rounded-full border px-3 py-1.5 text-xs font-medium transition-all",
                               selected
-                                ? "border-[var(--brand-secondary-orange)]/30 bg-[var(--brand-secondary-orange)]/10 text-[var(--brand-secondary-orange)]"
+                                ? "border-[#FF5900]/30 bg-[#FF5900]/10 text-[#FF5900]"
                                 : "border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50",
                               "disabled:cursor-not-allowed disabled:opacity-50",
                             ].join(" ")}
                           >
-                            {selected && <span className="mr-1 text-[10px]">✓</span>}
+                            {selected && <span className="mr-1 text-xs">✓</span>}
                             {cuisine}
                           </button>
                         );
@@ -723,7 +719,7 @@ export const RestaurantOnboardingForm = () => {
                         to={EXTERNAL_LINKS.TERMS_OF_SERVICE}
                         target="_blank"
                         rel="noreferrer"
-                        className="font-medium text-[var(--brand-secondary-orange)] underline-offset-2 hover:underline"
+                        className="font-medium text-[#FF5900] underline-offset-2 hover:underline"
                         onClick={(e) => e.stopPropagation()}
                       >
                         Terms of Service
@@ -733,7 +729,7 @@ export const RestaurantOnboardingForm = () => {
                         to={EXTERNAL_LINKS.PRIVACY_POLICY}
                         target="_blank"
                         rel="noreferrer"
-                        className="font-medium text-[var(--brand-secondary-orange)] underline-offset-2 hover:underline"
+                        className="font-medium text-[#FF5900] underline-offset-2 hover:underline"
                         onClick={(e) => e.stopPropagation()}
                       >
                         Privacy Policy
@@ -752,7 +748,7 @@ export const RestaurantOnboardingForm = () => {
           <Button
             type="submit"
             disabled={isSubmitDisabled}
-            className="bg-primary h-12 w-full rounded-xl text-base font-semibold text-white shadow-none transition-all hover:bg-[var(--brand-secondary-orange-dark)] focus-visible:ring-[var(--brand-secondary-orange)]/40 disabled:opacity-50"
+            className="bg-primary h-12 w-full rounded-xl text-base font-semibold text-white shadow-none transition-all hover:bg-[#e04f00] focus-visible:ring-[#FF5900]/40 disabled:opacity-50"
           >
             {isFormDisabled ? (
               <span className="flex items-center gap-2">

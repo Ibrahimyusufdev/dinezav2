@@ -116,7 +116,7 @@ export const ResetPasswordPage = () => {
   return (
     <AuthPageShell>
       <div className="mx-auto w-full max-w-md">
-        <div className="overflow-hidden rounded-2xl border border-[var(--brand-gray-200)]/80 bg-white p-8 shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] sm:p-10">
+        <div className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-8 shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] sm:p-10">
           {success ? (
             /* Success state */
             <div className="text-center">
@@ -142,12 +142,8 @@ export const ResetPasswordPage = () => {
             /* Form state*/
             <>
               {/* Header */}
-              <div className="mb-6 flex size-14 items-center justify-center rounded-2xl bg-[var(--brand-secondary-orange)]/8 ring-1 ring-[var(--brand-secondary-orange)]/15">
-                <ShieldCheck
-                  size={24}
-                  className="text-[var(--brand-secondary-orange)]"
-                  strokeWidth={1.5}
-                />
+              <div className="mb-6 flex size-14 items-center justify-center rounded-2xl bg-[#FF5900]/8 ring-1 ring-[#FF5900]/15">
+                <ShieldCheck size={24} className="text-[#FF5900]" strokeWidth={1.5} />
               </div>
 
               <div className="mb-6 space-y-2">
@@ -204,7 +200,7 @@ export const ResetPasswordPage = () => {
                           autoComplete="new-password"
                           aria-invalid={fieldState.invalid}
                           disabled={isFormDisabled}
-                          className="h-11 border-[var(--brand-gray-200)] bg-gray-50/60 pr-11 transition-colors focus-visible:border-[var(--brand-secondary-orange)] focus-visible:bg-white focus-visible:ring-[var(--brand-secondary-orange)]/20"
+                          className="h-11 border-gray-200 bg-gray-50/60 pr-11 transition-colors focus-visible:border-[#FF5900] focus-visible:bg-white focus-visible:ring-[#FF5900]/20"
                         />
 
                         <button
@@ -243,7 +239,7 @@ export const ResetPasswordPage = () => {
                           autoComplete="new-password"
                           aria-invalid={fieldState.invalid}
                           disabled={isFormDisabled}
-                          className="h-11 border-[var(--brand-gray-200)] bg-gray-50/60 pr-11 transition-colors focus-visible:border-[var(--brand-secondary-orange)] focus-visible:bg-white focus-visible:ring-[var(--brand-secondary-orange)]/20"
+                          className="h-11 border-gray-200 bg-gray-50/60 pr-11 transition-colors focus-visible:border-[#FF5900] focus-visible:bg-white focus-visible:ring-[#FF5900]/20"
                         />
 
                         <button
@@ -266,7 +262,7 @@ export const ResetPasswordPage = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitDisabled}
-                  className="h-11 w-full rounded-xl bg-[var(--brand-secondary-orange)] font-semibold text-white shadow-none transition-all hover:bg-[var(--brand-secondary-orange-dark)] focus-visible:ring-[var(--brand-secondary-orange)]/40 disabled:opacity-50"
+                  className="h-11 w-full rounded-xl bg-[#FF5900] font-semibold text-white shadow-none transition-all hover:bg-[#e04f00] focus-visible:ring-[#FF5900]/40 disabled:opacity-50"
                 >
                   {isFormDisabled ? (
                     <span className="flex items-center gap-2">

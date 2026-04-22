@@ -29,15 +29,21 @@ import {
 
 import { DinerOnboardingPage, RegisterSelectPage, RestaurantOnboardPage } from "@/pages/onboarding";
 import { LandingPage } from "@/pages/landing/LandingPage";
-import { FaqPage } from "@/features/landing";
-import {
-  AboutUsPage,
-  ContactUsPage,
-  ExternalLayout,
-  HelpPage,
-  PrivacyPolicyPage,
-  TermsOfServicePage,
-} from "@/features/landing/external";
+
+import { ExternalLayout } from "@/features/landing/external";
+
+// Lazy Load
+
+const AboutUsPage = lazy(() => import("@/features/landing/external/page/AboutUsPage.tsx"));
+const ContactUsPage = lazy(() => import("@/features/landing/external/page/ContactUsPage.tsx"));
+const HelpPage = lazy(() => import("@/features/landing/external/page/HelpPage.tsx"));
+const PrivacyPolicyPage = lazy(
+  () => import("@/features/landing/external/page/PrivacyPolicyPage.tsx")
+);
+const TermsOfServicePage = lazy(
+  () => import("@/features/landing/external/page/TermsOfServicePage.tsx")
+);
+const FaqPage = lazy(() => import("@/features/landing/external/page/FaqPage.tsx"));
 
 const GlobalNoPage = lazy(() => import("../pages/shared/GlobalNoPage"));
 const UnauthorizedPage = lazy(() => import("../pages/shared/UnauthorizedPage"));

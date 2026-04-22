@@ -84,7 +84,7 @@ export const ContactUsPage = () => {
       {/* HERO */}
       <section className="bg-brand-dark py-20 md:py-28">
         <div className="mx-auto max-w-3xl px-5 text-center md:px-10">
-          <p className="text-brand-primary mb-4 text-[13px] font-semibold tracking-widest uppercase">
+          <p className="text-brand-primary mb-4 text-xs font-semibold tracking-widest uppercase">
             Get in Touch
           </p>
 
@@ -107,7 +107,7 @@ export const ContactUsPage = () => {
           <div className="border-(--brand-gray-200)]/80 mx-auto grid max-w-5xl gap-12 overflow-hidden rounded-2xl border bg-white p-8 px-5 shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] sm:p-10 md:grid-cols-2 md:px-10">
             {/* CONTACT METHODS */}
             <div className="">
-              <h2 className="font-display text-foreground mb-8 text-[28px] font-medium">
+              <h2 className="font-display text-foreground mb-8 text-2xl font-medium">
                 Other ways to reach us
               </h2>
 
@@ -123,7 +123,7 @@ export const ContactUsPage = () => {
 
                     <div>
                       <p className="text-foreground text-xl font-semibold">{label}</p>
-                      <p className="text-[15px] font-medium">{value}</p>
+                      <p className="text-sm font-medium">{value}</p>
                       <p className="text-muted-foreground mt-0.5 text-sm">{desc}</p>
                     </div>
                   </div>
@@ -133,7 +133,7 @@ export const ContactUsPage = () => {
 
             {/* FORM */}
             <div>
-              <h2 className="font-display text-foreground mb-8 text-[28px] font-medium">
+              <h2 className="font-display text-foreground mb-8 text-2xl font-medium">
                 Send us a message
               </h2>
 
@@ -143,11 +143,11 @@ export const ContactUsPage = () => {
                     <BadgeCheck size={28} className="text-white" />
                   </div>
 
-                  <h3 className="font-display text-foreground mb-2 text-[24px] font-medium">
+                  <h3 className="font-display text-foreground mb-2 text-2xl font-medium">
                     Message sent!
                   </h3>
 
-                  <p className="text-muted-foreground text-[15px]">
+                  <p className="text-muted-foreground text-sm">
                     We’ll get back to you within 24 hours.
                   </p>
                 </div>
@@ -262,3 +262,5 @@ export const ContactUsPage = () => {
     </>
   );
 };
+
+export default ContactUsPage;

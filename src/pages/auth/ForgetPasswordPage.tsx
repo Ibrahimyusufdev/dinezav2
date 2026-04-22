@@ -54,7 +54,7 @@ export const ForgotPasswordPage = () => {
   return (
     <AuthPageShell>
       <div className="mx-auto w-full max-w-md">
-        <div className="overflow-hidden rounded-2xl border border-[var(--brand-gray-200)]/80 bg-white p-10 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
+        <div className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-10 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
           {submitted ? (
             /* Success state*/
             <div className="text-center">
@@ -64,7 +64,7 @@ export const ForgotPasswordPage = () => {
               <h1 className="text-[1.5rem] font-bold tracking-tight text-gray-950">
                 Check your email
               </h1>
-              <p className="mt-3 text-[14px] leading-relaxed text-gray-500">
+              <p className="mt-3 text-sm leading-relaxed text-gray-500">
                 If <span className="font-semibold text-gray-800">{form.getValues("email")}</span> is
                 registered, you'll receive a password reset link shortly.
               </p>
@@ -72,15 +72,15 @@ export const ForgotPasswordPage = () => {
                 {["Check spam/junk if you don't see it", "The link expires in 1 hour"].map(
                   (tip) => (
                     <div key={tip} className="flex items-start gap-2.5">
-                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--brand-secondary-orange)]" />
-                      <p className="text-[12.5px] text-gray-500">{tip}</p>
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[#FF5900]" />
+                      <p className="text-xs text-gray-500">{tip}</p>
                     </div>
                   )
                 )}
               </div>
               <Link
                 to={ROUTES.LOGIN}
-                className="mt-8 inline-flex items-center gap-1.5 text-[13px] font-semibold text-gray-600 underline-offset-2 hover:text-[var(--brand-secondary-orange)] hover:underline"
+                className="mt-8 inline-flex items-center gap-1.5 text-xs font-semibold text-gray-600 underline-offset-2 hover:text-[var(--brand-secondary-orange)] hover:underline"
               >
                 <ArrowLeft size={13} />
                 Back to sign in
@@ -90,12 +90,8 @@ export const ForgotPasswordPage = () => {
             /* Form state */
             <>
               {/* Icon */}
-              <div className="mb-7 flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--brand-secondary-orange)]/8 ring-1 ring-[var(--brand-secondary-orange)]/15">
-                <KeyRound
-                  size={24}
-                  className="text-[var(--brand-secondary-orange)]"
-                  strokeWidth={1.5}
-                />
+              <div className="mb-7 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FF5900]/8 ring-1 ring-[#FF5900]/15">
+                <KeyRound size={24} className="text-[#FF5900]" strokeWidth={1.5} />
               </div>
 
               {/* Header */}
@@ -103,7 +99,7 @@ export const ForgotPasswordPage = () => {
                 <h1 className="text-[1.65rem] font-bold tracking-tight text-gray-950">
                   Forgot password?
                 </h1>
-                <p className="text-[14px] leading-relaxed text-gray-500">
+                <p className="text-sm leading-relaxed text-gray-500">
                   No worries. Enter your email and we'll send you a reset link.
                 </p>
               </div>
@@ -135,7 +131,7 @@ export const ForgotPasswordPage = () => {
                         autoComplete="email"
                         aria-invalid={fieldState.invalid}
                         disabled={isBusy}
-                        className="border-[var(--brand-gray-200)] bg-gray-50/60 transition-colors focus-visible:border-[var(--brand-secondary-orange)] focus-visible:bg-white focus-visible:ring-[var(--brand-secondary-orange)]/20"
+                        className="border-gray-200 bg-gray-50/60 transition-colors focus-visible:border-[#FF5900] focus-visible:bg-white focus-visible:ring-[#FF5900]/20"
                       />
                       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                     </Field>
@@ -145,7 +141,7 @@ export const ForgotPasswordPage = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitDisabled}
-                  className="h-11 w-full rounded-xl bg-[var(--brand-secondary-orange)] text-[14px] font-semibold text-white shadow-none transition-colors hover:bg-[var(--brand-secondary-orange-dark)] focus-visible:ring-[var(--brand-secondary-orange)]/40 disabled:opacity-50"
+                  className="h-11 w-full rounded-xl bg-[var(--brand-secondary-orange)] text-sm font-semibold text-white shadow-none transition-colors hover:bg-[var(--brand-secondary-orange-dark)] focus-visible:ring-[var(--brand-secondary-orange)]/40 disabled:opacity-50"
                 >
                   {isBusy ? (
                     <span className="flex items-center gap-2">
@@ -160,7 +156,7 @@ export const ForgotPasswordPage = () => {
               <div className="mt-7 text-center">
                 <Link
                   to={ROUTES.LOGIN}
-                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-gray-500 underline-offset-2 hover:text-[var(--brand-secondary-orange)] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-500 underline-offset-2 hover:text-[var(--brand-secondary-orange)] hover:underline"
                 >
                   <ArrowLeft size={13} />
                   Back to sign in

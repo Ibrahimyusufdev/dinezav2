@@ -77,7 +77,7 @@ export const AboutUsPage = () => (
         >
           Built for women who <em className="text-brand-primary not-italic">value their time</em>
         </h1>
-        <p className="mx-auto max-w-xl text-[17px] leading-relaxed text-white/55">
+        <p className="mx-auto max-w-xl text-base leading-relaxed text-white/55">
           Dineza was born from a simple belief — that women's time, presence, and social energy has
           real, tangible value. We built the platform that actually rewards it.
         </p>
@@ -89,7 +89,7 @@ export const AboutUsPage = () => (
       <div className="mx-auto max-w-5xl px-5 md:px-10">
         <div className="grid items-center gap-14 md:grid-cols-2">
           <div>
-            <span className="text-brand-primary mb-4 inline-block text-[11px] font-semibold tracking-[0.2em] uppercase">
+            <span className="text-brand-primary mb-4 inline-block text-xs font-semibold tracking-[0.2em] uppercase">
               Our Mission
             </span>
             <h2
@@ -102,7 +102,7 @@ export const AboutUsPage = () => (
               Dating culture has long expected women to show up, look great, and give their time
               freely. Dineza flips that dynamic - you dine, you earn, full stop.
             </p>
-            <p className="text-muted-foreground text-[16px] leading-relaxed">
+            <p className="text-muted-foreground text-base leading-relaxed">
               We've partnered with premium restaurants across Nigeria to make sure every reservation
               you make through Dineza puts money back in your pocket within 7 days.
             </p>
@@ -146,7 +146,7 @@ export const AboutUsPage = () => (
               <div className="bg-brand-primary/15 mb-6 flex h-11 w-11 items-center justify-center rounded-xl">
                 <Icon size={20} className="text-brand-primary" />
               </div>
-              <h3 className="mb-3 text-[20px] font-semibold text-white">{title}</h3>
+              <h3 className="mb-3 text-xl font-semibold text-white">{title}</h3>
               <p className="text-base leading-relaxed text-white/55">{desc}</p>
             </div>
           ))}
@@ -159,7 +159,7 @@ export const AboutUsPage = () => (
       <div className="mx-auto max-w-5xl px-5 md:px-10">
         {/* Header */}
         <div className="mb-16 text-center">
-          <span className="text-brand-primary mb-3 inline-block text-[11px] font-semibold tracking-[0.2em] uppercase">
+          <span className="text-brand-primary mb-3 inline-block text-xs font-semibold tracking-[0.2em] uppercase">
             The Team
           </span>
           <h2
@@ -168,7 +168,7 @@ export const AboutUsPage = () => (
           >
             The people behind Dineza
           </h2>
-          <p className="text-muted-foreground mx-auto mt-4 max-w-md text-[16px] leading-relaxed">
+          <p className="text-muted-foreground mx-auto mt-4 max-w-md text-base leading-relaxed">
             A small, focused team obsessed with building something women actually love using.
           </p>
         </div>
@@ -244,7 +244,7 @@ export const AboutUsPage = () => (
                     {tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-foreground rounded-full border border-black/8 bg-white px-3.5 py-1 text-[12px] font-medium"
+                        className="text-foreground rounded-full border border-black/8 bg-white px-3.5 py-1 text-xs font-medium"
                       >
                         {tag}
                       </span>
@@ -267,7 +267,7 @@ export const AboutUsPage = () => (
         >
           Ready to start earning?
         </h2>
-        <p className="text-muted-foreground mb-8 text-[16px] leading-relaxed">
+        <p className="text-muted-foreground mb-8 text-base leading-relaxed">
           Join thousands of women turning their social lives into something that pays.
         </p>
         <Link
@@ -281,3 +281,5 @@ export const AboutUsPage = () => (
     </section>
   </>
 );
+
+export default AboutUsPage;
