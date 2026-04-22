@@ -11,7 +11,7 @@ import { useCurrentUser } from "@/features/auth";
 // Wire up dashboard by role
 import { getUserRedirect } from "@/shared/helpers/getUserRedirect";
 
-const Navbar = () => {
+const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
@@ -31,12 +31,12 @@ const Navbar = () => {
     <header className="bg-foreground fixed top-0 right-0 left-0 z-50 backdrop-blur-md">
       <nav className="container mx-auto flex max-w-7xl items-center justify-between px-5 py-6">
         {/* Logo, always visible always left */}
-        <a href="#" className="flex items-center gap-2">
+        <Link to={ROUTES.HOME} className="flex items-center gap-2">
           <div className="from-primary flex h-8 w-8 items-center justify-center rounded-2xl bg-linear-to-tr via-orange-500 to-amber-400">
             <UtensilsCrossed size={16} className="text-white" strokeWidth={3} />
           </div>
           <span className="text-xl font-bold tracking-tight text-white">Dineza</span>
-        </a>
+        </Link>
 
         {/* Hamburger, visible on mobile, hidden on desktop */}
 
@@ -55,12 +55,12 @@ const Navbar = () => {
         <ul className="hidden items-center gap-x-8 text-base text-white lg:flex">
           {navLinks.map((link) => (
             <li key={link.path} className="cursor-pointer">
-              <a
-                href={`#${link.path}`}
+              <Link
+                to={link.path}
                 className="hover:text-primary focus:ring-primary focus:ring-2 focus:outline-none"
               >
                 {link.title}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -91,13 +91,13 @@ const Navbar = () => {
           <ul className="border- flex flex-col gap-y-4 border-b p-4 pb-4">
             {navLinks.map((link) => (
               <li key={link.path} className="cursor-pointer">
-                <a
-                  href={`#${link.path}`}
+                <Link
+                  to={link.path}
                   onClick={closeMenu}
                   className="hover:text-primary focus:ring-primary block focus:ring-2 focus:outline-none"
                 >
                   {link.title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -128,4 +128,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;

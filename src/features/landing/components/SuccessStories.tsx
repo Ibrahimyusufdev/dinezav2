@@ -1,5 +1,7 @@
 import { Star } from "lucide-react";
 import { testimonials, type Testimonial } from "../data/testimonials.data";
+import { LandingID } from "@/shared/types/constants";
+import { AuthPageShell } from "@/features/auth";
 
 interface TestimonialCardProps {
   item: Testimonial;
@@ -52,25 +54,27 @@ const TestimonialCard = ({ item }: TestimonialCardProps) => (
 );
 
 export const SuccussStories = () => (
-  <section id="testimonials" className="bg-brand-dark py-24 md:py-32">
-    <div className="mx-auto max-w-7xl px-5 md:px-10">
-      {/* Header */}
-      <div className="mb-16 text-center">
-        <p className="text-primary mb-3 text-xs font-semibold tracking-[0.2em] uppercase">
-          Success Stories
-        </p>
+  <AuthPageShell>
+    <section id={LandingID.SUCCESS_STORIES} className="py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-5 md:px-10">
+        {/* Header */}
+        <div className="mb-16 text-center">
+          <p className="text-primary mb-3 text-xs font-semibold tracking-[0.2em] uppercase">
+            Success Stories
+          </p>
 
-        <h2 className="text-[clamp(2.25rem,5vw,3.25rem)] leading-tight font-medium text-white">
-          Real women, <span className="text-primary italic">real earnings</span>
-        </h2>
-      </div>
+          <h2 className="text-[clamp(2.25rem,5vw,3.25rem)] leading-tight font-medium">
+            Real women, <span className="text-primary italic">real earnings</span>
+          </h2>
+        </div>
 
-      {/* Grid */}
-      <div className="grid gap-6 md:grid-cols-2">
-        {testimonials.map((item) => (
-          <TestimonialCard key={item.name} item={item} />
-        ))}
+        {/* Grid */}
+        <div className="grid gap-6 md:grid-cols-2">
+          {testimonials.map((item) => (
+            <TestimonialCard key={item.name} item={item} />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </AuthPageShell>
 );

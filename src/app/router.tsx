@@ -1,5 +1,5 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
-import { ROUTES } from "@/shared/types/constants";
+import { EXTERNAL_LINKS, ROUTES } from "@/shared/types/constants";
 import { lazy } from "react";
 
 // Layout
@@ -29,6 +29,8 @@ import {
 
 import { DinerOnboardingPage, RegisterSelectPage, RestaurantOnboardPage } from "@/pages/onboarding";
 import { LandingPage } from "@/pages/landing/LandingPage";
+import { FaqPage } from "@/features/landing";
+import { AboutUsPage, ContactUsPage, ExternalLayout } from "@/features/landing/external";
 
 const GlobalNoPage = lazy(() => import("../pages/shared/GlobalNoPage"));
 const UnauthorizedPage = lazy(() => import("../pages/shared/UnauthorizedPage"));
@@ -39,6 +41,13 @@ export const router = createBrowserRouter(
       {/* Public layout routing */}
       <Route path="/" element={<PublicLayout />}>
         <Route index element={<LandingPage />} />
+      </Route>
+
+      {/* External layout routing */}
+      <Route path="/" element={<ExternalLayout />}>
+        <Route path={EXTERNAL_LINKS.FAQ} element={<FaqPage />} />
+        <Route path={EXTERNAL_LINKS.ABOUT_US} element={<AboutUsPage />} />
+        <Route path={EXTERNAL_LINKS.CONTACT_US} element={<ContactUsPage />} />
       </Route>
 
       {/* Callback for auth on signup */}

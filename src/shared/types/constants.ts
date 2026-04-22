@@ -52,9 +52,6 @@ export const LandingID = {
 export const ROUTES = {
   // Public
   HOME: "/",
-  FAQ: "faq",
-  ABOUT_US: "about-us",
-  CONTACT_US: "contact-us",
 
   // Can only be access if not logged in (Guest Route)
   LOGIN: "/login",
@@ -113,10 +110,14 @@ export const EXTERNAL_LINKS = {
   SUPPORT_PHONE_DISPLAY: "+234 706-893-6114",
   SUPPORT_PHONE_LINK: "+2347068936114",
   HELP: "/help",
+  FAQ: "/faq",
+  ABOUT_US: "/about-us",
+  CONTACT_US: "/contact-us",
   TERMS_OF_SERVICE: "/terms-of-service",
   PRIVACY_POLICY: "/privacy-policy",
   INSTAGRAM: "https://instagram.com/ibrahimyusufdev",
   FACEBOOK: "https://facebook.com/",
   TWITTER: "https://x.com/ibrahimyusufdev",
   GITHUB: "https://github.com/ibrahimyusufdev",
+  LINKEDIN: "https://www.linkedin.com/in/ibrahim-yusuf-dev/",
 } as const;

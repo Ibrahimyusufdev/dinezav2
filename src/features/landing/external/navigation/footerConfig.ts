@@ -1,4 +1,4 @@
-import { EXTERNAL_LINKS, LandingID } from "@/shared/types/constants";
+import { EXTERNAL_LINKS } from "@/shared/types/constants";
 import { TwitterIcon, InstagramIcon, GitHubIcon } from "@/shared/components/BrandIcons";
 
 export const SOCIAL_ICONS = {
@@ -27,18 +27,11 @@ export interface FooterLinkGroup {
 
 export const footerLinkGroups: FooterLinkGroup[] = [
   {
-    title: "Product",
-    links: [
-      { title: "How It Works", path: LandingID.HOW_IT_WORKS },
-      { title: "For Diners", path: LandingID.FOR_WOMEN },
-      { title: "For Restaurants", path: LandingID.FOR_RESTAURANT },
-    ],
-  },
-  {
     title: "Company",
     links: [
       { title: "About Us", path: EXTERNAL_LINKS.ABOUT_US },
       { title: "Blog", path: "#" },
+      { title: "Help", path: EXTERNAL_LINKS.HELP },
 
       { title: "Contact", path: EXTERNAL_LINKS.CONTACT_US },
     ],

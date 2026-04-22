@@ -1,3 +1,4 @@
+import { LandingID } from "@/shared/types/constants";
 import { dinerFeatures, restaurantFeatures, type FeatureItem } from "../data/features.data";
 
 interface FeatureCardProps {
@@ -60,7 +61,7 @@ export const FeaturesOverview = () => (
       </div>
 
       {/* Diners */}
-      <div className="mb-20">
+      <div className="mb-20" id={LandingID.FOR_WOMEN}>
         <SectionDivider label="For Diners" />
         <div className="grid gap-6 md:grid-cols-3">
           {dinerFeatures.map((item) => (
@@ -70,7 +71,7 @@ export const FeaturesOverview = () => (
       </div>
 
       {/* Restaurants */}
-      <div id="restaurants">
+      <div id={LandingID.FOR_RESTAURANT}>
         <SectionDivider label="For Restaurants" />
         <div className="grid gap-6 md:grid-cols-3">
           {restaurantFeatures.map((item) => (
