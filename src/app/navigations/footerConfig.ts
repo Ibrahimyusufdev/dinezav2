@@ -1,4 +1,4 @@
-import { EXTERNAL_LINKS, ROUTES } from "@/shared/types/constants";
+import { EXTERNAL_LINKS, ROUTES, LandingID } from "@/shared/types/constants";
 import { TwitterIcon, InstagramIcon, GitHubIcon } from "@/shared/components/BrandIcons";
 
 export const SOCIAL_ICONS = {
@@ -20,12 +20,38 @@ export interface SocialLink {
   icon: SocialIconKey;
 }
 
-export const quickLinks: FooterLink[] = [
-  { title: "About Us", path: ROUTES.ABOUT_US },
-  { title: "Contact", path: ROUTES.CONTACT_US },
-  { title: "FAQs", path: ROUTES.FAQ },
-  { title: "Terms of Service", path: EXTERNAL_LINKS.TERMS_OF_SERVICE },
-  { title: "Privacy Policy", path: EXTERNAL_LINKS.PRIVACY_POLICY },
+export interface FooterLinkGroup {
+  title: string;
+  links: FooterLink[];
+}
+
+export const footerLinkGroups: FooterLinkGroup[] = [
+  {
+    title: "Product",
+    links: [
+      { title: "How It Works", path: LandingID.HOW_IT_WORKS },
+      { title: "For Diners", path: LandingID.FOR_WOMEN },
+      { title: "For Restaurants", path: LandingID.FOR_RESTAURANT },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { title: "About Us", path: ROUTES.ABOUT_US },
+      { title: "Blog", path: "#" },
+
+      { title: "Contact", path: ROUTES.CONTACT_US },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { title: "Privacy Policy", path: EXTERNAL_LINKS.PRIVACY_POLICY },
+      { title: "Terms of Service", path: EXTERNAL_LINKS.TERMS_OF_SERVICE },
+
+      { title: "FAQs", path: ROUTES.FAQ },
+    ],
+  },
 ];
 
 export const socialLinks: SocialLink[] = [

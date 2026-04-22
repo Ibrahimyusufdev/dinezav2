@@ -1,29 +1,25 @@
 import { Link } from "react-router-dom";
-import { quickLinks, socialLinks } from "./footerConfig";
+import { footerLinkGroups, socialLinks } from "./footerConfig";
 import { EXTERNAL_LINKS } from "@/shared/types/constants";
 import { SOCIAL_ICONS } from "./footerConfig";
+import { Logo } from "@/shared/components/Logo";
 
 const Footer = () => {
   return (
-    <footer className="bg-muted mt-20 border-t">
-      <div className="container mx-auto px-4 py-10 sm:px-6 sm:py-12">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {/* Quick Links */}
-          <FooterSection title="Quick Links">
-            <ul className="text-muted-foreground space-y-3 text-sm">
-              {quickLinks.map((link) => (
-                <li key={link.path}>
-                  <Link to={link.path} className="hover:text-foreground transition-colors">
-                    {link.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </FooterSection>
+    <footer className="bg-foreground mt-20 border-t">
+      <div className="container mx-auto px-4 py-16 sm:px-6">
+        <div className="mb-12 grid gap-10 sm:grid-cols-2 md:grid-cols-4">
+          {/* Brand */}
+          <div>
+            <div className="mb-4">
+              <Logo />
+            </div>
 
-          {/* Social Media */}
-          <FooterSection title="Follow Us">
-            <div className="flex flex-wrap items-center gap-4">
+            <p className="text-sm leading-relaxed text-white/70">
+              Dining that pays you back. Every table, every time.
+            </p>
+
+            <div className="mt-6 flex gap-3">
               {socialLinks.map(({ name, href, icon }) => {
                 const Icon = SOCIAL_ICONS[icon];
 
@@ -31,66 +27,42 @@ const Footer = () => {
                   <a
                     key={name}
                     href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={name}
-                    className="text-muted-foreground hover:text-foreground transition-colors"
+                    className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
                   >
-                    <Icon size={22} />
+                    <Icon size={16} className="text-white/70" />
                   </a>
                 );
               })}
             </div>
-          </FooterSection>
+          </div>
 
-          {/* Contact Info */}
-          <FooterSection title="Contact">
-            <div className="text-muted-foreground space-y-2 text-sm">
-              <p>
-                Email:{" "}
-                <a
-                  href={EXTERNAL_LINKS.SUPPORT_EMAIL}
-                  className="hover:text-foreground break-all underline transition-colors"
-                >
-                  {EXTERNAL_LINKS.SUPPORT_EMAIL}
-                </a>
-              </p>
-              <p>
-                Phone:{" "}
-                <a
-                  href={`tel:${EXTERNAL_LINKS.SUPPORT_PHONE_LINK}`}
-                  className="hover:text-foreground transition-colors"
-                >
-                  {EXTERNAL_LINKS.SUPPORT_PHONE_DISPLAY}
-                </a>
-              </p>
+          {/* Link Groups */}
+          {footerLinkGroups.map((group) => (
+            <div key={group.title}>
+              <h2 className="mb-4 text-sm font-semibold text-white">{group.title}</h2>
+              <ul className="space-y-3 text-sm text-white/70">
+                {group.links.map((link) => (
+                  <li key={link.path}>
+                    <Link to={link.path} className="transition-colors hover:text-white">
+                      {link.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </FooterSection>
+          ))}
         </div>
-      </div>
 
-      {/* Bottom Bar */}
-      <div className="text-muted-foreground border-t py-6 text-center text-sm">
-        © {new Date().getFullYear()} Dineza. All rights reserved.
+        {/* Bottom Bar */}
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-white/70 md:flex-row">
+          <p>© {new Date().getFullYear()} Dineza. All rights reserved.</p>
+          <p>
+            {EXTERNAL_LINKS.SUPPORT_EMAIL} · {EXTERNAL_LINKS.SUPPORT_PHONE_DISPLAY}
+          </p>
+        </div>
       </div>
     </footer>
   );
 };
-
-// Reusable component section
-
-type FooterSectionProps = {
-  title: string;
-  children: React.ReactNode;
-};
-
-function FooterSection({ title, children }: FooterSectionProps) {
-  return (
-    <div>
-      <h3 className="mb-4 text-lg font-semibold">{title}</h3>
-      {children}
-    </div>
-  );
-}
 
 export default Footer;

@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
-import { Card, } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Eye, EyeOff, X } from "lucide-react";
 import { AuthBrandPanel } from "./AuthBrandPanel";
 
@@ -79,12 +79,12 @@ export const RegisterForm = ({ className, ...props }: React.ComponentProps<"div"
       email: formData.email,
       password: formData.password,
     });
-    setEmail(formData.email)
+    setEmail(formData.email);
   };
 
   return (
     <div className={cn("flex w-full flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden rounded-2xl border border-gray-200/80 p-0 shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] transition-shadow duration-200 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(0,0,0,0.08)] lg:grid lg:grid-cols-[1fr_1.1fr]">
+      <Card className="overflow-hidden rounded-2xl border border-[var(--brand-gray-200)]/80 p-0 shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] transition-shadow duration-200 hover:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_12px_32px_rgba(0,0,0,0.08)] lg:grid lg:grid-cols-[1fr_1.1fr]">
         <>
           {/* Form side*/}
           <form

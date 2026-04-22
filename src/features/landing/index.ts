@@ -1,3 +1,1 @@
-export { HowItWorksPage } from "./pages/HowItWorksPage";
-export { LandingPage } from "./pages/LandingPage";
-
+export { HeroSection } from "./components/HeroSection";

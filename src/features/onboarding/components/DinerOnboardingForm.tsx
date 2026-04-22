@@ -91,12 +91,16 @@ export const DinerOnboardingForm = () => {
 
   return (
     <div className="mx-auto w-full max-w-2xl">
-      <div className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]">
+      <div className="overflow-hidden rounded-2xl border border-[var(--brand-gray-200)]/80 bg-white shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)]">
         {/* Header */}
-        <div className="border-b border-gray-100 bg-linear-to-br from-[#FF5900]/5 to-transparent p-8">
+        <div className="border-b border-gray-100 bg-linear-to-br from-[var(--brand-secondary-orange)]/5 to-transparent p-8">
           <div className="flex items-center gap-3">
-            <div className="flex size-12 items-center justify-center rounded-xl bg-[#FF5900]/10 ring-1 ring-[#FF5900]/20">
-              <UtensilsCrossed size={24} className="text-[#FF5900]" strokeWidth={1.5} />
+            <div className="flex size-12 items-center justify-center rounded-xl bg-[var(--brand-secondary-orange)]/10 ring-1 ring-[var(--brand-secondary-orange)]/20">
+              <UtensilsCrossed
+                size={24}
+                className="text-[var(--brand-secondary-orange)]"
+                strokeWidth={1.5}
+              />
             </div>
             <div>
               <h1 className="text-2xl font-bold tracking-tight text-gray-950">
@@ -316,7 +320,7 @@ export const DinerOnboardingForm = () => {
                         to={EXTERNAL_LINKS.TERMS_OF_SERVICE}
                         target="_blank"
                         rel="noreferrer"
-                        className="font-medium text-[#FF5900] underline-offset-2 hover:underline"
+                        className="font-medium text-[var(--brand-secondary-orange)] underline-offset-2 hover:underline"
                         onClick={(e) => e.stopPropagation()}
                       >
                         Terms of Service
@@ -326,7 +330,7 @@ export const DinerOnboardingForm = () => {
                         to={EXTERNAL_LINKS.PRIVACY_POLICY}
                         target="_blank"
                         rel="noreferrer"
-                        className="font-medium text-[#FF5900] underline-offset-2 hover:underline"
+                        className="font-medium text-[var(--brand-secondary-orange)] underline-offset-2 hover:underline"
                         onClick={(e) => e.stopPropagation()}
                       >
                         Privacy Policy
@@ -345,7 +349,7 @@ export const DinerOnboardingForm = () => {
           <Button
             type="submit"
             disabled={isSubmitDisabled}
-            className="h-12 w-full rounded-xl bg-[#FF5900] text-base font-semibold text-white shadow-none transition-all hover:bg-[#e04f00] focus-visible:ring-[#FF5900]/40 disabled:opacity-50"
+            className="h-12 w-full rounded-xl bg-[var(--brand-secondary-orange)] text-base font-semibold text-white shadow-none transition-all hover:bg-[var(--brand-secondary-orange-dark)] focus-visible:ring-[var(--brand-secondary-orange)]/40 disabled:opacity-50"
           >
             {isFormDisabled ? (
               <span className="flex items-center gap-2">

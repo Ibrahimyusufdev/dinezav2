@@ -56,7 +56,7 @@ export const ConfirmEmailPage = () => {
   return (
     <AuthPageShell>
       <div className="mx-auto w-full max-w-md">
-        <div className="overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-8 text-center shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] sm:p-10">
+        <div className="overflow-hidden rounded-2xl border border-[var(--brand-gray-200)]/80 bg-white p-8 text-center shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.06)] sm:p-10">
           {/* Error alert */}
           {error && (
             <div className="mb-6 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-left text-sm shadow-sm">
@@ -66,12 +66,16 @@ export const ConfirmEmailPage = () => {
           )}
 
           {/* Icon */}
-          <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-2xl bg-[#FF5900]/8 ring-1 ring-[#FF5900]/15">
-            <MailOpen size={28} className="text-[#FF5900]" strokeWidth={1.5} />
+          <div className="mx-auto mb-6 flex size-16 items-center justify-center rounded-2xl bg-[var(--brand-secondary-orange)]/8 ring-1 ring-[var(--brand-secondary-orange)]/15">
+            <MailOpen
+              size={28}
+              className="text-[var(--brand-secondary-orange)]"
+              strokeWidth={1.5}
+            />
           </div>
 
           {/* Step badge */}
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#FF5900]/20 bg-[#FF5900]/5 px-4 py-1.5 text-xs font-semibold tracking-widest text-[#FF5900] uppercase">
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--brand-secondary-orange)]/20 bg-[var(--brand-secondary-orange)]/5 px-4 py-1.5 text-xs font-semibold tracking-widest text-[var(--brand-secondary-orange)] uppercase">
             Almost there
           </p>
 
@@ -101,7 +105,7 @@ export const ConfirmEmailPage = () => {
               "Make sure you used the right email",
             ].map((tip) => (
               <div key={tip} className="flex items-start gap-2.5">
-                <span className="mt-1 size-1.5 shrink-0 rounded-full bg-[#FF5900]" />
+                <span className="mt-1 size-1.5 shrink-0 rounded-full bg-[var(--brand-secondary-orange)]" />
                 <p className="text-xs text-gray-600">{tip}</p>
               </div>
             ))}
@@ -135,7 +139,7 @@ export const ConfirmEmailPage = () => {
             Already verified?{" "}
             <Link
               to={ROUTES.LOGIN}
-              className="inline-flex items-center gap-1 font-semibold text-gray-700 underline-offset-2 transition-colors hover:text-[#FF5900] hover:underline"
+              className="inline-flex items-center gap-1 font-semibold text-gray-700 underline-offset-2 transition-colors hover:text-[var(--brand-secondary-orange)] hover:underline"
             >
               Sign in <ArrowRight size={12} />
             </Link>

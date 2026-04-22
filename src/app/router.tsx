@@ -28,6 +28,7 @@ import {
 } from "@/pages/auth";
 
 import { DinerOnboardingPage, RegisterSelectPage, RestaurantOnboardPage } from "@/pages/onboarding";
+import { LandingPage } from "@/pages/landing/LandingPage";
 
 const GlobalNoPage = lazy(() => import("../pages/shared/GlobalNoPage"));
 const UnauthorizedPage = lazy(() => import("../pages/shared/UnauthorizedPage"));
@@ -37,7 +38,7 @@ export const router = createBrowserRouter(
     <Route element={<RootLayout />}>
       {/* Public layout routing */}
       <Route path="/" element={<PublicLayout />}>
-        {/* Public route here */}
+        <Route index element={<LandingPage />} />
       </Route>
 
       {/* Callback for auth on signup */}
