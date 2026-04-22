@@ -194,8 +194,8 @@ export const AboutUsPage = () => (
                     </AvatarFallback>
                   </Avatar>
 
-                  <p className="text-foreground text-[20px] leading-tight font-semibold">{name}</p>
-                  <p className="text-brand-primary mt-1 text-[13px] font-medium">{role}</p>
+                  <p className="text-foreground text-xl leading-tight font-semibold">{name}</p>
+                  <p className="text-muted-foreground mt-1 text-xs font-medium">{role}</p>
 
                   {/* Socials */}
                   <div className="mt-5 flex items-center gap-3">
@@ -232,12 +232,12 @@ export const AboutUsPage = () => (
                 {/* Right: details */}
                 <div className="flex flex-1 flex-col justify-center px-10 py-12">
                   {/* Quote */}
-                  <blockquote className="text-brand-primary mb-5 text-[18px] leading-snug font-medium italic">
+                  <blockquote className="text-muted-foreground mb-5 text-base leading-snug font-medium italic">
                     "{quote}"
                   </blockquote>
 
                   {/* Bio */}
-                  <p className="text-muted-foreground mb-7 text-[15px] leading-relaxed">{bio}</p>
+                  <p className="text-muted-foreground mb-7 text-base leading-relaxed">{bio}</p>
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2">
@@ -272,7 +272,7 @@ export const AboutUsPage = () => (
         </p>
         <Link
           to={ROUTES.REGISTER}
-          className="bg-brand-primary inline-flex items-center gap-2 rounded-full px-8 py-4 text-[15px] font-medium text-white transition-opacity hover:opacity-90"
+          className="bg-brand-primary inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-medium text-white transition-opacity hover:opacity-90"
         >
           Create Your Account
           <ArrowUpRight size={16} />
