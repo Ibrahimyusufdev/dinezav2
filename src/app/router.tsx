@@ -30,20 +30,16 @@ import {
 import { DinerOnboardingPage, RegisterSelectPage, RestaurantOnboardPage } from "@/pages/onboarding";
 import { LandingPage } from "@/pages/landing/LandingPage";
 
-import { ExternalLayout } from "@/features/landing/external";
+import { ExternalLayout } from "@/features/externalPages";
 
 // Lazy Load
 
-const AboutUsPage = lazy(() => import("@/features/landing/external/page/AboutUsPage.tsx"));
-const ContactUsPage = lazy(() => import("@/features/landing/external/page/ContactUsPage.tsx"));
-const HelpPage = lazy(() => import("@/features/landing/external/page/HelpPage.tsx"));
-const PrivacyPolicyPage = lazy(
-  () => import("@/features/landing/external/page/PrivacyPolicyPage.tsx")
-);
-const TermsOfServicePage = lazy(
-  () => import("@/features/landing/external/page/TermsOfServicePage.tsx")
-);
-const FaqPage = lazy(() => import("@/features/landing/external/page/FaqPage.tsx"));
+const AboutUsPage = lazy(() => import("@/features/externalPages/page/AboutUsPage"));
+const ContactUsPage = lazy(() => import("@/features/externalPages/page/ContactUsPage"));
+const HelpPage = lazy(() => import("@/features/externalPages/page/HelpPage"));
+const PrivacyPolicyPage = lazy(() => import("@/features/externalPages/page/PrivacyPolicyPage"));
+const TermsOfServicePage = lazy(() => import("@/features/externalPages/page/TermsOfServicePage"));
+const FaqPage = lazy(() => import("@/features/externalPages/page/FaqPage"));
 
 const GlobalNoPage = lazy(() => import("../pages/shared/GlobalNoPage"));
 const UnauthorizedPage = lazy(() => import("../pages/shared/UnauthorizedPage"));

@@ -25,7 +25,7 @@ export interface FooterLinkGroup {
   links: FooterLink[];
 }
 
-export const footerLinkGroups: FooterLinkGroup[] = [
+export const footerLinkGroupStatic: FooterLinkGroup[] = [
   {
     title: "Product",
     links: [
@@ -34,6 +34,9 @@ export const footerLinkGroups: FooterLinkGroup[] = [
       { title: "For Restaurants", path: LandingID.FOR_RESTAURANT },
     ],
   },
+];
+
+export const footerLinkGroupDynamic: FooterLinkGroup[] = [
   {
     title: "Company",
     links: [

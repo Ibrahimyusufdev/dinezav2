@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import { footerLinkGroups, socialLinks } from "./footerConfig";
+import { footerLinkGroupDynamic, footerLinkGroupStatic, socialLinks } from "./footerConfig";
 import { EXTERNAL_LINKS } from "@/shared/types/constants";
 import { SOCIAL_ICONS } from "./footerConfig";
 import { Logo } from "@/shared/components/Logo";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -27,6 +27,7 @@ const Footer = () => {
                   <a
                     key={name}
                     href={href}
+                    target="_blank"
                     className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20"
                   >
                     <Icon size={16} className="text-white/70" />
@@ -37,7 +38,22 @@ const Footer = () => {
           </div>
 
           {/* Link Groups */}
-          {footerLinkGroups.map((group) => (
+          {footerLinkGroupStatic.map((group) => (
+            <div key={group.title}>
+              <h2 className="mb-4 text-sm font-semibold text-white">{group.title}</h2>
+              <ul className="space-y-3 text-sm text-white/70">
+                {group.links.map((link) => (
+                  <li key={link.path}>
+                    <a href={`#${link.path}`} className="transition-colors hover:text-white">
+                      {link.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+
+          {footerLinkGroupDynamic.map((group) => (
             <div key={group.title}>
               <h2 className="mb-4 text-sm font-semibold text-white">{group.title}</h2>
               <ul className="space-y-3 text-sm text-white/70">
