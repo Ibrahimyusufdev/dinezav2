@@ -32,8 +32,7 @@ import { LandingPage } from "@/pages/landing/LandingPage";
 
 import { ExternalLayout } from "@/features/externalPages";
 
-// Lazy Load
-
+// Lazy Load External page
 const AboutUsPage = lazy(() => import("@/features/externalPages/page/AboutUsPage"));
 const ContactUsPage = lazy(() => import("@/features/externalPages/page/ContactUsPage"));
 const HelpPage = lazy(() => import("@/features/externalPages/page/HelpPage"));
