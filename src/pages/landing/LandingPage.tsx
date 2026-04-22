@@ -1,4 +1,4 @@
-import { HeroSection } from "@/features/landing";
+import { HeroSection, SuccussStories } from "@/features/landing";
 import { FeaturesOverview } from "@/features/landing";
 import { HowItWorks } from "@/features/landing";
 export const LandingPage = () => {
@@ -7,6 +7,7 @@ export const LandingPage = () => {
       <HeroSection />
       <FeaturesOverview />
       <HowItWorks />
+      <SuccussStories />
     </>
   );
 };
