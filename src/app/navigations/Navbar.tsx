@@ -40,16 +40,19 @@ const Navbar = () => {
 
         {/* Hamburger, visible on mobile, hidden on desktop */}
 
-        <Button
+        <button
+          type="button"
           className="cursor-pointer bg-none lg:hidden"
-          variant="outline"
-          size="icon-lg"
           onClick={toggleMenu}
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
         >
-          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-        </Button>
+          {isMenuOpen ? (
+            <X size={22} className="text-white" />
+          ) : (
+            <Menu size={22} className="text-white" />
+          )}
+        </button>
 
         {/* Nav links, hidden on mobile, visible on desktop */}
         <ul className="hidden items-center gap-x-8 text-base text-white lg:flex">
@@ -87,8 +90,8 @@ const Navbar = () => {
 
       {/* Mobile dropdown, visible on mobile, hidden on desktop */}
       {isMenuOpen && (
-        <div className="flex flex-col border-t px-5 py-4 text-sm transition-all duration-300 ease-in-out md:hidden">
-          <ul className="border- flex flex-col gap-y-4 border-b p-4 pb-4">
+        <div className="flex flex-col px-5 py-4 text-sm text-white transition-all duration-300 ease-in-out md:hidden">
+          <ul className="flex flex-col gap-y-4 p-4 pb-4">
             {navLinks.map((link) => (
               <li key={link.path} className="cursor-pointer">
                 <a

@@ -15,7 +15,7 @@ const AVATAR_COLORS = ["#E8A87C", "#C27BA0", "#8E7CC3", "#6FA8DC"];
 const AVATAR_INITIALS = ["J", "S", "A", "M"];
 
 const HeroStatsCard = () => (
-  <div className="bg-brand-dark-card relative ml-auto max-w-96 rounded-3xl border border-white/10 p-8">
+  <div className="bg-brand-dark-card relative ml-auto w-full max-w-sm rounded-3xl border border-white/10 p-6 sm:max-w-96 sm:p-8">
     <div className="mb-6 flex items-center gap-3">
       <div className="bg-primary/20 flex h-12 w-12 items-center justify-center rounded-2xl">
         <DollarSign size={24} className="text-primary" />
@@ -62,8 +62,8 @@ export const HeroSection = () => (
     {/* Subtle grid */}
     <div className="absolute inset-0 bg-[linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] bg-size-[60px_60px] opacity-[0.03]" />
 
-    <div className="relative mx-auto w-full max-w-7xl px-5 py-20 md:px-10 md:py-0">
-      <div className="grid items-center gap-12 md:grid-cols-2">
+    <div className="relative mx-auto w-full max-w-7xl px-4 py-12 sm:px-5 sm:py-20 md:px-10 md:py-0">
+      <div className="grid items-center gap-8 sm:gap-12 md:grid-cols-2">
         {/* Left */}
         <div>
           <div className="bg-primary/10 border-primary/30 mb-8 inline-flex items-center gap-2 rounded-full border px-4 py-2">
@@ -71,34 +71,34 @@ export const HeroSection = () => (
             <span className="text-primary text-xs font-medium">Now live in your city</span>
           </div>
 
-          <h1 className="font-display text-[clamp(48px,7vw,80px)] leading-[1.05] font-medium tracking-tight text-white">
+          <h1 className="font-display text-[clamp(32px,7vw,80px)] leading-[1.05] font-medium tracking-tight text-white">
             Dine, <span className="text-primary italic">Delight</span>,<br />
             and Earn Cash Back
           </h1>
 
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-white/60">
+          <p className="mt-4 max-w-md text-base leading-relaxed text-white/60 sm:mt-6 sm:text-lg">
             Turn every date night into an opportunity to earn. Get 25% cash back on your restaurant
             visits - because your time deserves to be rewarded.
           </p>
 
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row">
             <Link
               to={ROUTES.REGISTER}
-              className="bg-primary flex items-center justify-center gap-2 rounded-full px-7 py-4 font-medium text-white transition hover:opacity-90"
+              className="bg-primary flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-white transition hover:opacity-90 sm:px-7 sm:py-4 sm:text-base"
             >
               Start Earning Now <ArrowRight size={16} />
             </Link>
 
             <Link
               to={ROUTES.REGISTER}
-              className="flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-4 text-white transition hover:border-white/40"
+              className="flex items-center justify-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm text-white transition hover:border-white/40 sm:px-7 sm:py-4 sm:text-base"
             >
               Partner with Us
             </Link>
           </div>
 
           {/* Social proof */}
-          <div className="mt-12 flex items-center gap-6">
+          <div className="mt-8 flex flex-col items-start gap-4 sm:mt-12 sm:flex-row sm:items-center sm:gap-6">
             <div className="flex -space-x-2">
               {AVATAR_COLORS.map((bg, i) => (
                 <div
@@ -126,7 +126,7 @@ export const HeroSection = () => (
         </div>
 
         {/* Right - stats card */}
-        <div className="hidden md:block">
+        <div className="mt-8 md:mt-0 md:block">
           <HeroStatsCard />
         </div>
       </div>

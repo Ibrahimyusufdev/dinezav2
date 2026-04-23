@@ -6,7 +6,7 @@ import { Logo } from "@/shared/components/Logo";
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground mt-40 border-t">
+    <footer className="bg-foreground mt-20 border-t sm:mt-40">
       <div className="container mx-auto px-4 py-16 sm:px-6">
         <div className="mb-12 grid gap-10 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand */}

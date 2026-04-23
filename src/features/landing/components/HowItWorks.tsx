@@ -28,24 +28,24 @@ const StepCard = ({ step, isFirst }: StepCardProps) => (
 );
 
 export const HowItWorks = () => (
-  <section id="how-it-works" className="bg-muted py-24 md:py-32">
-    <div className="mx-auto max-w-7xl px-5 md:px-10">
+  <section id="how-it-works" className="bg-muted py-16 sm:py-24 md:py-32">
+    <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-10">
       {/* Header */}
-      <div className="mb-16">
+      <div className="mb-12 sm:mb-16">
         <p className="text-primary mb-3 text-xs font-semibold tracking-[0.2em] uppercase">
           The Process
         </p>
 
-        <h2 className="text-foreground text-[clamp(2.25rem,5vw,3.25rem)] leading-tight font-medium">
+        <h2 className="text-foreground text-[clamp(1.75rem,5vw,3.25rem)] leading-tight font-medium">
           How it works
         </h2>
       </div>
 
       <div className="relative">
         {/* Connecting line */}
-        <div className="from-primary to-primary/20 absolute top-10 right-10 left-10 hidden h-px bg-linear-to-r md:block" />
+        <div className="from-primary to-primary/20 absolute top-10 right-4 left-4 hidden h-px bg-linear-to-r sm:right-10 sm:left-10 md:block" />
 
-        <div className="relative grid gap-8 md:grid-cols-5">
+        <div className="relative grid grid-cols-2 gap-6 sm:grid-cols-3 sm:gap-8 md:grid-cols-5">
           {steps.map((step, i) => (
             <StepCard key={step.n} step={step} isFirst={i === 0} />
           ))}
@@ -53,7 +53,7 @@ export const HowItWorks = () => (
       </div>
 
       {/* CTA */}
-      <div className="mt-16 text-center">
+      <div className="mt-12 text-center sm:mt-16">
         <Link to={ROUTES.REGISTER}>
           <Button className="bg-primary gap-1.5" size="lg">
             Join Dineza - It's Free

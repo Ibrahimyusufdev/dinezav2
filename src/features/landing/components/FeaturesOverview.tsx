@@ -11,7 +11,7 @@ const FeatureCard = ({ item, dark = false }: FeatureCardProps) => {
 
   return (
     <div
-      className={`rounded-2xl border p-7 transition-all hover:-translate-y-1 ${
+      className={`rounded-2xl border p-5 transition-all hover:-translate-y-1 sm:p-7 ${
         dark
           ? "bg-brand-dark border-white/10 text-white"
           : "bg-background border-border text-foreground"
@@ -47,23 +47,23 @@ const SectionDivider = ({ label }: SectionDividerProps) => (
 );
 
 export const FeaturesOverview = () => (
-  <section id="features" className="bg-background py-24 md:py-32">
-    <div className="mx-auto max-w-7xl px-5 md:px-10">
+  <section id="features" className="bg-background py-16 sm:py-24 md:py-32">
+    <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-10">
       {/* Header */}
-      <div className="mb-16 text-center">
+      <div className="mb-12 text-center sm:mb-16">
         <p className="text-primary mb-3 text-xs font-semibold tracking-[0.2em] uppercase">
           Why Dineza
         </p>
 
-        <h2 className="font-display text-foreground text-[clamp(2.25rem,5vw,3.25rem)] leading-tight font-medium">
+        <h2 className="font-display text-foreground text-[clamp(1.75rem,5vw,3.25rem)] leading-tight font-medium">
           Everything you need, <span className="text-primary italic">nothing you don't</span>
         </h2>
       </div>
 
       {/* Diners */}
-      <div className="mb-20" id={LandingID.FOR_WOMEN}>
+      <div className="mb-16 sm:mb-20" id={LandingID.FOR_WOMEN}>
         <SectionDivider label="For Diners" />
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3">
           {dinerFeatures.map((item) => (
             <FeatureCard key={item.title} item={item} />
           ))}
@@ -73,7 +73,7 @@ export const FeaturesOverview = () => (
       {/* Restaurants */}
       <div id={LandingID.FOR_RESTAURANT}>
         <SectionDivider label="For Restaurants" />
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3">
           {restaurantFeatures.map((item) => (
             <FeatureCard key={item.title} item={item} dark />
           ))}

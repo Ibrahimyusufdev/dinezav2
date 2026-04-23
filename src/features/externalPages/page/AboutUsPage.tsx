@@ -4,6 +4,8 @@ import { EXTERNAL_LINKS, ROUTES } from "@/shared/types/constants";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { GitHubIcon, LinkedInIcon, TwitterIcon } from "@/shared/components/BrandIcons";
 
+import { Button } from "@/components/ui/button";
+
 const VALUES = [
   {
     icon: Heart,
@@ -77,8 +79,8 @@ export const AboutUsPage = () => (
         >
           Built for women who <em className="text-brand-primary not-italic">value their time</em>
         </h1>
-        <p className="mx-auto max-w-xl text-base leading-relaxed text-white/55">
-          Dineza was born from a simple belief — that women's time, presence, and social energy has
+        <p className="tex-xs mx-auto max-w-xl leading-relaxed text-white/55 sm:text-base">
+          Dineza was born from a simple belief, that women's time, presence, and social energy has
           real, tangible value. We built the platform that actually rewards it.
         </p>
       </div>
@@ -98,11 +100,11 @@ export const AboutUsPage = () => (
             >
               Make every dinner worth it
             </h2>
-            <p className="text-muted-foreground mb-4 text-lg leading-relaxed">
+            <p className="text-muted-foreground mb-4 text-xs leading-relaxed sm:text-base">
               Dating culture has long expected women to show up, look great, and give their time
               freely. Dineza flips that dynamic - you dine, you earn, full stop.
             </p>
-            <p className="text-muted-foreground text-base leading-relaxed">
+            <p className="text-muted-foreground text-xs leading-relaxed sm:text-base">
               We've partnered with premium restaurants across Nigeria to make sure every reservation
               you make through Dineza puts money back in your pocket within 7 days.
             </p>
@@ -147,7 +149,7 @@ export const AboutUsPage = () => (
                 <Icon size={20} className="text-brand-primary" />
               </div>
               <h3 className="mb-3 text-xl font-semibold text-white">{title}</h3>
-              <p className="text-base leading-relaxed text-white/55">{desc}</p>
+              <p className="text-xs leading-relaxed text-white/55 sm:text-base">{desc}</p>
             </div>
           ))}
         </div>
@@ -237,7 +239,7 @@ export const AboutUsPage = () => (
                   </blockquote>
 
                   {/* Bio */}
-                  <p className="text-muted-foreground mb-7 text-base leading-relaxed">{bio}</p>
+                  <p className="text-muted-foreground mb-7 text-xs leading-relaxed">{bio}</p>
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2">
@@ -270,12 +272,11 @@ export const AboutUsPage = () => (
         <p className="text-muted-foreground mb-8 text-base leading-relaxed">
           Join thousands of women turning their social lives into something that pays.
         </p>
-        <Link
-          to={ROUTES.REGISTER}
-          className="bg-brand-primary inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-medium text-white transition-opacity hover:opacity-90"
-        >
-          Create Your Account
-          <ArrowUpRight size={16} />
+        <Link to={ROUTES.REGISTER}>
+          <Button>
+            Create Your Account
+            <ArrowUpRight size={16} />
+          </Button>
         </Link>
       </div>
     </section>
