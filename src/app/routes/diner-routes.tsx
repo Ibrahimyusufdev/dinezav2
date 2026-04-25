@@ -11,7 +11,6 @@ const InviteFriends = lazy(() => import("@/pages/diner/InviteFriends"));
 const GlobalNoPage = lazy(() => import("@/pages/shared/GlobalNoPage.tsx"));
 
 // Shared pages across roles - Move pages to pages folder when you start building featues for the below
-const ExploreRestaurants = lazy(() => import("@/features/restaurants/pages/ExploreRestaurants"));
 const MessagingPage = lazy(() => import("@/features/messaging/pages/MessagingPage"));
 const ProfilePage = lazy(() => import("@/features/profile/pages/ProfilePage"));
 
@@ -25,11 +24,7 @@ export const dinerRoutes = (
       element={<DinerDashboard />}
       handle={ROUTE_META.DINER.DASHBOARD satisfies RouteHandle}
     />
-    <Route
-      path={PATHS.DINER.EXPLORE}
-      element={<ExploreRestaurants />}
-      handle={ROUTE_META.DINER.EXPLORE satisfies RouteHandle}
-    />
+    <Route path={PATHS.DINER.EXPLORE} handle={ROUTE_META.DINER.EXPLORE satisfies RouteHandle} />
     <Route
       path={PATHS.DINER.RESERVATIONS}
       element={<MyReservations />}

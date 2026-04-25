@@ -90,7 +90,7 @@ const Navbar = () => {
 
       {/* Mobile dropdown, visible on mobile, hidden on desktop */}
       {isMenuOpen && (
-        <div className="flex flex-col px-5 py-4 text-sm text-white transition-all duration-300 ease-in-out md:hidden">
+        <div className="flex flex-col px-5 py-4 text-sm text-white transition-all duration-300 ease-in-out lg:hidden">
           <ul className="flex flex-col gap-y-4 p-4 pb-4">
             {navLinks.map((link) => (
               <li key={link.path} className="cursor-pointer">
