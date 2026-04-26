@@ -11,15 +11,17 @@ const FeatureCard = ({ item, dark = false }: FeatureCardProps) => {
 
   return (
     <div
-      className={`rounded-2xl border p-5 transition-all hover:-translate-y-1 sm:p-7 ${
+      className={`group rounded-2xl border p-5 transition-all duration-200 hover:-translate-y-1 sm:p-7 ${
         dark
-          ? "bg-brand-dark border-white/10 text-white"
-          : "bg-background border-border text-foreground"
+          ? "bg-brand-dark border-white/10 text-white hover:border-white/20 hover:shadow-xl hover:shadow-black/30"
+          : "bg-background border-border text-foreground hover:border-border hover:shadow-lg hover:shadow-black/5"
       }`}
     >
       <div
-        className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl ${
-          dark ? "bg-primary/20" : "bg-primary/10"
+        className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl transition-colors duration-200 ${
+          dark
+            ? "bg-primary/20 group-hover:bg-primary/30"
+            : "bg-primary/10 group-hover:bg-primary/15"
         }`}
       >
         <Icon size={20} className="text-primary" />
@@ -48,7 +50,7 @@ const SectionDivider = ({ label }: SectionDividerProps) => (
 
 export const FeaturesOverview = () => (
   <section id="features" className="bg-background py-16 sm:py-24 md:py-32">
-    <div className="mx-auto max-w-7xl px-4 sm:px-5 md:px-10">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-10">
       {/* Header */}
       <div className="mb-12 text-center sm:mb-16">
         <p className="text-primary mb-3 text-xs font-semibold tracking-[0.2em] uppercase">

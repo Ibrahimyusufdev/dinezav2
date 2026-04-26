@@ -28,21 +28,21 @@ export const GlobalNoPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+    <div className="bg-background flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md text-center">
         {/* Icon */}
-        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-blue-100">
-          <FileQuestion className="h-10 w-10 text-blue-600" />
+        <div className="bg-primary/10 mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full">
+          <FileQuestion className="text-primary h-10 w-10" />
         </div>
 
         {/* Error Code */}
-        <h1 className="mb-2 text-6xl font-bold text-gray-900">404</h1>
+        <h1 className="text-foreground mb-2 text-6xl font-bold">404</h1>
 
         {/* Main Message */}
-        <h2 className="mb-3 text-2xl font-semibold text-gray-900">Page Not Found</h2>
+        <h2 className="text-foreground mb-3 text-2xl font-semibold">Page Not Found</h2>
 
         {/* Description */}
-        <p className="mb-8 text-gray-600">
+        <p className="text-muted-foreground mb-8">
           Sorry, we couldn't find the page you're looking for. It might have been moved or deleted.
         </p>
 
@@ -67,18 +67,27 @@ export const GlobalNoPage = () => {
 
         {/* Popular Links */}
         <div className="mt-8">
-          <p className="mb-3 text-sm font-medium text-gray-700">Popular pages:</p>
+          <p className="text-muted-foreground mb-3 text-sm font-medium">Popular pages:</p>
           <div className="flex flex-wrap justify-center gap-2">
-            <Link to={ROUTES.HOME} className="cursor-pointer text-blue-500 underline">
+            <Link
+              to={ROUTES.HOME}
+              className="text-primary cursor-pointer underline underline-offset-2"
+            >
               Home
             </Link>
 
             {!authUser && (
               <>
-                <Link to={ROUTES.LOGIN} className="cursor-pointer text-blue-500 underline">
+                <Link
+                  to={ROUTES.LOGIN}
+                  className="text-primary cursor-pointer underline underline-offset-2"
+                >
                   Login
                 </Link>
-                <Link to={ROUTES.REGISTER} className="cursor-pointer text-blue-500 underline">
+                <Link
+                  to={ROUTES.REGISTER}
+                  className="text-primary cursor-pointer underline underline-offset-2"
+                >
                   Sign Up
                 </Link>
               </>
@@ -87,7 +96,7 @@ export const GlobalNoPage = () => {
             <Link
               to={EXTERNAL_LINKS.HELP}
               target="_blank"
-              className="cursor-pointer text-blue-500 underline"
+              className="text-primary cursor-pointer underline underline-offset-2"
             >
               Help
             </Link>

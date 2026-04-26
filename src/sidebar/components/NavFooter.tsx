@@ -115,8 +115,8 @@ const NavFooter = () => {
                   end
                   className={({ isActive }) =>
                     isActive
-                      ? "bg-blue-50 text-blue-700"
-                      : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                   }
                 >
                   <DropdownMenuItem className="cursor-pointer">

@@ -75,10 +75,10 @@ const Navbar = () => {
           </Button>
         ) : (
           <div className="hidden items-center gap-3 lg:flex">
-            <Link to={ROUTES.REGISTER} className="text-white">
+            <Link to={ROUTES.LOGIN} className="text-white transition-opacity hover:opacity-80">
               Log in
             </Link>
-            <Link to={ROUTES.LOGIN}>
+            <Link to={ROUTES.REGISTER}>
               <Button className="bg-primary cursor-pointer gap-1.5">
                 Get Started
                 <ArrowRight size={14} />
@@ -90,7 +90,7 @@ const Navbar = () => {
 
       {/* Mobile dropdown, visible on mobile, hidden on desktop */}
       {isMenuOpen && (
-        <div className="flex flex-col px-5 py-4 text-sm text-white transition-all duration-300 ease-in-out lg:hidden">
+        <div className="animate-in slide-in-from-top-2 fade-in flex flex-col px-5 py-4 text-sm text-white duration-200 lg:hidden">
           <ul className="flex flex-col gap-y-4 p-4 pb-4">
             {navLinks.map((link) => (
               <li key={link.path} className="cursor-pointer">
@@ -112,15 +112,15 @@ const Navbar = () => {
             </Button>
           ) : (
             <div className="mt-4 flex flex-col items-center gap-2">
-              <Link to={ROUTES.LOGIN} onClick={closeMenu} className="w-full">
+              <Link to={ROUTES.REGISTER} onClick={closeMenu} className="w-full">
                 <Button className="w-full cursor-pointer gap-1.5">
                   Get Started
                   <ArrowRight size={14} />
                 </Button>
               </Link>
-              <Link to={ROUTES.REGISTER} onClick={closeMenu} className="w-full">
+              <Link to={ROUTES.LOGIN} onClick={closeMenu} className="w-full">
                 <Button variant="outline" className="text-primary w-full cursor-pointer border">
-                  Login
+                  Log in
                 </Button>
               </Link>
             </div>

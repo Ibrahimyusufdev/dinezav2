@@ -31,21 +31,21 @@ const UnauthorizedPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+    <div className="bg-background flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md text-center">
         {/* Icon */}
-        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-100">
-          <ShieldAlert className="h-10 w-10 text-red-600" />
+        <div className="bg-destructive/10 mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full">
+          <ShieldAlert className="text-destructive h-10 w-10" />
         </div>
 
         {/* Error Code */}
-        <h1 className="mb-2 text-6xl font-bold text-gray-900">403</h1>
+        <h1 className="text-foreground mb-2 text-6xl font-bold">403</h1>
 
         {/* Title */}
-        <h2 className="mb-3 text-2xl font-semibold text-gray-900">Access Denied</h2>
+        <h2 className="text-foreground mb-3 text-2xl font-semibold">Access Denied</h2>
 
         {/* Description */}
-        <p className="mb-8 text-gray-600">
+        <p className="text-muted-foreground mb-8">
           {authUser ? (
             <>
               You don&apos;t have permission to access this page.
@@ -71,22 +71,26 @@ const UnauthorizedPage = () => {
           </Button>
 
           {authUser && (
-            <Button onClick={handleLogout} variant="outline" className="w-full text-gray-600">
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              className="text-muted-foreground w-full"
+            >
               Logout and switch accounts
             </Button>
           )}
         </div>
 
         {/* Help */}
-        <div className="mt-8 rounded-lg bg-blue-50 p-4 text-sm text-blue-900">
-          <p className="font-medium">Need help?</p>
-          <p className="mt-1 text-blue-700">
+        <div className="bg-muted mt-8 rounded-lg p-4 text-sm">
+          <p className="text-foreground font-medium">Need help?</p>
+          <p className="text-muted-foreground mt-1">
             If you believe you should have access to this page,{" "}
             <Link
               to="/help"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium underline hover:text-blue-900"
+              className="text-primary font-medium underline underline-offset-2 hover:opacity-80"
             >
               contact support
             </Link>

@@ -30,7 +30,7 @@ const DashboardLayout = () => {
         <SidebarProvider>
           <AppSideBar />
 
-          <SidebarInset className="bg-neutral">
+          <SidebarInset className="bg-background">
             {/* SidebarTrigger here, visually top-left of content */}
             <div className="px-4 py-2">
               <SidebarTrigger className="" />
