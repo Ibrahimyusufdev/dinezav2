@@ -16,6 +16,7 @@ dist-ssr
 .env.example
 .claude
 supabase
+.prettierrc
 
 # Editor directories and files
 .vscode/*
