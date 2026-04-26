@@ -15,7 +15,7 @@ dist-ssr
 .env.local
 .env.example
 
-*.claude
+
 supabase
 
 # Editor directories and files
