@@ -14,9 +14,10 @@ dist-ssr
 *.env
 .env.local
 .env.example
-.claude
-supabase
-.prettierrc
+
+*.claude
+*supabase
+*.prettierrc
 
 # Editor directories and files
 .vscode/*
