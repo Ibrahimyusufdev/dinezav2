@@ -15,10 +15,7 @@ export const BASE_PROFILE_COLUMN = `
 
 export const DINER_PROFILE_COLUMN = `
 avatar_path,
-preferred_locations,
-total_earnings,
-pending_earnings,
-available_balance
+preferred_locations
 `;
 
 export const RESTAURANT_PROFILE_COLUMN = `
@@ -115,10 +112,6 @@ export const fetchAndMergeProfile = async (userId: string): Promise<AuthUser | n
         role: "diner",
         avatarUrl,
         avatarPath: dinerProfile.avatar_path ?? null, // raw paths
-        preferredLocations: dinerProfile.preferred_locations ?? [],
-        totalEarnings: dinerProfile.total_earnings ?? 0,
-        pendingEarnings: dinerProfile.pending_earnings ?? 0,
-        availableBalance: dinerProfile.available_balance ?? 0,
       };
     }
 
